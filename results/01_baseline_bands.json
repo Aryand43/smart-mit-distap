@@ -1,0 +1,232 @@
+{
+  "raw": {
+    "light/PLS-DA/LOPO": {
+      "light_accuracy": 0.6944444444444444,
+      "light_confusion": [
+        [
+          7,
+          5,
+          0
+        ],
+        [
+          3,
+          9,
+          0
+        ],
+        [
+          1,
+          2,
+          9
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.5555555555555556,
+        "24": 0.7777777777777778,
+        "48": 0.8888888888888888,
+        "72": 0.5555555555555556
+      }
+    },
+    "light/PLS-DA/leave-one-time-point-out": {
+      "light_accuracy": 0.5,
+      "light_confusion": [
+        [
+          5,
+          6,
+          1
+        ],
+        [
+          4,
+          6,
+          2
+        ],
+        [
+          3,
+          2,
+          7
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.1111111111111111,
+        "24": 0.8888888888888888,
+        "48": 0.5555555555555556,
+        "72": 0.4444444444444444
+      }
+    },
+    "light/SVM/LOPO": {
+      "light_accuracy": 0.8333333333333334,
+      "light_confusion": [
+        [
+          9,
+          3,
+          0
+        ],
+        [
+          3,
+          9,
+          0
+        ],
+        [
+          0,
+          0,
+          12
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 1.0,
+        "24": 0.5555555555555556,
+        "48": 0.8888888888888888,
+        "72": 0.8888888888888888
+      }
+    },
+    "light/SVM/leave-one-time-point-out": {
+      "light_accuracy": 0.6111111111111112,
+      "light_confusion": [
+        [
+          6,
+          6,
+          0
+        ],
+        [
+          3,
+          9,
+          0
+        ],
+        [
+          0,
+          5,
+          7
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.5555555555555556,
+        "24": 0.5555555555555556,
+        "48": 0.5555555555555556,
+        "72": 0.7777777777777778
+      }
+    },
+    "session_identification_accuracy_LOPO": 0.6111111111111112,
+    "hours/PLSR/LOPO": {
+      "hours_mae": 18.629050268258364,
+      "hours_accuracy_snapped": 0.3055555555555556
+    },
+    "hours/SVR/LOPO": {
+      "hours_mae": 16.428614300372388,
+      "hours_accuracy_snapped": 0.4444444444444444
+    }
+  },
+  "chromatic": {
+    "light/PLS-DA/LOPO": {
+      "light_accuracy": 0.4166666666666667,
+      "light_confusion": [
+        [
+          5,
+          3,
+          4
+        ],
+        [
+          4,
+          2,
+          6
+        ],
+        [
+          2,
+          2,
+          8
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.3333333333333333,
+        "24": 0.4444444444444444,
+        "48": 0.6666666666666666,
+        "72": 0.2222222222222222
+      }
+    },
+    "light/PLS-DA/leave-one-time-point-out": {
+      "light_accuracy": 0.3888888888888889,
+      "light_confusion": [
+        [
+          6,
+          0,
+          6
+        ],
+        [
+          4,
+          1,
+          7
+        ],
+        [
+          1,
+          4,
+          7
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.3333333333333333,
+        "24": 0.6666666666666666,
+        "48": 0.3333333333333333,
+        "72": 0.2222222222222222
+      }
+    },
+    "light/SVM/LOPO": {
+      "light_accuracy": 0.5,
+      "light_confusion": [
+        [
+          8,
+          3,
+          1
+        ],
+        [
+          4,
+          3,
+          5
+        ],
+        [
+          3,
+          2,
+          7
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.8888888888888888,
+        "24": 0.2222222222222222,
+        "48": 0.6666666666666666,
+        "72": 0.2222222222222222
+      }
+    },
+    "light/SVM/leave-one-time-point-out": {
+      "light_accuracy": 0.3055555555555556,
+      "light_confusion": [
+        [
+          5,
+          4,
+          3
+        ],
+        [
+          2,
+          4,
+          6
+        ],
+        [
+          2,
+          8,
+          2
+        ]
+      ],
+      "light_accuracy_by_hour": {
+        "4": 0.3333333333333333,
+        "24": 0.3333333333333333,
+        "48": 0.2222222222222222,
+        "72": 0.3333333333333333
+      }
+    },
+    "session_identification_accuracy_LOPO": 0.4444444444444444,
+    "hours/PLSR/LOPO": {
+      "hours_mae": 20.960373557493725,
+      "hours_accuracy_snapped": 0.25
+    },
+    "hours/SVR/LOPO": {
+      "hours_mae": 13.664063070761618,
+      "hours_accuracy_snapped": 0.4444444444444444
+    }
+  }
+}

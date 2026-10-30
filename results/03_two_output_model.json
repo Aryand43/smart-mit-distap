@@ -1,0 +1,293 @@
+{
+  "light/LOPO (seed ensemble)": {
+    "light_accuracy": 0.8055555555555556,
+    "light_confusion": [
+      [
+        12,
+        0,
+        0
+      ],
+      [
+        5,
+        5,
+        2
+      ],
+      [
+        0,
+        0,
+        12
+      ]
+    ],
+    "light_accuracy_by_hour": {
+      "4": 0.8888888888888888,
+      "24": 0.6666666666666666,
+      "48": 0.8888888888888888,
+      "72": 0.7777777777777778
+    }
+  },
+  "light_accuracy_per_seed": [
+    0.7777777777777778,
+    0.8333333333333334,
+    0.7777777777777778,
+    0.8055555555555556,
+    0.7777777777777778
+  ],
+  "hours/LOPO (seed ensemble)": {
+    "hours_mae": 16.18447852532069,
+    "hours_accuracy_snapped": 0.3888888888888889
+  },
+  "per_image": [
+    {
+      "file": "D1_HL_C_P1_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 43.2
+    },
+    {
+      "file": "D1_HL_C_P2_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 39.5
+    },
+    {
+      "file": "D1_HL_C_P3_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 35.4
+    },
+    {
+      "file": "D2_HL_C_P1_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 48,
+      "pred_hours": 33.5
+    },
+    {
+      "file": "D2_HL_C_P2_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 48,
+      "pred_hours": 44.5
+    },
+    {
+      "file": "D2_HL_C_P3_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 48,
+      "pred_hours": 29.9
+    },
+    {
+      "file": "D3_HL_C_P1_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 72,
+      "pred_hours": 48.1
+    },
+    {
+      "file": "D3_HL_C_P2_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 72,
+      "pred_hours": 36.9
+    },
+    {
+      "file": "D3_HL_C_P3_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 72,
+      "pred_hours": 29.0
+    },
+    {
+      "file": "HRS_4_HL_C_P1_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 4,
+      "pred_hours": 9.0
+    },
+    {
+      "file": "HRS_4_HL_C_P2_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 4,
+      "pred_hours": 10.7
+    },
+    {
+      "file": "HRS_4_HL_C_P3_ref_3band.png",
+      "light": "HL",
+      "pred_light": "HL",
+      "hours": 4,
+      "pred_hours": 11.9
+    },
+    {
+      "file": "D1_LL_C_P1_ref_3band.png",
+      "light": "LL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 20.4
+    },
+    {
+      "file": "D1_LL_C_P2_ref_3band.png",
+      "light": "LL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 38.7
+    },
+    {
+      "file": "D1_LL_C_P3_ref_3band.png",
+      "light": "LL",
+      "pred_light": "HL",
+      "hours": 24,
+      "pred_hours": 28.5
+    },
+    {
+      "file": "D2_LL_C_P1_ref_3band.png",
+      "light": "LL",
+      "pred_light": "HL",
+      "hours": 48,
+      "pred_hours": 28.1
+    },
+    {
+      "file": "D2_LL_C_P2_ref_3band.png",
+      "light": "LL",
+      "pred_light": "LL",
+      "hours": 48,
+      "pred_hours": 37.7
+    },
+    {
+      "file": "D2_LL_C_P3_ref_3band.png",
+      "light": "LL",
+      "pred_light": "LL",
+      "hours": 48,
+      "pred_hours": 35.8
+    },
+    {
+      "file": "D3_LL_C_P1_ref_3band.png",
+      "light": "LL",
+      "pred_light": "LL",
+      "hours": 72,
+      "pred_hours": 35.1
+    },
+    {
+      "file": "D3_LL_C_P2_ref_3band.png",
+      "light": "LL",
+      "pred_light": "HL",
+      "hours": 72,
+      "pred_hours": 42.7
+    },
+    {
+      "file": "D3_LL_C_P3_ref_3band.png",
+      "light": "LL",
+      "pred_light": "WL",
+      "hours": 72,
+      "pred_hours": 40.7
+    },
+    {
+      "file": "HRS_4_LL_C_P1_ref_3band.png",
+      "light": "LL",
+      "pred_light": "WL",
+      "hours": 4,
+      "pred_hours": 30.2
+    },
+    {
+      "file": "HRS_4_LL_C_P2_ref_3band.png",
+      "light": "LL",
+      "pred_light": "LL",
+      "hours": 4,
+      "pred_hours": 10.9
+    },
+    {
+      "file": "HRS_4_LL_C_P3_ref_3band.png",
+      "light": "LL",
+      "pred_light": "LL",
+      "hours": 4,
+      "pred_hours": 14.7
+    },
+    {
+      "file": "D1_WL_C_P1_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 24,
+      "pred_hours": 42.7
+    },
+    {
+      "file": "D1_WL_C_P2_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 24,
+      "pred_hours": 37.1
+    },
+    {
+      "file": "D1_WL_C_P3_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 24,
+      "pred_hours": 30.7
+    },
+    {
+      "file": "D2_WL_C_P1_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 48,
+      "pred_hours": 50.6
+    },
+    {
+      "file": "D2_WL_C_P2_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 48,
+      "pred_hours": 43.3
+    },
+    {
+      "file": "D2_WL_C_P3_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 48,
+      "pred_hours": 40.1
+    },
+    {
+      "file": "D3_WL_C_P1_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 72,
+      "pred_hours": 44.2
+    },
+    {
+      "file": "D3_WL_C_P2_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 72,
+      "pred_hours": 45.3
+    },
+    {
+      "file": "D3_WL_C_P3_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 72,
+      "pred_hours": 39.7
+    },
+    {
+      "file": "HRS_4_WL_C_P1_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 4,
+      "pred_hours": 14.3
+    },
+    {
+      "file": "HRS_4_WL_C_P2_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 4,
+      "pred_hours": 20.7
+    },
+    {
+      "file": "HRS_4_WL_C_P3_ref_3band.png",
+      "light": "WL",
+      "pred_light": "WL",
+      "hours": 4,
+      "pred_hours": 8.9
+    }
+  ]
+}
