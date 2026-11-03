@@ -18,7 +18,7 @@ from sklearn.svm import SVC, SVR
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from stress.cnn import tile_features  # noqa: E402
-from stress.data import load  # noqa: E402
+from stress.data import conditions, load  # noqa: E402
 from stress.evaluate import hours_metrics, leave_one_plant_out, summarise  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
@@ -34,6 +34,7 @@ def regressor():
 
 def main():
     samples = load()
+    classes = conditions(samples)
     X = np.stack([f.mean(0) for f in tile_features(samples)])
     light = np.array([s.light for s in samples])
     hours = np.array([s.hours for s in samples])
@@ -43,13 +44,13 @@ def main():
     pred = np.empty_like(light)
     for _, tr, te in leave_one_plant_out(plants):
         pred[te] = classifier().fit(X[tr], light[tr]).predict(X[te])
-    out["light/LOPO"] = summarise(light, pred, hours, None)
+    out["light/LOPO"] = summarise(light, pred, classes, hours)
 
     pred = np.empty_like(light)
     for h in np.unique(hours):
         tr, te = np.flatnonzero(hours != h), np.flatnonzero(hours == h)
         pred[te] = classifier().fit(X[tr], light[tr]).predict(X[te])
-    out["light/leave-one-time-point-out"] = summarise(light, pred, hours, None)
+    out["light/leave-one-time-point-out"] = summarise(light, pred, classes, hours)
 
     hp = np.zeros(len(hours))
     for _, tr, te in leave_one_plant_out(plants):

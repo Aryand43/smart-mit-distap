@@ -23,8 +23,9 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC, SVR
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from stress.data import LIGHTS, load  # noqa: E402
+from stress.data import conditions, load  # noqa: E402
 from stress.evaluate import hours_metrics, leave_one_plant_out, summarise  # noqa: E402
+from stress.models import PLSDA  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
 
@@ -41,24 +42,9 @@ def band_features(samples, kind: str) -> np.ndarray:
     return np.array(rows)
 
 
-class PLSDA:
-    """PLS-DA: PLS regression onto one-hot class labels, predict the largest output."""
-
-    def __init__(self, n_components=2):
-        self.pls = make_pipeline(StandardScaler(), PLSRegression(n_components=n_components))
-
-    def fit(self, X, y):
-        self.classes_ = np.array(LIGHTS)
-        self.pls.fit(X, (y[:, None] == self.classes_[None]).astype(float))
-        return self
-
-    def predict(self, X):
-        return self.classes_[self.pls.predict(X).argmax(1)]
-
-
 MODELS = {
-    "PLS-DA": lambda: PLSDA(2),
-    "SVM": lambda: make_pipeline(StandardScaler(), SVC(kernel="rbf", C=10, gamma="scale")),
+    "PLS-DA": lambda classes: PLSDA(classes, 2),
+    "SVM": lambda classes: make_pipeline(StandardScaler(), SVC(kernel="rbf", C=10, gamma="scale")),
 }
 REGRESSORS = {
     "PLSR": lambda: make_pipeline(StandardScaler(), PLSRegression(n_components=2)),
@@ -68,6 +54,7 @@ REGRESSORS = {
 
 def run(features: str) -> dict:
     samples = load()
+    classes = conditions(samples)
     X = band_features(samples, features)
     light = np.array([s.light for s in samples])
     hours = np.array([s.hours for s in samples])
@@ -78,14 +65,14 @@ def run(features: str) -> dict:
     for name, make in MODELS.items():
         pred = np.empty_like(light)
         for _, tr, te in leave_one_plant_out(plants):
-            pred[te] = make().fit(X[tr], light[tr]).predict(X[te])
-        out[f"light/{name}/LOPO"] = summarise(light, pred, hours, None)
+            pred[te] = make(classes).fit(X[tr], light[tr]).predict(X[te])
+        out[f"light/{name}/LOPO"] = summarise(light, pred, classes, hours)
 
         pred = np.empty_like(light)
         for h in np.unique(hours):
             tr, te = np.flatnonzero(hours != h), np.flatnonzero(hours == h)
-            pred[te] = make().fit(X[tr], light[tr]).predict(X[te])
-        out[f"light/{name}/leave-one-time-point-out"] = summarise(light, pred, hours, None)
+            pred[te] = make(classes).fit(X[tr], light[tr]).predict(X[te])
+        out[f"light/{name}/leave-one-time-point-out"] = summarise(light, pred, classes, hours)
 
     # Can the plant average identify the imaging session? (12 sessions, 3 plants each.)
     pred = np.empty_like(sessions)

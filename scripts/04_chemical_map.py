@@ -1,9 +1,10 @@
-"""First chemical map: pixel-level PLS-DA on the three bands, applied to the 4-hour images.
+"""Chemical maps: where on the plant each stress shows up, and how it progresses over time.
 
-Pixels from plants 1 and 2 (all time points) train a PLS-DA model that separates high, low and white
-light from the three band values of each pixel. The model's beta coefficients are then applied to
-every pixel of plant 3, which the model never saw, to show *where* on the plant the light-stress
-signature appears at 4 hours.
+Pixel-level PLS-DA on the three white-light-normalised bands. For each test plant in turn (the other
+two plants train the model), every pixel gets a score per condition, and the maps show:
+  * stress score = strongest stress-class score minus the white-light score (above 0 = less like control)
+  * the share of the plant's pixels voting for each condition (the plant's label is the majority)
+One figure per test plant: rows are conditions, columns are 4 h, 1 day, 2 days, 3 days.
 """
 from __future__ import annotations
 
@@ -13,71 +14,70 @@ from pathlib import Path
 
 import matplotlib
 import numpy as np
-from sklearn.cross_decomposition import PLSRegression
-from sklearn.preprocessing import StandardScaler
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.colors import ListedColormap  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from stress.data import LIGHTS, load  # noqa: E402
+from stress.data import CONTROL, conditions, gains, load, white_reference  # noqa: E402
+from stress.evaluate import leave_one_plant_out  # noqa: E402
+from stress.models import PLSDA  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
-TEST_PLANT, PIXELS_PER_IMAGE = 3, 5000
-CLASS_COLOURS = ["#C8553D", "#2E86AB", "#BDBDBD"]   # HL, LL, WL
+PIXELS_PER_IMAGE = 5000
+TIME_LABEL = {4: "4 h", 24: "1 day", 48: "2 days", 72: "3 days"}
 
 
 def main():
     rng = np.random.default_rng(0)
     samples = load()
-    X, y = [], []
-    for s in samples:
-        if s.plant == TEST_PLANT:
-            continue
-        px = s.image()[s.mask()]
-        px = px[rng.choice(len(px), min(PIXELS_PER_IMAGE, len(px)), replace=False)]
-        X.append(px)
-        y += [s.light] * len(px)
-    X, y = np.concatenate(X), np.array(y)
-    scaler = StandardScaler().fit(X)
-    pls = PLSRegression(n_components=2).fit(scaler.transform(X), (y[:, None] == np.array(LIGHTS)[None]).astype(float))
+    classes = conditions(samples)
+    stress_cols = [i for i, c in enumerate(classes) if c != CONTROL]
+    ctrl = classes.index(CONTROL)
+    light = np.array([s.light for s in samples])
+    plants = np.array([s.plant for s in samples])
+    times = sorted({s.hours for s in samples})
+    out = {}
 
-    test = sorted((s for s in samples if s.plant == TEST_PLANT and s.hours == 4), key=lambda s: LIGHTS.index(s.light))
-    fig, axes = plt.subplots(len(test), 3, figsize=(12, 3.2 * len(test)), constrained_layout=True)
-    pixel_acc = {}
-    for row, s in zip(axes, test):
-        img, mask = s.image(), s.mask()
-        scores = pls.predict(scaler.transform(img[mask]))
-        cls = scores.argmax(1)
-        pixel_acc[s.light] = float((cls == LIGHTS.index(s.light)).mean())
+    for fold, tr, te in leave_one_plant_out(plants):
+        g = gains(samples, white_reference(samples, tr))
+        X, y = [], []
+        for i in tr:
+            px = samples[i].pixels() * g[i]
+            X.append(px[rng.choice(len(px), min(PIXELS_PER_IMAGE, len(px)), replace=False)])
+            y += [light[i]] * len(X[-1])
+        model = PLSDA(classes, 2).fit(np.concatenate(X), np.array(y))
 
-        class_map = np.full(mask.shape, np.nan)
-        class_map[mask] = cls
-        stress = np.full(mask.shape, np.nan)       # stress score: strongest stress class minus white light
-        stress[mask] = scores[:, :2].max(1) - scores[:, 2]
-
-        row[0].imshow(np.clip(img / np.percentile(img[mask], 99), 0, 1))
-        row[0].set_title(f"{s.light}, 4 h, plant {s.plant}: three-band image")
-        row[1].imshow(class_map, cmap=ListedColormap(CLASS_COLOURS), vmin=0, vmax=2, interpolation="nearest")
-        row[1].set_title(f"Pixel class (HL / LL / WL), {pixel_acc[s.light]:.0%} correct")
-        im = row[2].imshow(stress, cmap="magma", vmin=-1, vmax=1)
-        row[2].set_title("Stress score (higher = less like white light)")
-        fig.colorbar(im, ax=row[2], fraction=0.035)
-        for ax in row:
+        fig, axes = plt.subplots(len(classes), len(times), figsize=(3.2 * len(times), 2.6 * len(classes)),
+                                 constrained_layout=True, squeeze=False)
+        out[fold] = {}
+        for i in te:
+            s = samples[i]
+            mask = s.mask()
+            scores = model.scores(s.pixels() * g[i])
+            pred = np.array(classes)[scores.argmax(1)]
+            share = {c: float((pred == c).mean()) for c in classes}
+            stress = np.full(mask.shape, np.nan)
+            stress[mask] = scores[:, stress_cols].max(1) - scores[:, ctrl]
+            ax = axes[classes.index(s.light), times.index(s.hours)]
+            im = ax.imshow(stress, cmap="magma", vmin=-1, vmax=1)
+            label = max(share, key=share.get)
+            ax.set_title(f"{s.light}, {TIME_LABEL[s.hours]}: voted {label} ({share[label]:.0%})", fontsize=9,
+                         color="black" if label == s.light else "#9D192B")
+            out[fold][s.path.name] = {"true": s.light, "voted": label, "pixel_share": share}
+        for ax in axes.ravel():
             ax.axis("off")
+        fig.colorbar(im, ax=axes, fraction=0.02, label="stress score (above 0 = less like white light)")
+        fig.suptitle(f"Test plant {fold}, model trained on the other two plants (white-light normalised)")
+        fig.savefig(RESULTS / f"04_stress_progression_{fold}.png", dpi=100)
+        plt.close(fig)
 
-    RESULTS.mkdir(exist_ok=True)
-    fig.savefig(RESULTS / "04_chemical_map_4h.png", dpi=110)
-    beta = pls.coef_.T if pls.coef_.shape[0] == 3 else pls.coef_
-    out = {
-        "trained_on_plants": [1, 2],
-        "mapped_plant": TEST_PLANT,
-        "pixel_accuracy_4h": pixel_acc,
-        "beta_coefficients (rows = band 1-3, cols = HL, LL, WL)": np.asarray(beta).reshape(3, 3).round(3).tolist(),
-    }
+    beta = model.pls[-1].coef_
+    out["beta_coefficients_last_fold (rows = classes, cols = band 1-3)"] = np.asarray(beta).round(3).tolist()
     (RESULTS / "04_chemical_map.json").write_text(json.dumps(out, indent=2))
-    print(json.dumps(out, indent=2))
+    for fold in [k for k in out if k.startswith("P")]:
+        right = sum(v["true"] == v["voted"] for v in out[fold].values())
+        print(f"{fold}: {right}/{len(out[fold])} plants voted correctly")
 
 
 if __name__ == "__main__":

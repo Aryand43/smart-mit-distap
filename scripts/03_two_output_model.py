@@ -21,7 +21,7 @@ from torch import nn
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from stress.cnn import tile_features  # noqa: E402
-from stress.data import LIGHTS, load  # noqa: E402
+from stress.data import conditions, load  # noqa: E402
 from stress.evaluate import hours_metrics, leave_one_plant_out, summarise  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
@@ -29,10 +29,10 @@ SEEDS, EPOCHS, HOUR_SCALE, HOUR_WEIGHT = 5, 60, 72.0, 1.0
 
 
 class TwoOutput(nn.Module):
-    def __init__(self, d_in=2048, d_hidden=64):
+    def __init__(self, n_classes, d_in=2048, d_hidden=64):
         super().__init__()
         self.shared = nn.Sequential(nn.Dropout(0.5), nn.Linear(d_in, d_hidden), nn.ReLU(), nn.Dropout(0.3))
-        self.light = nn.Linear(d_hidden, len(LIGHTS))
+        self.light = nn.Linear(d_hidden, n_classes)
         self.hours = nn.Linear(d_hidden, 1)
 
     def forward(self, x):
@@ -40,14 +40,14 @@ class TwoOutput(nn.Module):
         return self.light(z), self.hours(z).squeeze(-1)
 
 
-def train_fold(train_feats, test_feats, light_idx, hours, train, test, seed):
+def train_fold(train_feats, test_feats, light_idx, hours, train, test, seed, n_classes):
     torch.manual_seed(seed)
     X = torch.from_numpy(np.concatenate([train_feats[i] for i in train])).float()
     mu, sd = X.mean(0), X.std(0) + 1e-6
     yl = torch.from_numpy(np.concatenate([[light_idx[i]] * len(train_feats[i]) for i in train]))
     yh = torch.from_numpy(np.concatenate([[hours[i] / HOUR_SCALE] * len(train_feats[i]) for i in train])).float()
 
-    model = TwoOutput()
+    model = TwoOutput(n_classes)
     opt = torch.optim.AdamW(model.parameters(), lr=1e-3, weight_decay=1e-2)
     for _ in range(EPOCHS):
         model.train()
@@ -70,24 +70,25 @@ def train_fold(train_feats, test_feats, light_idx, hours, train, test, seed):
 
 def main():
     samples = load()
+    classes = conditions(samples)
     # Training tiles include 8 orientations each; held-out images are scored on their original tiles.
     train_feats = tile_features(samples, augment=True)
     test_feats = tile_features(samples, augment=False)
     light = np.array([s.light for s in samples])
-    light_idx = np.array([LIGHTS.index(l) for l in light])
+    light_idx = np.array([classes.index(l) for l in light])
     hours = np.array([s.hours for s in samples])
     plants = np.array([s.plant for s in samples])
 
-    probs = np.zeros((SEEDS, len(samples), len(LIGHTS)))
+    probs = np.zeros((SEEDS, len(samples), len(classes)))
     hrs = np.zeros((SEEDS, len(samples)))
     for seed in range(SEEDS):
         for _, tr, te in leave_one_plant_out(plants):
-            probs[seed, te], hrs[seed, te] = train_fold(train_feats, test_feats, light_idx, hours, tr, te, seed)
+            probs[seed, te], hrs[seed, te] = train_fold(train_feats, test_feats, light_idx, hours, tr, te, seed, len(classes))
 
-    per_seed = [float((np.array(LIGHTS)[probs[s].argmax(1)] == light).mean()) for s in range(SEEDS)]
-    pred_light = np.array(LIGHTS)[probs.mean(0).argmax(1)]
+    per_seed = [float((np.array(classes)[probs[s].argmax(1)] == light).mean()) for s in range(SEEDS)]
+    pred_light = np.array(classes)[probs.mean(0).argmax(1)]
     out = {
-        "light/LOPO (seed ensemble)": summarise(light, pred_light, hours, None),
+        "light/LOPO (seed ensemble)": summarise(light, pred_light, classes, hours),
         "light_accuracy_per_seed": per_seed,
         "hours/LOPO (seed ensemble)": hours_metrics(hours, hrs.mean(0)),
         "per_image": [

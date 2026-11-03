@@ -1,49 +1,59 @@
-# First results: choy sum light stress
+# Choy sum light stress: results
 
-Data: 36 three-band images of choy sum = 3 light conditions (HL, LL, WL) × 4 time points (4, 24, 48, 72 h) × 3 plants.
-Evaluation: leave-one-plant-out (train on two plants, test on the third, repeat for each plant) unless stated.
-Chance level: 33% for light condition, 25% for time point. Each time point has only 9 test images, so one image = 11 percentage points.
+Data: 48 three-band images = 4 conditions (WL white light control, HL high light, LL low light, SH shade) × 4 time points (4, 24, 48, 72 h) × 3 plants. Chance = 25%.
 
-## Results
+## How it is tested
 
-| Approach | Light accuracy | Light accuracy at 4 h | Light accuracy, unseen time point | Hours error (MAE) | Hours exactly right |
-|---|---|---|---|---|---|
-| Averaged bands, raw values + SVM | 83% | 100% | 61% | 16 h | 44% |
-| Averaged bands, raw values + PLS-DA | 69% | 56% | 50% | 19 h | 31% |
-| Averaged bands, brightness removed + SVM | 50% | 89% | 31% | 14 h | 44% |
-| Pretrained CNN (ResNet-50) features + SVM | 64% | 56% | 61% | 18 h | 22% |
-| Two-output model on CNN features | 81% (78 to 83% over 5 seeds) | 89% | not run | 16 h | 39 to 44% |
+- **Rotate the test plant:** train on two plants, test on the third, three rounds. The test plant is never seen in training, and augmentation (flips, rotations) is applied to training patches only.
+- **Rotate the pixels:** for pixel PLS-DA, 20 non-overlapping sets of 5,000 pixels per training image in each round (60 runs). Headline accuracy is the median over runs.
+- **Count plants, not pixels:** each test plant's pixels or patches vote; the majority is its label.
+- **White-light normalisation:** each image is divided by the mean white-light band values of its time point (training plants only), so WL = 1 on every day and each stress is read as a deviation from it.
+- **Metrics:** confusion matrix, TP / FP / FN / TN, precision, recall, F1 and accuracy for every technique (`05_metrics_table.md`).
 
-"Unseen time point" holds out every image from one time point, so the model is tested on an imaging session it never saw.
+## Results (white-light normalised)
 
-## What this tells us
+| Technique | Accuracy (median) | F1 (macro) | Accuracy at 4 h |
+|---|---|---|---|
+| ResNet-50 patches + softmax, plant vote | **75%** | 0.68 | 77% |
+| SVM, whole plant | 69% | 0.67 | 83% |
+| PLS-DA, pixels, majority vote | 62% | 0.50 | 67% |
+| PLS-DA, whole plant | 50% | 0.46 | 50% |
+| ResNet-50 (last layer) + SVM, whole plant | 44% | 0.50 | 50% |
+| ResNet-50 patches + softmax, patch level | 60% | 0.56 | |
 
-1. **The light condition can be detected at 4 hours, above chance.** The averaged-band SVM got all 9 four-hour images right and the two-output model got 8 of 9. With 9 test images this is encouraging, not conclusive.
-2. **Most of the signal is in overall brightness, and part of it may be the imaging session.** The three plants in each condition and time point have almost identical band averages, while averages jump between time points. Removing brightness drops accuracy to 50%, and testing on an unseen time point drops it to about 60%. The model may be learning session-level differences (lighting, exposure, scaling) as well as the plant's response.
-3. **CNN features do not beat averaged bands yet.** With an SVM they reach 64%. A small two-output network on the same features reaches 81%, close to the best averaged-band model. On an unseen time point, CNN features + SVM score 61%, the same as raw averaged bands.
-4. **Predicting hours of stress is weak so far.** Errors are around 16 hours and about 40% exact, against 25% chance. Four time points and three plants are not enough to learn a time trend.
-5. **The chemical map works as a pipeline but is not yet reliable.** On the 4-hour high-light plant, the pixel-level PLS-DA marks the leaf blades as stressed. It fails for low light (0% of pixels correct) because three raw bands with two PLS components cannot separate low light from white light at the pixel level. See `04_chemical_map_4h.png`.
+Best model confusion matrix (rows true, columns predicted, 60 predictions per class over 5 seeds):
 
-## Questions for Dr Praveen
+| | WL | HL | LL | SH |
+|---|---|---|---|---|
+| WL | 60 | 0 | 0 | 0 |
+| HL | 1 | 59 | 0 | 0 |
+| LL | 5 | 18 | 17 | 20 |
+| SH | 0 | 5 | 21 | 34 |
 
-1. Are P1 to P3 the same physical plants at every time point? This decides whether the CNN-LSTM can use real sequences.
-2. How was reflectance scaled to 8-bit: one scale for all images, or per image or session? Was a white reference imaged in each session? This decides whether the brightness differences are biological.
-3. Is WL the control condition, and does "C" in the file names mean control?
-4. Which three bands (wavelengths) are in the images?
+F1 per class: WL 0.95, HL 0.83, SH 0.60, LL 0.35.
+
+## Findings
+
+1. **The patch-based ResNet with softmax is the best model:** 75% across four conditions, nearly perfect on WL and HL.
+2. **White-light normalisation helps:** best model 69% → 75%, pixel PLS-DA 38% → 62%. Without it, part of the signal was day-to-day brightness.
+3. **Shade is detected better than low light** (F1 0.60 vs 0.35), consistent with shade giving the stronger response. LL and SH are mostly confused with each other.
+4. **Middle ResNet layers carry more of the signal:** layers 2 + 3 + 4 reach 71% vs 54% for the last layer alone (`06_resnet_layers.md`).
+5. **Bayesian tuning (Optuna, nested) did not beat the defaults** and chose different settings per test plant: three plants per condition is the main limit (`07_tuning.json`).
+6. **Stress maps** (`04_stress_progression_P*.png`) show where stress appears from 4 h to 3 days. On day 2, LL and SH plants are often voted HL, which is worth checking in the day-2 images.
 
 ## Next steps
 
-- Normalise brightness per session (using a reference if one exists) and rerun, to separate session effects from plant response.
-- Add the CNN-LSTM once sequences are confirmed, and the CNN-vision transformer.
-- Improve the chemical map: per-pixel normalisation, more PLS components, and CNN saliency maps to compare against.
-- Run the same pipeline on kailan and Arabidopsis when they arrive.
+- Fine-tune ResNet on the lab GPU, using middle-layer features; tune epochs, learning rate and loss with Bayesian optimisation.
+- CNN-LSTM over the time series once it is confirmed P1 to P3 are the same plants every day.
+- Same pipeline on kailan and Arabidopsis.
 
-## How to reproduce
+## Reproduce
 
 ```
 python3.12 -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/01_baseline_bands.py
-.venv/bin/python scripts/02_cnn_features_svm.py
-.venv/bin/python scripts/03_two_output_model.py
-.venv/bin/python scripts/04_chemical_map.py
+.venv/bin/python scripts/04_chemical_map.py      # stress maps
+.venv/bin/python scripts/05_metrics_table.py     # metrics for every technique
+.venv/bin/python scripts/06_resnet_layers.py     # ResNet layer comparison
+.venv/bin/python scripts/07_tune.py              # Bayesian optimisation
 ```
+Scripts 01 to 03 are the first-pass experiments. Images go in `data/CHOYSUM/<condition>/<time point>/`.
