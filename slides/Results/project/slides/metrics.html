@@ -5,16 +5,17 @@
 </div>
 <table style="font-size:24px;line-height:1.3;color:#1F1F1E;width:1664px">
 <tr style="background:#F3E6E8"><th style="width:22%;text-align:left">Term</th><th style="width:78%;text-align:left">Meaning</th></tr>
+<tr style="background:#FFFFFE"><td><b>Patch</b></td><td>A square cut from the image; now 224 × 224 pixels, being tuned from 8 to 224</td></tr>
+<tr><td><b>Stride</b></td><td>How many pixels the patch window moves each step; now 4, being tuned (2 or 4)</td></tr>
+<tr style="background:#FFFFFE"><td><b>Epoch / run</b></td><td>Epoch: one pass of training over all training patches. Run: one full training from a fresh random start</td></tr>
+<tr style="background:#FFFFFE"><td><b>Plant vote</b></td><td>All patches of a plant vote; the most common label is the plant’s answer</td></tr>
+<tr><td><b>White-light normalisation</b></td><td>Each image divided by that day’s healthy-plant average, so stress shows as a difference</td></tr>
 <tr style="background:#FFFFFE"><td><b>Accuracy</b></td><td>Share of plants given the correct condition. 0.25 is random guessing</td></tr>
 <tr><td><b>Precision</b></td><td>When the model names a condition, how often it is right: TP / (TP + FP)</td></tr>
 <tr style="background:#FFFFFE"><td><b>Recall</b></td><td>Of the plants truly in a condition, how many it finds: TP / (TP + FN)</td></tr>
-<tr><td><b>F1</b></td><td>One score balancing precision and recall, 2PR / (P + R), averaged over the four conditions</td></tr>
+<tr><td><b>F1</b></td><td>One score balancing precision and recall, 2PR / (P + R); 1 is perfect</td></tr>
 <tr style="background:#FFFFFE"><td><b>TP / FP / FN / TN</b></td><td>For one condition: correctly flagged / wrongly flagged / missed / correctly left out</td></tr>
-<tr><td><b>Confusion matrix</b></td><td>Actual condition in rows, model’s answer in columns; the diagonal is correct</td></tr>
-<tr style="background:#FFFFFE"><td><b>Plant vote</b></td><td>All squares of a plant vote; the most common label is the plant’s answer</td></tr>
-<tr><td><b>Single patches</b></td><td>Every square scored on its own, before voting</td></tr>
-<tr style="background:#FFFFFE"><td><b>Stride</b></td><td>How far apart neighbouring squares start; stride 4 covers every region of the plant</td></tr>
-<tr><td><b>White-light normalisation</b></td><td>Each image divided by that day’s healthy-plant average, so stress shows as a difference</td></tr>
+<tr><td><b>Confusion matrix</b></td><td>Real condition in rows, model’s answer in columns; the diagonal is correct</td></tr>
 <tr style="background:#FFFFFE"><td><b>Stressed vs control</b></td><td>Same answers grouped into two: healthy, or any of the three stresses</td></tr>
 </table>
 <aside>Reference slide for questions on the metrics. Precision asks how trustworthy a label is; recall asks how many of the real cases were found; F1 balances the two.</aside>

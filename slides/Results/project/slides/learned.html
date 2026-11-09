@@ -8,14 +8,14 @@
 <h3 style="font-size:36px;font-weight:600">Improved</h3>
 <ul style="font-size:28px;line-height:1.45;color:#4A4A48">
 <li><b>Comparing with healthy plants each day:</b> 0.38 to 0.62 for pixel PLS-DA</li>
-<li><b>One vote per plant:</b> 0.61 for single squares to 0.69 per plant</li>
+<li><b>One vote per plant:</b> 0.61 for single patches to 0.69 per plant</li>
 <li><b>Middle ResNet layers:</b> 0.69, against 0.52 for the last layer alone</li>
 </ul>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:20px;background:#FFFFFE;padding:40px;border:1px solid #D9D7D5;border-top:8px solid #7B7B79;border-radius:12px">
 <h3 style="font-size:36px;font-weight:600">No change</h3>
 <ul style="font-size:28px;line-height:1.45;color:#4A4A48">
-<li><b>More, smaller steps between squares (stride 112, 56, 4):</b> all 0.69 to 0.75</li>
+<li><b>Patches closer together (stride 112, 56, 4):</b> all 0.69 to 0.75</li>
 <li><b>Automatic tuning (Bayesian):</b> no better than the defaults</li>
 <li><b>Laptop vs Colab GPU:</b> same results, so they are reproducible</li>
 </ul>

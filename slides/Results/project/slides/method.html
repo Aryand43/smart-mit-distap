@@ -1,4 +1,4 @@
-<section id="method" data-transition="fade" style="background:#F8F7F6;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<section id="method" data-transition="fade" style="background:#F8F7F6;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
 <div style="display:flex;flex-direction:column;gap:16px">
 <p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">The method</p>
 <h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:72px;font-weight:600;line-height:1.1">How the best model works, in five steps</h2>
@@ -7,38 +7,46 @@
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFE;padding:32px;border:1px solid #D9D7D5;border-top:8px solid #9D192B;border-radius:12px">
 <p style="font-size:24px;color:#9D192B;font-weight:600">1</p>
 <h3 style="font-size:32px;font-weight:600">Normalise</h3>
-<p style="font-size:26px;line-height:1.4;color:#4A4A48">Compare each image with that day’s healthy plants, so only stress differences remain</p>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">Divide each image by that day’s healthy-plant average, so only stress differences remain</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFE;padding:32px;border:1px solid #D9D7D5;border-top:8px solid #9D192B;border-radius:12px">
 <p style="font-size:24px;color:#9D192B;font-weight:600">2</p>
 <h3 style="font-size:32px;font-weight:600">Cut</h3>
-<p style="font-size:26px;line-height:1.4;color:#4A4A48">Split the plant into overlapping squares, about 9,000 per plant</p>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">Cut the plant into about 9,000 overlapping patches</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFE;padding:32px;border:1px solid #D9D7D5;border-top:8px solid #9D192B;border-radius:12px">
 <p style="font-size:24px;color:#9D192B;font-weight:600">3</p>
 <h3 style="font-size:32px;font-weight:600">Describe</h3>
-<p style="font-size:26px;line-height:1.4;color:#4A4A48">A pretrained ResNet-50 turns each square into numbers</p>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">A pretrained ResNet-50 turns each patch into numbers</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#FFFFFE;padding:32px;border:1px solid #D9D7D5;border-top:8px solid #9D192B;border-radius:12px">
 <p style="font-size:24px;color:#9D192B;font-weight:600">4</p>
 <h3 style="font-size:32px;font-weight:600">Label</h3>
-<p style="font-size:26px;line-height:1.4;color:#4A4A48">A small classifier names a condition for each square</p>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">A small classifier names a condition for each patch</p>
 </div>
 <div style="flex:1;display:flex;flex-direction:column;gap:16px;background:#F3E6E8;padding:32px;border:1px solid #DDBFC4;border-top:8px solid #1F1F1E;border-radius:12px">
 <p style="font-size:24px;color:#9D192B;font-weight:600">5</p>
 <h3 style="font-size:32px;font-weight:600">Vote</h3>
-<p style="font-size:26px;line-height:1.4;color:#4A4A48">The most common label among the squares is the plant’s answer</p>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">The most common label among the patches is the plant’s answer</p>
 </div>
 </div>
 <div style="display:flex;flex-direction:column;gap:0">
-<div style="display:flex;gap:40px;align-items:baseline;padding:20px 0;border-top:1px solid #D9D7D5">
-<p style="font-size:28px;font-weight:600;color:#9D192B;min-width:360px">Fair test</p>
-<p style="font-size:28px;line-height:1.4">Train on two plants, test on the third it has never seen</p>
+<div style="display:flex;gap:40px;align-items:baseline;padding:14px 0;border-top:1px solid #D9D7D5">
+<p style="font-size:26px;font-weight:600;color:#9D192B;min-width:300px">Patch and stride</p>
+<p style="font-size:26px;line-height:1.4">Patch: a 224 × 224 pixel square of the 608 × 968 image. Stride: each patch starts 4 pixels from the last</p>
 </div>
-<div style="display:flex;gap:40px;align-items:baseline;padding:20px 0;border-top:1px solid #D9D7D5;border-bottom:1px solid #D9D7D5">
-<p style="font-size:28px;font-weight:600;color:#9D192B;min-width:360px">Repeated runs</p>
-<p style="font-size:28px;line-height:1.4"><b>15 runs:</b> 3 test plants × 5 runs each (pixel PLS-DA: 3 × 20 = 60 runs)</p>
+<div style="display:flex;gap:40px;align-items:baseline;padding:14px 0;border-top:1px solid #D9D7D5">
+<p style="font-size:26px;font-weight:600;color:#9D192B;min-width:300px">Fair test</p>
+<p style="font-size:26px;line-height:1.4">Train on two plants, test on the third it has never seen; each plant takes a turn</p>
+</div>
+<div style="display:flex;gap:40px;align-items:baseline;padding:14px 0;border-top:1px solid #D9D7D5">
+<p style="font-size:26px;font-weight:600;color:#9D192B;min-width:300px">Repeated runs</p>
+<p style="font-size:26px;line-height:1.4"><b>15 runs</b> = 3 test plants × 5 trainings from different random starts. Each training lasts 60 epochs</p>
+</div>
+<div style="display:flex;gap:40px;align-items:baseline;padding:14px 0;border-top:1px solid #D9D7D5;border-bottom:1px solid #D9D7D5">
+<p style="font-size:26px;font-weight:600;color:#9D192B;min-width:300px">Being tuned</p>
+<p style="font-size:26px;line-height:1.4">These settings were fixed by hand. Bayesian optimisation is now tuning patch size, stride, epochs and learning rate</p>
 </div>
 </div>
-<aside>Technical detail if asked: 224 px squares at stride 4 on the test plant (stride 56 for training, with flips and rotations on training only). ResNet-50 pretrained on ImageNet and kept frozen; a small softmax head with cross-entropy loss and weight decay; 5 seeds for the CNN, 20 pixel draws for PLS-DA. The white-light reference comes from training plants only, so nothing about the test plant leaks in.</aside>
+<aside>An epoch is one pass of training over all training patches; a run is one complete training from a fresh random start. PLS-DA is only a comparison method (results table), not part of this model: its 60 runs are 3 test plants × 20 different random sets of 5,000 pixels per training image. A patch is 224 by 224 pixels, the input size ResNet-50 expects. It is not 9,000 pixels: 9,000 is the number of patches per plant. Only patches that are at least 40% plant are kept, so background is ignored. Training uses patches 56 pixels apart, with flips and rotations on training only. ResNet-50 is pretrained on ImageNet and kept frozen; a small softmax head is trained with cross-entropy loss and weight decay. The healthy-plant average comes from the two training plants only, so nothing about the test plant leaks in.</aside>
 </section>

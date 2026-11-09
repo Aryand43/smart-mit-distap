@@ -1,0 +1,50 @@
+<section id="bytime" data-transition="fade" style="background:#EFEDEB;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Confusion matrix · by time point</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">The same pattern at every time point</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px 64px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:28px;font-weight:600">4 hours <span style="color:#6B6B69">· accuracy 0.70 · healthy vs stressed 0.97</span></h3>
+<table style="font-size:24px;line-height:1.2;color:#1F1F1E;width:800px">
+<tr style="background:#F3E6E8"><th style="width:28%;text-align:left">Actual ↓</th><th style="width:18%;text-align:center">White</th><th style="width:18%;text-align:center">High</th><th style="width:18%;text-align:center">Low</th><th style="width:18%;text-align:center">Shade</th></tr>
+<tr style="background:#FFFFFE"><td><b>White light</b></td><td><b>13</b></td><td>0</td><td>2</td><td>0</td></tr>
+<tr><td><b>High light</b></td><td>0</td><td><b>15</b></td><td>0</td><td>0</td></tr>
+<tr style="background:#FFFFFE"><td><b>Low light</b></td><td>0</td><td>0</td><td><b>0</b></td><td>15</td></tr>
+<tr><td><b>Shade</b></td><td>0</td><td>0</td><td>1</td><td><b>14</b></td></tr>
+</table>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:28px;font-weight:600">Day 1 <span style="color:#6B6B69">· accuracy 0.67 · healthy vs stressed 0.98</span></h3>
+<table style="font-size:24px;line-height:1.2;color:#1F1F1E;width:800px">
+<tr style="background:#F3E6E8"><th style="width:28%;text-align:left">Actual ↓</th><th style="width:18%;text-align:center">White</th><th style="width:18%;text-align:center">High</th><th style="width:18%;text-align:center">Low</th><th style="width:18%;text-align:center">Shade</th></tr>
+<tr style="background:#FFFFFE"><td><b>White light</b></td><td><b>15</b></td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><b>High light</b></td><td>0</td><td><b>15</b></td><td>0</td><td>0</td></tr>
+<tr style="background:#FFFFFE"><td><b>Low light</b></td><td>1</td><td>4</td><td><b>0</b></td><td>10</td></tr>
+<tr><td><b>Shade</b></td><td>0</td><td>0</td><td>5</td><td><b>10</b></td></tr>
+</table>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:28px;font-weight:600">Day 2 <span style="color:#6B6B69">· accuracy 0.70 · healthy vs stressed 1.00</span></h3>
+<table style="font-size:24px;line-height:1.2;color:#1F1F1E;width:800px">
+<tr style="background:#F3E6E8"><th style="width:28%;text-align:left">Actual ↓</th><th style="width:18%;text-align:center">White</th><th style="width:18%;text-align:center">High</th><th style="width:18%;text-align:center">Low</th><th style="width:18%;text-align:center">Shade</th></tr>
+<tr style="background:#FFFFFE"><td><b>White light</b></td><td><b>15</b></td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><b>High light</b></td><td>0</td><td><b>15</b></td><td>0</td><td>0</td></tr>
+<tr style="background:#FFFFFE"><td><b>Low light</b></td><td>0</td><td>1</td><td><b>8</b></td><td>6</td></tr>
+<tr><td><b>Shade</b></td><td>0</td><td>11</td><td>0</td><td><b>4</b></td></tr>
+</table>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<h3 style="font-size:28px;font-weight:600">Day 3 <span style="color:#6B6B69">· accuracy 0.60 · healthy vs stressed 0.90</span></h3>
+<table style="font-size:24px;line-height:1.2;color:#1F1F1E;width:800px">
+<tr style="background:#F3E6E8"><th style="width:28%;text-align:left">Actual ↓</th><th style="width:18%;text-align:center">White</th><th style="width:18%;text-align:center">High</th><th style="width:18%;text-align:center">Low</th><th style="width:18%;text-align:center">Shade</th></tr>
+<tr style="background:#FFFFFE"><td><b>White light</b></td><td><b>15</b></td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td><b>High light</b></td><td>0</td><td><b>15</b></td><td>0</td><td>0</td></tr>
+<tr style="background:#FFFFFE"><td><b>Low light</b></td><td>5</td><td>10</td><td><b>0</b></td><td>0</td></tr>
+<tr><td><b>Shade</b></td><td>1</td><td>0</td><td>8</td><td><b>6</b></td></tr>
+</table>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B6B69">ResNet-50 patches + softmax, plant vote. 15 tests per condition = 3 plants × 5 runs. Bold = correct</p>
+<aside>White and high light are right at every time point. Low light is the weak class throughout: at 4 hours and day 1 it is called shade, on day 3 it is called white or high light. On day 2, shade plants are often called high light, which is worth checking in the day-2 images. Accuracy here is pooled over the 15 runs.</aside>
+</section>
