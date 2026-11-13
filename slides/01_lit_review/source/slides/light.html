@@ -1,0 +1,26 @@
+<section id="light" data-transition="fade" style="background:#EFEDEB;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:48px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Light conditions</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">Handling white-light and low-light images</h2>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFE;padding:36px;border-radius:16px;border:1px solid #D9D7D5">
+<h3 style="font-size:32px;font-weight:600">Calibrate colour</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">A colour chart in every frame plus a quadratic RGB correction kept canopy colour consistent across months of changing light (Chopin et al., 2018).</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFE;padding:36px;border-radius:16px;border:1px solid #D9D7D5">
+<h3 style="font-size:32px;font-weight:600">Enhance dark images</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">EnlightenGAN low-light enhancement before YOLOv8 raised disease-severity mAP by 2.47 points (Ye et al., 2024).</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFE;padding:36px;border-radius:16px;border:1px solid #D9D7D5">
+<h3 style="font-size:32px;font-weight:600">Use robust colour indices</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">Normalised chromatic indices such as ExG separated plants under both shaded and sunlit conditions (Woebbecke et al., 1995).</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px;background:#FFFFFE;padding:36px;border-radius:16px;border:1px solid #D9D7D5">
+<h3 style="font-size:32px;font-weight:600">Light as the stress</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">Raman detected light-saturation stress, among others, within 48 h (Altangerel et al., 2017). RGB evidence for light stress is thin.</p>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B6B69">Uncontrolled illumination is a key challenge for visible-range methods: Barbedo, 2016</p>
+<aside>Two separate questions: (1) the light condition as an imaging nuisance, handled by calibration and enhancement; (2) light as the stress itself. For (2), I found spectral evidence but no verified RGB deep-learning paper. That is a gap our experiments could fill.</aside>
+</section>

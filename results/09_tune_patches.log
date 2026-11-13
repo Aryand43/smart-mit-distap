@@ -1,1 +1,6 @@
 device mps, 30 trials per test plant, at most 300 patches per image
+P1: best {'patch': 64, 'stride': 4, 'max_epochs': 10, 'lr': 0.004013315315232965, 'lr_decay': 0.9292421909005842, 'optimizer': 'adam', 'weight_decay': 0.06984053723474021, 'batch_size': 256, 'epochs_used': 1}, inner 0.78, test median 0.75
+P2: best {'patch': 64, 'stride': 4, 'max_epochs': 40, 'lr': 0.005605120521461264, 'lr_decay': 0.9869826703688476, 'optimizer': 'sgd', 'weight_decay': 0.05281031827593, 'batch_size': 64, 'epochs_used': 1}, inner 0.75, test median 0.81
+P3: best {'patch': 64, 'stride': 4, 'max_epochs': 90, 'lr': 0.00034939050055457456, 'lr_decay': 0.9547161366693862, 'optimizer': 'sgd', 'weight_decay': 0.00149523579181036, 'batch_size': 64, 'epochs_used': 10}, inner 0.72, test median 0.69
+tuned: accuracy 0.75, F1 0.72, stressed vs control 0.94
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[60, 0, 0, 0], [5, 53, 0, 2], [9, 10, 18, 23], [0, 5, 7, 48]]}

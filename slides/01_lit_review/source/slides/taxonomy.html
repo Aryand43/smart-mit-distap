@@ -1,0 +1,16 @@
+<section id="taxonomy" data-transition="fade" style="background:#F8F7F6;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Map of the literature</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">Which techniques have been used for which problem</h2>
+</div>
+<table style="font-size:24px;line-height:1.3;color:#1F1F1E;width:1664px">
+<tr style="background:#F3E6E8"><th style="width:17%;text-align:left;padding:12px 16px">Problem</th><th style="width:20%;text-align:left">Hand-made features + classical ML</th><th style="width:25%;text-align:left">CNN and transfer learning</th><th style="width:18%;text-align:left">Detection and segmentation</th><th style="width:20%;text-align:left">Sequence models</th></tr>
+<tr><td>Disease classification</td><td>None in this review</td><td>Mohanty 2016, Ferentinos 2018, Too 2019, Picon 2019, Borhani 2022</td><td>Fuentes 2017, Liu &amp; Wang 2020, Lin 2019</td><td>None found</td></tr>
+<tr style="background:#FFFFFE"><td>Abiotic stress</td><td>Naik 2017 (iron deficiency), Zhuang 2017 (water)</td><td>Ghosal 2018, An 2019, Chandel 2021, Azimi 2021a</td><td>None found</td><td>None found</td></tr>
+<tr><td>Time-point / temporal</td><td>Sanchez 2020 (Raman, not images)</td><td>An 2019 (images every 2 h)</td><td>None found</td><td>CNN-LSTM: Taghavi Namin 2018, Azimi 2021b; Das Choudhury 2023</td></tr>
+<tr style="background:#FFFFFE"><td>Preprocessing</td><td>Colour indices (Woebbecke 1995), colour calibration (Chopin 2018)</td><td>GAN augmentation (Arsenovic 2019)</td><td>Low-light enhancement (Ye 2024)</td><td>None found</td></tr>
+<tr><td>Spectral comparison</td><td>SVM: Rumpf 2010; PLS-DA: Zovko 2019, Sanchez 2020</td><td>3D-CNN on hyperspectral (Nagasubramanian 2019)</td><td>None found</td><td>None found</td></tr>
+</table>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B6B69">All rows above "Spectral comparison" use RGB images unless marked. Detection papers use single images; sequence models use time-lapse images.</p>
+<aside>Rumpf 2010 uses spectral reflectance, not images, so it now sits in the spectral row. Detection and segmentation papers (Fuentes, Liu and Wang, Lin) work on single still RGB images. Only the sequence models use time-lapse images of the same plants. Azimi 2021a = nitrogen stress (Measurement); 2021b = water stress (IEEE TIM).</aside>
+</section>

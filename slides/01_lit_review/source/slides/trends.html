@@ -1,0 +1,17 @@
+<section id="trends" data-transition="fade" style="background:#F8F7F6;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Fundamentals</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">The core methods in plain terms</h2>
+</div>
+<table style="font-size:24px;line-height:1.3;color:#1F1F1E;width:1664px">
+<tr style="background:#F3E6E8"><th style="width:22%;text-align:left;padding:12px 18px">Method</th><th style="width:43%;text-align:left">What it does</th><th style="width:35%;text-align:left">Why it matters for us</th></tr>
+<tr><td><b>Features + classical ML</b></td><td>People choose features (colour indices, texture); a classifier such as SVM or PLS-DA separates the classes</td><td>Simple baseline that works with little data</td></tr>
+<tr style="background:#FFFFFE"><td><b>CNN</b></td><td>Learns features such as edges, colour changes and lesions directly from the image, then outputs a class</td><td>Takes any 3-channel image, so it fits our three-band images</td></tr>
+<tr><td><b>Transfer learning</b></td><td>Starts from a CNN already trained on millions of everyday photos, then fine-tunes it on plant images</td><td>Our lab datasets are small</td></tr>
+<tr style="background:#FFFFFE"><td><b>LSTM</b></td><td>Reads a sequence one step at a time and remembers what came before</td><td>Our images are taken at several time points</td></tr>
+<tr><td><b>Hybrid CNN-LSTM</b></td><td>The CNN turns each time point's image into features; the LSTM links them across time</td><td>Main model; beat a CNN alone, 76.8% to 93% (Taghavi Namin et al., 2018)</td></tr>
+<tr style="background:#FFFFFE"><td><b>Vision transformer (ViT)</b></td><td>Splits the image into patches and uses attention to weigh how each patch relates to the others</td><td>Can be combined with a CNN as a hybrid to explore</td></tr>
+<tr><td><b>Encoder-decoder</b></td><td>The encoder compresses the input into a compact form; the decoder builds an output from it, such as a mask</td><td>To explore, e.g. for segmenting plants or learning features</td></tr>
+</table>
+<aside>These are the building blocks behind the papers in the review and behind the plan we discussed: a hybrid CNN-LSTM on three-band image sequences, with encoder-decoder models as an option to explore.</aside>
+</section>
