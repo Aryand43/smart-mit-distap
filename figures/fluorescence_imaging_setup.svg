@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" font-family="Helvetica, Arial, sans-serif">
+  <title>Hyperspectral fluorescence imaging setup</title>
+  <rect width="1200" height="700" fill="#FFFFFF"/>
+
+  <g transform="translate(200,0)">
+    <!-- excitation light, drawn first so the hardware sits on top -->
+    <polygon points="371,397 512,452 490,498 347,452" fill="#7B8CE0" opacity="0.2"/>
+    <polygon points="629,397 488,452 510,498 653,452" fill="#7B8CE0" opacity="0.2"/>
+
+    <!-- frame -->
+    <g fill="#E4E2E0" stroke="#7B7B79" stroke-width="2">
+      <rect x="224" y="60" width="552" height="16" rx="2"/>
+      <rect x="224" y="60" width="16" height="530" rx="2"/>
+      <rect x="760" y="60" width="16" height="530" rx="2"/>
+      <rect x="200" y="590" width="64" height="10" rx="2"/>
+      <rect x="736" y="590" width="64" height="10" rx="2"/>
+    </g>
+    <!-- light-source arms -->
+    <g stroke="#7B7B79" stroke-width="10" stroke-linecap="round">
+      <line x1="240" y1="300" x2="262" y2="378"/>
+      <line x1="760" y1="300" x2="738" y2="378"/>
+    </g>
+
+    <!-- camera on its mounting rod, collection filter on the lens -->
+    <rect x="494" y="76" width="12" height="64" fill="#7B7B79"/>
+    <rect x="450" y="140" width="100" height="100" rx="8" fill="#2F3A4A"/>
+    <rect x="480" y="240" width="40" height="14" fill="#2F3A4A"/>
+    <rect x="476" y="254" width="48" height="16" rx="2" fill="#E3A33B" stroke="#B57A1E" stroke-width="1.5"/>
+
+    <!-- light source: holder, LED, plano-convex lens (convex side to the LED), excitation filter (left, then mirrored) -->
+    <g id="head" transform="translate(300,400) rotate(22.8)">
+      <rect x="-52" y="-16" width="30" height="32" rx="3" fill="#7B7B79"/>
+      <rect x="-22" y="-20" width="40" height="40" rx="5" fill="#2F3A4A"/>
+      <rect x="18" y="-12" width="6" height="24" fill="#2F3A4A"/>
+      <path d="M50,-34 L44,-34 Q22,0 44,34 L50,34 Z" fill="#CFE3F2" stroke="#6E9CC0" stroke-width="1.5"/>
+      <rect x="56" y="-30" width="8" height="60" rx="1.5" fill="#5B6CC2"/>
+    </g>
+    <g transform="translate(1000,0) scale(-1,1)">
+      <use href="#head"/>
+    </g>
+
+    <!-- sample: plant in a pot -->
+    <path d="M472,512 L528,512 L520,570 L480,570 Z" fill="#6B4F3A"/>
+    <rect x="468" y="506" width="64" height="10" rx="2" fill="#57402F"/>
+    <path d="M500,508 L500,470" stroke="#4E7A34" stroke-width="4"/>
+    <ellipse cx="478" cy="478" rx="24" ry="12" transform="rotate(-25 478 478)" fill="#7FB04F"/>
+    <ellipse cx="522" cy="478" rx="24" ry="12" transform="rotate(25 522 478)" fill="#6FA343"/>
+    <ellipse cx="490" cy="458" rx="20" ry="11" transform="rotate(-55 490 458)" fill="#8DBE5A"/>
+    <ellipse cx="511" cy="456" rx="20" ry="11" transform="rotate(55 511 456)" fill="#7FB04F"/>
+  </g>
+
+  <!-- labels and leader lines (canvas coordinates) -->
+  <g stroke="#1F1F1E" stroke-width="1.5" fill="none">
+    <polyline points="240,190 648,190"/>
+    <polyline points="986,262 726,262"/>
+    <polyline points="240,330 380,330 496,398"/>
+    <polyline points="240,450 400,450 537,415"/>
+    <polyline points="240,570 440,570 555,423"/>
+    <polyline points="700,620 700,574"/>
+  </g>
+  <g fill="#1F1F1E" font-size="20">
+    <circle cx="648" cy="190" r="3.5"/>
+    <circle cx="726" cy="262" r="3.5"/>
+    <circle cx="496" cy="398" r="3.5"/>
+    <circle cx="537" cy="415" r="3.5"/>
+    <circle cx="555" cy="423" r="3.5"/>
+    <text x="232" y="197" text-anchor="end">Hyperspectral camera</text>
+    <text x="994" y="269">Collection filter</text>
+    <text x="232" y="337" text-anchor="end">LED</text>
+    <text x="232" y="457" text-anchor="end">Plano-convex lens</text>
+    <text x="232" y="577" text-anchor="end">Excitation filter</text>
+    <text x="700" y="646" text-anchor="middle">Sample</text>
+  </g>
+  <text x="1090" y="420" font-size="17" fill="#6B6B69" text-anchor="middle">
+    <tspan x="1090">Same light source</tspan><tspan x="1090" dy="22">on both sides</tspan>
+  </text>
+</svg>

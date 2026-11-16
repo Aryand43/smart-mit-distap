@@ -6,3 +6,7 @@
 | `02_results_choysum/` | Choy sum light stress: results (4 conditions, tuning, per-time-point matrices) | Nov 2026 |
 
 Each folder holds the exported PDF and `source/`: `deck.json` (title and slide order) plus one HTML file per slide, with speaker notes in each slide's `<aside>`. The numbers in `02_results_choysum` come from `results/05` to `results/09`.
+
+`02_results_choysum/Study_Pipeline.png` is the study pipeline diagram on its own. To re-export a deck after editing its source:
+
+    python3 slides/export_pdf.py slides/02_results_choysum/source slides/02_results_choysum/Results_Choysum.pdf

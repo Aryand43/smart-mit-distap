@@ -1,0 +1,35 @@
+<section id="patchtable" data-transition="fade" style="background:#EFEDEB;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Patch size and stride</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">64-pixel patches with stride 4 come out best</h2>
+</div>
+<div style="display:flex;gap:64px;align-items:flex-start">
+<table style="font-size:26px;line-height:1.3;color:#1F1F1E;width:1040px">
+<tr style="background:#F3E6E8"><th style="width:20%;text-align:right">Patch (px)</th><th style="width:20%;text-align:right">Stride (px)</th><th style="width:16%;text-align:right">Trials</th><th style="width:22%;text-align:right">Best</th><th style="width:22%;text-align:right">Mean</th></tr>
+<tr style="background:#FFFFFE"><td>8</td><td>4</td><td>5</td><td>0.53</td><td>0.43</td></tr>
+<tr><td>16</td><td>2</td><td>3</td><td>0.62</td><td>0.54</td></tr>
+<tr style="background:#FFFFFE"><td>16</td><td>4</td><td>5</td><td>0.69</td><td>0.55</td></tr>
+<tr><td>32</td><td>2</td><td>10</td><td>0.72</td><td>0.56</td></tr>
+<tr style="background:#FFFFFE"><td>32</td><td>4</td><td>7</td><td>0.69</td><td>0.55</td></tr>
+<tr><td>64</td><td>2</td><td>3</td><td>0.69</td><td>0.64</td></tr>
+<tr style="background:#FFFFFE"><td><b>64</b></td><td><b>4</b></td><td><b>53</b></td><td><b>0.78</b></td><td><b>0.68</b></td></tr>
+<tr><td>224</td><td>4</td><td>4</td><td>0.69</td><td>0.55</td></tr>
+</table>
+<div style="flex:1;display:flex;flex-direction:column;gap:0">
+<div style="display:flex;flex-direction:column;gap:6px;padding:18px 0;border-top:1px solid #C9C6C3">
+<h3 style="font-size:28px;font-weight:600">Patch size matters</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">8 px is too small, 224 px too large; 32 to 64 px works best</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding:18px 0;border-top:1px solid #C9C6C3">
+<h3 style="font-size:28px;font-weight:600">Stride matters little</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">2 vs 4 gives similar accuracy; 4 needs a quarter of the patches</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:6px;padding:18px 0;border-top:1px solid #C9C6C3;border-bottom:1px solid #C9C6C3">
+<h3 style="font-size:28px;font-weight:600">Validation, not test</h3>
+<p style="font-size:26px;line-height:1.4;color:#4A4A48">Scored on the held-out training plant; the test plant is never used</p>
+</div>
+</div>
+</div>
+<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B6B69">Laptop run, 90 trials over the 3 test plants. Combinations the optimiser never tried (8 × 2, 224 × 2) are not listed</p>
+<aside>Validation works inside each round: with plant 3 as the test plant, train on plant 1 and check on plant 2, then swap; the validation accuracy is the average of the two checks. The optimiser spends more trials on combinations that look promising, which is why 64 × 4 was tried 53 times. The same table from the GPU run is written to results/10_patch_stride_table.csv.</aside>
+</section>
