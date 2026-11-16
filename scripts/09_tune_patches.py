@@ -4,9 +4,12 @@ Dr Praveen's points (9 Nov): 224-pixel patches are too large; patch size and str
 together with the number of epochs (with early stopping), learning rate and its decay, optimiser and
 batch size, instead of being fixed by hand.
 
+16 Nov: patch sizes are powers of two, and each backbone (ResNet-50 or the vision transformer) gets its
+own search, chosen with BACKBONE=resnet50 (default) or BACKBONE=vit_b_16.
+
 Search space:
-  * patch size 8, 16, 32, 64 or 224 pixels (smaller patches are enlarged to 224 for ResNet-50)
-  * stride 2 or 4 pixels
+  * patch size 8, 16, 32, 64, 128 or 256 pixels (every patch is resized to the network's 224 x 224 input)
+  * stride 2, 4 or 8 pixels
   * up to 10 to 120 epochs, stopped early when the validation loss stops improving
   * learning rate 1e-4 to 1e-2, exponential decay per epoch 0.90 to 1.00
   * optimiser Adam, AdamW or SGD with momentum; weight decay 1e-4 to 1e-1; batch size 64 to 512
@@ -19,7 +22,10 @@ stopped, trained with 5 seeds, and scored once on the test plant (plant vote, me
 
 To keep the cost bounded, each image contributes at most MAX_PATCHES patches, evenly spaced over all
 positions on the stride grid. White-light normalised as in 08. Features are cached per setting.
-Run on the GPU: TRIALS=40 MAX_PATCHES=600 python scripts/09_tune_patches.py
+Run on the GPU, once per backbone:
+    TRIALS=40 MAX_PATCHES=600 python scripts/09_tune_patches.py
+    BACKBONE=vit_b_16 TRIALS=40 MAX_PATCHES=600 python scripts/09_tune_patches.py
+Writes results/09_tune_<backbone>.json.
 """
 from __future__ import annotations
 
@@ -35,10 +41,11 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from stress.cnn import device  # noqa: E402
 from stress.data import CONTROL, conditions, gains, load, white_reference  # noqa: E402
 from stress.evaluate import accuracy_by_hour, classification_metrics, leave_one_plant_out, spread  # noqa: E402
-from stress.patches import features, inner_splits, stack, train_head, vote  # noqa: E402
+from stress.patches import BACKBONES, features, inner_splits, stack, train_head, vote  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
-PATCHES, STRIDES = [8, 16, 32, 64, 224], [2, 4]
+PATCHES, STRIDES = [8, 16, 32, 64, 128, 256], [2, 4, 8]
+BACKBONE = os.environ.get("BACKBONE", "resnet50")
 TRIALS = int(os.environ.get("TRIALS", 40))
 MAX_PATCHES = int(os.environ.get("MAX_PATCHES", 600))
 SEEDS, CNN_WHITE_LEVEL = 5, 0.5
@@ -46,12 +53,14 @@ optuna.logging.set_verbosity(optuna.logging.WARNING)
 
 
 def main():
+    if BACKBONE not in BACKBONES:
+        raise SystemExit(f"BACKBONE must be one of {BACKBONES}")
     samples = load()
     classes = conditions(samples)
     labels = np.array([classes.index(s.light) for s in samples])
     hours = np.array([s.hours for s in samples])
     plants = np.array([s.plant for s in samples])
-    print(f"device {device()}, {TRIALS} trials per test plant, at most {MAX_PATCHES} patches per image", flush=True)
+    print(f"{BACKBONE} on {device()}, {TRIALS} trials per test plant, at most {MAX_PATCHES} patches per image", flush=True)
 
     folds, all_true, all_pred, all_hours = {}, [], [], []
     for fold, tr, te in leave_one_plant_out(plants):
@@ -67,7 +76,7 @@ def main():
                  "optimizer": t.suggest_categorical("optimizer", ["adam", "adamw", "sgd"]),
                  "weight_decay": t.suggest_float("weight_decay", 1e-4, 1e-1, log=True),
                  "batch_size": t.suggest_categorical("batch_size", [64, 128, 256, 512])}
-            feats = features(samples, g, p["patch"], p["stride"], MAX_PATCHES, f"white-{fold}")
+            feats = features(samples, g, p["patch"], p["stride"], MAX_PATCHES, f"white-{fold}", BACKBONE)
             accs, eps = [], []
             for itr, ival in inner_splits(plants, tr):
                 X, y = stack(feats, itr, labels)
@@ -84,7 +93,7 @@ def main():
         best = dict(study.best_params)
         best["epochs_used"] = stopped[study.best_trial.number]
 
-        feats = features(samples, g, best["patch"], best["stride"], MAX_PATCHES, f"white-{fold}")
+        feats = features(samples, g, best["patch"], best["stride"], MAX_PATCHES, f"white-{fold}", BACKBONE)
         X, y = stack(feats, tr, labels)
         preds = []
         for seed in range(SEEDS):
@@ -112,6 +121,7 @@ def main():
         sel = all_hours == h
         by_time[f"{h}h"] = classification_metrics(all_true[sel], all_pred[sel], classes)
     out = {
+        "backbone": BACKBONE,
         "search": {"patch": PATCHES, "stride": STRIDES, "trials_per_fold": TRIALS, "max_patches": MAX_PATCHES},
         "per_test_plant": folds,
         "plant level (patch vote)": {**classification_metrics(all_true, all_pred, classes),
@@ -120,7 +130,7 @@ def main():
                                                                     ["control", "stressed"]),
         "by_time_point": by_time,
     }
-    (RESULTS / "09_tune_patches.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / f"09_tune_{BACKBONE}.json").write_text(json.dumps(out, indent=2))
     p = out["plant level (patch vote)"]
     print(f"tuned: accuracy {p['accuracy']:.2f}, F1 {p['f1_macro']:.2f}, "
           f"stressed vs control {out['plant level, stressed vs control']['accuracy']:.2f}")

@@ -171,7 +171,7 @@ def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_
     labels = np.array([classes.index(s.light) for s in samples])
     hours = np.array([s.hours for s in samples])
     plants = np.array([s.plant for s in samples])
-    true, pred, hrs, run_acc, epochs = [], [], [], [], {}
+    true, pred, hrs, run_acc, cal_acc, epochs = [], [], [], [], [], {}
     for fold, tr, te in leave_one_plant_out(plants):
         g = [gi * white_level for gi in gains(samples, white_reference(samples, tr))]
         feats = features(samples, g, setting["patch"], setting["stride"], max_patches, f"white-{fold}", net_name)
@@ -181,8 +181,9 @@ def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_
             predict, _, _ = train_head(X, y, setting, seed, epochs=epochs[fold], n_classes=len(classes))
             p = np.array(vote(predict, feats, te, len(classes)))
             run_acc.append(float(np.mean(p == labels[te])))
+            cal_acc.append(float(np.mean(np.array(vote(predict, feats, tr, len(classes))) == labels[tr])))
             true += [classes[i] for i in labels[te]]
             pred += [classes[i] for i in p]
             hrs += hours[te].tolist()
         print(f"  {net_name} {fold}: {epochs[fold]} epochs, test accuracy {np.median(run_acc[-seeds:]):.2f}", flush=True)
-    return {"epochs_per_test_plant": epochs, **report(true, pred, hrs, run_acc, classes, CONTROL)}
+    return {"epochs_per_test_plant": epochs, **report(true, pred, hrs, run_acc, classes, CONTROL, cal_acc)}

@@ -57,18 +57,22 @@ def spread(values) -> dict:
             "min": float(v.min()), "max": float(v.max()), "n_runs": int(v.size), "n_outliers": outliers}
 
 
-def report(true, pred, hours, run_acc, labels, control: str = "WL") -> dict:
-    """Full result of repeated leave-one-plant-out runs: accuracy over runs, pooled metrics,
-    accuracy and confusion per time point, and stressed vs control."""
+def report(true, pred, hours, run_acc, labels, control: str = "WL", calibration_acc=None) -> dict:
+    """Full result of repeated leave-one-plant-out runs: accuracy over runs (test, and calibration =
+    the training plants scored by the same model), pooled metrics, metrics per time point for the four
+    classes and for stressed vs control."""
     true, pred, hours = map(np.asarray, (true, pred, hours))
     binary = lambda ys: np.where(ys == control, "control", "stressed")
+    by_time = lambda f, lab: {f"{h}h": classification_metrics(f(true[hours == h]), f(pred[hours == h]), lab)
+                              for h in sorted(set(hours.tolist()))}
     return {
         "accuracy_over_runs": spread(run_acc),
+        **({"calibration_accuracy_over_runs": spread(calibration_acc)} if calibration_acc else {}),
         "plant level": {**classification_metrics(true, pred, labels),
                         "accuracy_by_hour": accuracy_by_hour(true, pred, hours)},
         "plant level, stressed vs control": classification_metrics(binary(true), binary(pred), ["control", "stressed"]),
-        "by_time_point": {f"{h}h": classification_metrics(true[hours == h], pred[hours == h], labels)
-                          for h in sorted(set(hours.tolist()))},
+        "by_time_point": by_time(lambda y: y, labels),
+        "by_time_point, stressed vs control": by_time(binary, ["control", "stressed"]),
     }
 
 
