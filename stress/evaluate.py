@@ -57,6 +57,21 @@ def spread(values) -> dict:
             "min": float(v.min()), "max": float(v.max()), "n_runs": int(v.size), "n_outliers": outliers}
 
 
+def report(true, pred, hours, run_acc, labels, control: str = "WL") -> dict:
+    """Full result of repeated leave-one-plant-out runs: accuracy over runs, pooled metrics,
+    accuracy and confusion per time point, and stressed vs control."""
+    true, pred, hours = map(np.asarray, (true, pred, hours))
+    binary = lambda ys: np.where(ys == control, "control", "stressed")
+    return {
+        "accuracy_over_runs": spread(run_acc),
+        "plant level": {**classification_metrics(true, pred, labels),
+                        "accuracy_by_hour": accuracy_by_hour(true, pred, hours)},
+        "plant level, stressed vs control": classification_metrics(binary(true), binary(pred), ["control", "stressed"]),
+        "by_time_point": {f"{h}h": classification_metrics(true[hours == h], pred[hours == h], labels)
+                          for h in sorted(set(hours.tolist()))},
+    }
+
+
 def summarise(light_true, light_pred, labels, hours_true=None) -> dict:
     out = {"light_accuracy": accuracy_score(light_true, light_pred),
            "light_confusion": confusion_matrix(light_true, light_pred, labels=labels).tolist()}

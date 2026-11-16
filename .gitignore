@@ -2,3 +2,6 @@
 __pycache__/
 .DS_Store
 results/cache/
+
+# Raman spectra from SMART: kept out of git
+data/RAMAN/
