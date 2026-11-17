@@ -7,6 +7,8 @@ patch, and the patches of a plant vote. Patches smaller than 224 pixels are enla
 from __future__ import annotations
 
 import copy
+import os
+import zipfile
 
 import numpy as np
 import torch
@@ -82,9 +84,16 @@ def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
                 feats.append(net(x).cpu().numpy())
             out[s.path.name] = np.concatenate(feats) if feats else np.zeros((0, 1), np.float32)
         CACHE.mkdir(parents=True, exist_ok=True)
-        np.savez_compressed(path, **out)
-    data = np.load(path)
-    return [data[s.path.name] for s in samples]
+        tmp = path.with_name(path.stem + f".tmp{os.getpid()}.npz")   # write, then rename: never a half-written cache
+        np.savez_compressed(tmp, **out)
+        os.replace(tmp, path)
+    try:
+        data = np.load(path)
+        return [data[s.path.name] for s in samples]
+    except (zipfile.BadZipFile, KeyError, EOFError, ValueError):
+        print(f"  rebuilding damaged cache {path.name}", flush=True)
+        path.unlink()
+        return features(samples, g, size, stride, max_patches, tag, net_name)
 
 
 def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
