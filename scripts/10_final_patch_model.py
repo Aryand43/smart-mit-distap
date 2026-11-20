@@ -3,8 +3,9 @@
 09 picks the best setting separately for each test plant. Here the selection is automatic and global:
 over all trials of all three test plants, the single trial with the highest validation accuracy wins
 (ties go to the patch size and stride with the higher mean validation accuracy). That one setting is
-then used for every test plant: the epoch count comes from early stopping on the inner splits, the
-head is trained on both training plants with 5 seeds, and the patches of each test image vote.
+then used for every test plant, with one epoch count for all of them: the best epoch of the validation
+curve averaged over all 6 inner splits (stress.patches.shared_epochs). The head is trained on both
+training plants with 5 seeds, and the patches of each test image vote.
 Calibration accuracy is the same model scored on its own training plants.
 
 Note: the validation scores of one round come from plants that are test plants in other rounds, so a
@@ -38,7 +39,7 @@ from stress.patches import BACKBONES, evaluate, run_name  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
 BACKBONE = os.environ.get("BACKBONE", "resnet50")
-SHOWN = ["patch", "stride", "epochs_used", "lr", "lr_decay", "optimizer", "weight_decay", "batch_size"]
+SHOWN = ["patch", "stride", "epochs", "lr", "lr_decay", "optimizer", "weight_decay", "batch_size"]
 
 
 def summary(values, **key) -> dict:
@@ -83,14 +84,14 @@ def main():
         for r in patches + pairs:
             w.writerow([r["patch"], r["stride"], r["trials"], *(f"{r[k]:.2f}" for k in ("best", "mean", "median"))])
 
-    print(f"{run}: hyperparameters obtained by Bayesian optimisation "
-          f"(validation accuracy {val_acc:.2f})", flush=True)
-    for k in SHOWN:
-        print(f"  {k:13s} {setting.get(k)}")
-    print("  loss          cross-entropy", flush=True)
-
     result = evaluate(load(), setting, max_patches, BACKBONE)
-    out = {"backbone": BACKBONE, "run": run, "selected_setting": setting, "validation_accuracy": val_acc,
+    shown = {**setting, "epochs": result["epochs"]}
+    print(f"\n{run}: hyperparameters obtained by Bayesian optimisation "
+          f"(validation accuracy {val_acc:.2f}); one setting and one epoch count for all test plants")
+    for k in SHOWN:
+        print(f"  {k:13s} {shown.get(k)}")
+    print("  loss          cross-entropy", flush=True)
+    out = {"backbone": BACKBONE, "run": run, "selected_setting": shown, "validation_accuracy": val_acc,
            "max_patches": max_patches, "network_input": "224 x 224", "loss": "cross-entropy",
            "patch_size_summary": patches, "patch_stride_table": pairs, **result}
     (RESULTS / f"10_final_{run}.json").write_text(json.dumps(out, indent=2))

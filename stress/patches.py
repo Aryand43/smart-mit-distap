@@ -13,6 +13,10 @@ Two options from Prof Ram (18 Nov), set by environment variables and applied by 
          deviation is NOISE (default 0.02) at the white-light level and scales with the square root
          of the signal. Validation and test patches are never augmented. The loss stays plain
          cross-entropy.
+  PLANT_FRAC least share of plant pixels in a patch (default 0.4). Higher values keep patches inside
+         the leaf, so the model cannot lean on leaf edges and the black background.
+  MIN_EPOCHS  shortest training before early stopping may pick an epoch (default 5). The epoch kept
+         is the minimum of the validation loss curve.
 """
 from __future__ import annotations
 
@@ -28,6 +32,8 @@ from .data import CONTROL, conditions, gains, white_reference
 from .evaluate import leave_one_plant_out, report
 
 PATIENCE, BATCH = 10, 128
+MIN_EPOCHS = int(os.environ.get("MIN_EPOCHS", 5))
+PLANT_FRAC = float(os.environ.get("PLANT_FRAC", MIN_PLANT))   # least share of plant pixels in a patch (0.4 = before 20 Nov)   # train at least this long before the best epoch is picked
 BANDS = os.environ.get("BANDS", "012")
 AUG = int(os.environ.get("AUG", 0))
 NOISE = float(os.environ.get("NOISE", 0.02))
@@ -36,7 +42,8 @@ WHITE = 0.5                      # white light sits at 0.5 after normalisation
 
 def run_name(net_name: str) -> str:
     """Name of a tuning / final run, so ablations and augmented runs never overwrite each other."""
-    parts = [net_name] + ([f"bands{BANDS}"] if BANDS != "012" else []) + ([f"aug{AUG}n{NOISE:g}"] if AUG else [])
+    parts = ([net_name] + ([f"bands{BANDS}"] if BANDS != "012" else []) + ([f"aug{AUG}n{NOISE:g}"] if AUG else [])
+             + ([f"plant{PLANT_FRAC:g}"] if PLANT_FRAC != MIN_PLANT else []))
     return "_".join(parts)
 
 
@@ -65,13 +72,17 @@ BACKBONES = ("resnet50", "vit_b_16")
 
 
 def positions(mask: np.ndarray, size: int, stride: int, max_patches: int) -> np.ndarray:
-    """(row, col) of every size x size window with at least MIN_PLANT plant pixels, at most max_patches,
-    evenly spaced over all positions on the stride grid."""
+    """(row, col) of every size x size window with at least PLANT_FRAC plant pixels, at most max_patches,
+    evenly spaced over all positions on the stride grid. If no window reaches PLANT_FRAC (a large patch
+    on a small plant), the 10 windows with the most plant are used, so every image still votes."""
     ii = np.pad(mask.astype(np.float64).cumsum(0).cumsum(1), ((1, 0), (1, 0)))
     R, C = np.meshgrid(np.arange(0, mask.shape[0] - size + 1, stride),
                        np.arange(0, mask.shape[1] - size + 1, stride), indexing="ij")
     frac = (ii[R + size, C + size] - ii[R, C + size] - ii[R + size, C] + ii[R, C]) / size ** 2
-    pos = np.stack([R[frac >= MIN_PLANT], C[frac >= MIN_PLANT]], 1)
+    pos = np.stack([R[frac >= PLANT_FRAC], C[frac >= PLANT_FRAC]], 1)
+    if len(pos) == 0:
+        top = np.argsort(frac, axis=None)[::-1][:10]
+        pos = np.stack([R.ravel()[top], C.ravel()[top]], 1)
     if len(pos) > max_patches:
         pos = pos[np.linspace(0, len(pos) - 1, max_patches).round().astype(int)]
     return pos
@@ -112,7 +123,8 @@ def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
     copies: 0 for the clean patches; k > 0 for k noisy copies of every patch (see augment).
     """
     prefix = "tune" if net_name == "resnet50" else net_name       # keeps the ResNet caches from 09 valid
-    extra = (f"_b{BANDS}" if BANDS != "012" else "") + (f"_aug{copies}n{NOISE:g}" if copies else "")
+    extra = ((f"_b{BANDS}" if BANDS != "012" else "") + (f"_aug{copies}n{NOISE:g}" if copies else "")
+             + (f"_pf{PLANT_FRAC:g}" if PLANT_FRAC != MIN_PLANT else ""))
     path = CACHE / f"{prefix}_{samples[0].crop}_p{size}_s{stride}_n{max_patches}_{tag}{extra}.npz"
     if not path.exists():
         net, out = _net(net_name), {}
@@ -158,11 +170,13 @@ def train_set(feats, aug, idx, labels):
     return X, y
 
 
-def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
-    """Softmax head on patch features. With validation data, stops early on validation loss.
+def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4, patience=PATIENCE):
+    """Softmax head on patch features. With validation data, keeps the epoch at the minimum of the
+    validation loss curve, never before MIN_EPOCHS, and stops after PATIENCE epochs without improvement.
 
     p: lr, lr_decay, optimizer (adam / adamw / sgd), weight_decay, batch_size, max_epochs.
-    Returns (predict, epochs_used, loss curve [(train, val), ...]).
+    Returns (predict, epochs_used, curve): curve[k] = (training loss, validation loss, validation accuracy)
+    after k epochs, starting with k = 0 (before training).
     """
     torch.manual_seed(seed)
     Xt, yt = torch.from_numpy(X).float(), torch.from_numpy(y).long()
@@ -177,8 +191,16 @@ def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
     loss_fn = torch.nn.functional.cross_entropy
     if Xval is not None:
         Xv, yv = (torch.from_numpy(Xval).float() - mu) / sd, torch.from_numpy(yval).long()
-    best, best_ep, best_state, curve = np.inf, 0, None, []
-    for ep in range(epochs or p["max_epochs"]):
+    n_epochs = epochs or p["max_epochs"]
+    first = min(MIN_EPOCHS, n_epochs) - 1          # earliest epoch (0-based) that may be kept
+    best, best_ep, best_state, curve = (-np.inf, -np.inf), first, None, []
+    if Xval is not None:                            # epoch 0: before any training, so the curve shows the whole descent
+        net.eval()
+        with torch.no_grad():
+            out = net(Xv)
+            curve.append((loss_fn(net((Xt - mu) / sd), yt).item(), loss_fn(out, yv).item(),
+                          (out.argmax(-1) == yv).float().mean().item()))
+    for ep in range(n_epochs):
         net.train()
         total = 0.0
         for b in torch.randperm(len(Xt)).split(p["batch_size"]):
@@ -192,11 +214,14 @@ def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
             continue
         net.eval()
         with torch.no_grad():
-            val = loss_fn(net(Xv), yv).item()
-        curve.append((total / len(Xt), val))
-        if val < best:
-            best, best_ep, best_state = val, ep, copy.deepcopy(net.state_dict())
-        elif ep - best_ep >= PATIENCE:
+            out = net(Xv)
+            val, acc = loss_fn(out, yv).item(), (out.argmax(-1) == yv).float().mean().item()
+        curve.append((total / len(Xt), val, acc))
+        if ep < first:
+            continue
+        if -val > best[0]:                           # minimum of the validation loss curve
+            best, best_ep, best_state = (-val, acc), ep, copy.deepcopy(net.state_dict())
+        elif patience is not None and ep - best_ep >= patience:
             break
     if best_state is not None:
         net.load_state_dict(best_state)
@@ -205,6 +230,8 @@ def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
     @torch.no_grad()
     def predict(Xnew):
         return net((torch.from_numpy(Xnew).float() - mu) / sd).argmax(-1).numpy()
+
+    predict.net, predict.mu, predict.sd = net, mu, sd       # for the heat maps (scripts/10d_heatmaps.py)
 
     return predict, (best_ep + 1 if Xval is not None else epochs), curve
 
@@ -237,28 +264,65 @@ def early_stopped_epochs(feats, labels, plants, tr, p, n_classes, aug=None):
     return int(np.median(eps))
 
 
-def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_level=0.5):
-    """Leave-one-plant-out test of one fixed setting: 5 seeds per test plant, plant vote."""
+def shared_epochs(curves) -> tuple[int, list]:
+    """One epoch count for every test plant: average the validation curves of all inner splits and take
+    the epoch at the minimum of the mean validation loss, never before MIN_EPOCHS. Returns (epochs, mean curve [(train loss, validation loss, validation accuracy), ...])."""
+    n = min(len(c) for c in curves)                 # curve[k] = after k epochs, k = 0 is before training
+    mean = [tuple(float(np.mean([c[e][k] for c in curves])) for k in range(3)) for e in range(n)]
+    first = min(MIN_EPOCHS, n - 1)
+    best = min(range(first, n), key=lambda e: mean[e][1])      # minimum of the mean validation loss
+    return best, mean
+
+
+def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_level=0.5, shuffle=False):
+    """Leave-one-plant-out test of one fixed setting: 5 seeds per test plant, plant vote.
+
+    The number of epochs is the same for every test plant. The setting is first trained for its full
+    max_epochs on all inner splits (in each round, one training plant trains and the other validates,
+    then they swap: 6 splits in total); the validation curves are averaged and the best epoch of the
+    mean curve (see shared_epochs) is used to train the final model for every test plant.
+
+    shuffle (True or a number 1, 2, ... for a different random order) is the sanity check: in every round the labels of the training images are randomly
+    permuted among them (test labels stay true). A model that learns stress should then fall to chance
+    (0.25); clearly more means it is picking up something other than the labels.
+    """
     classes = conditions(samples)
     labels = np.array([classes.index(s.light) for s in samples])
     hours = np.array([s.hours for s in samples])
     plants = np.array([s.plant for s in samples])
-    true, pred, hrs, run_acc, cal_acc, epochs, by_plant = [], [], [], [], [], {}, {}
+    rounds, curves = [], []
     for fold, tr, te in leave_one_plant_out(plants):
         g = [gi * white_level for gi in gains(samples, white_reference(samples, tr))]
         feats, aug = patch_sets(samples, g, setting["patch"], setting["stride"], max_patches, f"white-{fold}", net_name)
-        epochs[fold] = early_stopped_epochs(feats, labels, plants, tr, setting, len(classes), aug)
-        X, y = train_set(feats, aug, tr, labels)
+        lab = labels.copy()
+        if shuffle:
+            lab[tr] = np.random.default_rng(1000 * int(shuffle) + int(fold[1:])).permutation(labels[tr])
+        rounds.append((fold, tr, te, feats, aug, lab))
+        for itr, ival in inner_splits(plants, tr):
+            _, _, c = train_head(*train_set(feats, aug, itr, lab), setting, 0, *stack(feats, ival, lab),
+                                 epochs=setting["max_epochs"], n_classes=len(classes), patience=None)
+            curves.append(c)
+    n_epochs, mean_curve = shared_epochs(curves)
+    print(f"  {net_name}: {n_epochs} epochs for every test plant (best of the mean validation curve "
+          f"over {len(curves)} inner splits, validation accuracy {mean_curve[n_epochs][2]:.2f})", flush=True)
+    if n_epochs == len(mean_curve) - 1:
+        print(f"  note: the best epoch is the last one tried ({n_epochs}); the curve has not turned yet, "
+              f"so a longer run may do better", flush=True)
+
+    true, pred, hrs, run_acc, cal_acc, by_plant = [], [], [], [], [], {}
+    for fold, tr, te, feats, aug, lab in rounds:
+        X, y = train_set(feats, aug, tr, lab)
         for seed in range(seeds):
-            predict, _, _ = train_head(X, y, setting, seed, epochs=epochs[fold], n_classes=len(classes))
+            predict, _, _ = train_head(X, y, setting, seed, epochs=n_epochs, n_classes=len(classes))
             p = np.array(vote(predict, feats, te, len(classes)))
             run_acc.append(float(np.mean(p == labels[te])))
-            cal_acc.append(float(np.mean(np.array(vote(predict, feats, tr, len(classes))) == labels[tr])))
+            cal_acc.append(float(np.mean(np.array(vote(predict, feats, tr, len(classes))) == lab[tr])))
             true += [classes[i] for i in labels[te]]
             pred += [classes[i] for i in p]
             hrs += hours[te].tolist()
         t, q, h = (np.array(v[-seeds * len(te):]) for v in (true, pred, hrs))
         by_plant[fold] = {f"{x}h": float(np.mean(t[h == x] == q[h == x])) for x in sorted(set(h.tolist()))}
         by_plant[fold]["healthy vs stressed, 72h"] = float(np.mean((t[h == 72] == CONTROL) == (q[h == 72] == CONTROL)))
-        print(f"  {net_name} {fold}: {epochs[fold]} epochs, test accuracy {np.median(run_acc[-seeds:]):.2f}", flush=True)
-    return {"epochs_per_test_plant": epochs, "accuracy_by_test_plant_and_time": by_plant, **report(true, pred, hrs, run_acc, classes, CONTROL, cal_acc)}
+        print(f"  {net_name} {fold}: test accuracy {np.median(run_acc[-seeds:]):.2f}", flush=True)
+    return {"epochs": n_epochs, "validation_curve_mean": mean_curve, "curve_from_epoch": 0, "accuracy_by_test_plant_and_time": by_plant,
+            **report(true, pred, hrs, run_acc, classes, CONTROL, cal_acc)}

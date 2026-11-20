@@ -54,3 +54,17 @@
 
 Run 1 and 2 one after the other, not at the same time (one GPU). Each 09 + 10 pair takes roughly
 1 to 1.5 hours on the RTX 4070 Ti, so run 2 is most of a day.
+
+## 20 Nov: is the model learning the right thing?
+
+- Epochs: every curve now starts at epoch 0 (before training); the first-epoch drop was hidden before,
+  which is why epoch 1 looked best. The epoch kept is the minimum of the validation loss, averaged over
+  all 6 inner splits, one count for every plant, never below MIN_EPOCHS (5). Learning rate 1e-5 to 1e-2.
+- `scripts/10b_plot_curves.py`: training / validation loss and validation accuracy per epoch, minimum
+  labelled, rising part highlighted.
+- `scripts/10c_shuffle_check.py`: same model trained on randomly shuffled labels (5 random orders);
+  should fall to 0.25. Laptop smoke test: 0.17 to 0.25, mean 0.22.
+- `scripts/10d_heatmaps.py`: Grad-CAM heat map per test image and the share of attention on leaf
+  interior, leaf edge and background. Laptop check (64 px, test plant 1): interior 0.62 of attention
+  (0.60 of area), edge 0.13 (0.09), background 0.25 (0.31): mostly leaf tissue.
+- `PLANT_FRAC=0.8`: patches must be at least 80% plant (was 40%), run as a separate variant.
