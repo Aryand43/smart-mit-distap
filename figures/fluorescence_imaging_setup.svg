@@ -88,14 +88,17 @@
       <g stroke="#1F1F1E" stroke-width="1" fill="none">
         <line x1="24" y1="-16" x2="24" y2="-84" stroke-dasharray="3 2"/>
         <line x1="76" y1="-38" x2="76" y2="-84" stroke-dasharray="3 2"/>
-        <line x1="82" y1="-38" x2="82" y2="-52" stroke-dasharray="3 2"/>
-        <line x1="88" y1="-34" x2="88" y2="-52" stroke-dasharray="3 2"/>
         <line x1="25" y1="-78" x2="75" y2="-78" marker-start="url(#dim)" marker-end="url(#dim)"/>
-        <line x1="70" y1="-46" x2="81" y2="-46" marker-end="url(#dim)"/>
-        <line x1="100" y1="-46" x2="89" y2="-46" marker-end="url(#dim)"/>
+      </g>
+      <!-- lens to excitation filter: stacked above the LED-to-lens dimension, label to the left -->
+      <g stroke="#1F1F1E" stroke-width="1" fill="none">
+        <line x1="82" y1="-37" x2="82" y2="-124" stroke-dasharray="3 2"/>
+        <line x1="88" y1="-33" x2="88" y2="-124" stroke-dasharray="3 2"/>
+        <line x1="66" y1="-118" x2="81" y2="-118" marker-end="url(#dim)"/>
+        <line x1="98" y1="-118" x2="89" y2="-118" marker-end="url(#dim)"/>
       </g>
       <text x="50" y="-86">2–3.5 cm</text>
-      <text x="103" y="-52" text-anchor="start">0.5–1.5 cm</text>
+      <text x="62" y="-113" text-anchor="end">0.5–1.5 cm</text>
     </g>
 
 
@@ -131,12 +134,6 @@
     <text x="232" y="577" text-anchor="end">Excitation filter</text>
     <text x="700" y="646" text-anchor="middle">Sample</text>
   </g>
-  <!-- excitation wavelengths -->
-  <g font-size="17" font-weight="600" text-anchor="middle">
-    <text x="585" y="530" fill="#2E3F9E">480 nm</text>
-    <text x="815" y="530" fill="#A12B2B">780 nm</text>
-  </g>
-
   <!-- dimensions: camera to sample, optics to plant -->
   <g stroke="#1F1F1E" stroke-width="1" fill="none">
     <line x1="674" y1="270" x2="640" y2="270" stroke-dasharray="3 2"/>
