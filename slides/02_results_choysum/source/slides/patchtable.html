@@ -1,7 +1,7 @@
 <section id="patchtable" data-transition="fade" style="background:#EFEDEB;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:36px">
 <div style="display:flex;flex-direction:column;gap:12px">
-<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Patch size and stride</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">64-pixel patches with stride 4 come out best</h2>
+<p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Supplementary</p>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">Patch size and stride search</h2>
 </div>
 <div style="display:flex;gap:64px;align-items:flex-start">
 <table style="font-size:26px;line-height:1.3;color:#1F1F1E;width:1040px">
@@ -30,6 +30,5 @@
 </div>
 </div>
 </div>
-<p style="position:absolute;left:128px;bottom:64px;width:1664px;font-size:24px;color:#6B6B69">Laptop run, 90 trials over the 3 test plants. Combinations the optimiser never tried (8 × 2, 224 × 2) are not listed</p>
 <aside>Validation works inside each round: with plant 3 as the test plant, train on plant 1 and check on plant 2, then swap; the validation accuracy is the average of the two checks. The optimiser spends more trials on combinations that look promising, which is why 64 × 4 was tried 53 times. The same table from the GPU run is written to results/10_patch_stride_table.csv.</aside>
 </section>

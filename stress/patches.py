@@ -3,6 +3,16 @@
 A plant image is cut into size x size patches on a stride grid (patches at least MIN_PLANT plant). A
 frozen ImageNet backbone turns each patch into a feature vector, a small softmax head labels each
 patch, and the patches of a plant vote. Patches smaller than 224 pixels are enlarged to 224 first.
+
+Two options from Prof Ram (18 Nov), set by environment variables and applied by 09, 10 and 11:
+  BANDS  which of the three bands the network sees: "012" (all, default), one band ("0", "1", "2",
+         copied into all three input channels), two bands ("01", "02", "12"; the third channel is
+         their mean, so it adds no information), or "mean" (the average of the three bands).
+  AUG    number of noisy copies of every training patch (default 0 = off). Each copy is randomly
+         flipped / rotated by 90 degrees and gets shot-noise-like Gaussian noise whose standard
+         deviation is NOISE (default 0.02) at the white-light level and scales with the square root
+         of the signal. Validation and test patches are never augmented. The loss stays plain
+         cross-entropy.
 """
 from __future__ import annotations
 
@@ -18,6 +28,39 @@ from .data import CONTROL, conditions, gains, white_reference
 from .evaluate import leave_one_plant_out, report
 
 PATIENCE, BATCH = 10, 128
+BANDS = os.environ.get("BANDS", "012")
+AUG = int(os.environ.get("AUG", 0))
+NOISE = float(os.environ.get("NOISE", 0.02))
+WHITE = 0.5                      # white light sits at 0.5 after normalisation
+
+
+def run_name(net_name: str) -> str:
+    """Name of a tuning / final run, so ablations and augmented runs never overwrite each other."""
+    parts = [net_name] + ([f"bands{BANDS}"] if BANDS != "012" else []) + ([f"aug{AUG}n{NOISE:g}"] if AUG else [])
+    return "_".join(parts)
+
+
+def select_bands(img: np.ndarray) -> np.ndarray:
+    """Keep only the bands in BANDS, still as a 3-channel image for the pretrained network."""
+    if BANDS == "012":
+        return img
+    if BANDS == "mean":
+        return np.repeat(img.mean(2, keepdims=True), 3, 2)
+    chans = [img[..., int(c)] for c in BANDS]
+    if len(chans) == 1:
+        chans *= 3
+    elif len(chans) == 2:
+        chans.append((chans[0] + chans[1]) / 2)
+    return np.stack(chans, 2)
+
+
+def augment(x: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """One noisy copy of a batch of patches (n x h x w x 3, values 0-1)."""
+    x = np.rot90(x, rng.integers(4), axes=(1, 2))
+    if rng.random() < 0.5:
+        x = x[:, :, ::-1]
+    sd = NOISE * np.sqrt(np.clip(x, 0, None) / WHITE)
+    return np.clip(x + rng.standard_normal(x.shape).astype(np.float32) * sd, 0, 1).astype(np.float32)
 BACKBONES = ("resnet50", "vit_b_16")
 
 
@@ -62,26 +105,30 @@ def _net(name: str):
 
 @torch.no_grad()
 def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
-             net_name: str = "resnet50") -> list[np.ndarray]:
+             net_name: str = "resnet50", copies: int = 0) -> list[np.ndarray]:
     """Patch features (n_patches x d) per image, cached per backbone and setting.
 
     g: per-image band multipliers that bring the 0-255 image to 0-1 (white-light normalisation).
+    copies: 0 for the clean patches; k > 0 for k noisy copies of every patch (see augment).
     """
     prefix = "tune" if net_name == "resnet50" else net_name       # keeps the ResNet caches from 09 valid
-    path = CACHE / f"{prefix}_{samples[0].crop}_p{size}_s{stride}_n{max_patches}_{tag}.npz"
+    extra = (f"_b{BANDS}" if BANDS != "012" else "") + (f"_aug{copies}n{NOISE:g}" if copies else "")
+    path = CACHE / f"{prefix}_{samples[0].crop}_p{size}_s{stride}_n{max_patches}_{tag}{extra}.npz"
     if not path.exists():
         net, out = _net(net_name), {}
-        for s, gi in zip(samples, g):
-            img = np.clip(s.image() * gi, 0, 1).astype(np.float32)
+        for k, (s, gi) in enumerate(zip(samples, g)):
+            img = select_bands(np.clip(s.image() * gi, 0, 1).astype(np.float32))
             pos = positions(s.mask(), size, stride, max_patches)
+            rng = np.random.default_rng(k)
             feats = []
             for i in range(0, len(pos), BATCH):
-                x = np.stack([img[r:r + size, c:c + size] for r, c in pos[i:i + BATCH]])
-                x = torch.from_numpy(np.ascontiguousarray(((x - _MEAN) / _STD).transpose(0, 3, 1, 2))).float()
-                x = x.to(_device(net_name))
-                if size != 224:
-                    x = torch.nn.functional.interpolate(x, size=224, mode="bilinear", align_corners=False)
-                feats.append(net(x).cpu().numpy())
+                batch = np.stack([img[r:r + size, c:c + size] for r, c in pos[i:i + BATCH]])
+                for xb in ([augment(batch, rng) for _ in range(copies)] if copies else [batch]):
+                    x = torch.from_numpy(np.ascontiguousarray(((xb - _MEAN) / _STD).transpose(0, 3, 1, 2))).float()
+                    x = x.to(_device(net_name))
+                    if size != 224:
+                        x = torch.nn.functional.interpolate(x, size=224, mode="bilinear", align_corners=False)
+                    feats.append(net(x).cpu().numpy())
             out[s.path.name] = np.concatenate(feats) if feats else np.zeros((0, 1), np.float32)
         CACHE.mkdir(parents=True, exist_ok=True)
         tmp = path.with_name(path.stem + f".tmp{os.getpid()}.npz")   # write, then rename: never a half-written cache
@@ -93,7 +140,22 @@ def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
     except (zipfile.BadZipFile, KeyError, EOFError, ValueError):
         print(f"  rebuilding damaged cache {path.name}", flush=True)
         path.unlink()
-        return features(samples, g, size, stride, max_patches, tag, net_name)
+        return features(samples, g, size, stride, max_patches, tag, net_name, copies)
+
+
+def patch_sets(samples, g, size, stride, max_patches, tag, net_name="resnet50"):
+    """(clean features, augmented features or None). Training uses both; validation and test only clean."""
+    clean = features(samples, g, size, stride, max_patches, tag, net_name)
+    return clean, (features(samples, g, size, stride, max_patches, tag, net_name, AUG) if AUG else None)
+
+
+def train_set(feats, aug, idx, labels):
+    """Training patches of the images idx: the clean ones plus their noisy copies when AUG is on."""
+    X, y = stack(feats, idx, labels)
+    if aug is not None:
+        Xa, ya = stack(aug, idx, labels)
+        X, y = np.concatenate([X, Xa]), np.concatenate([y, ya])
+    return X, y
 
 
 def train_head(X, y, p, seed, Xval=None, yval=None, epochs=None, n_classes=4):
@@ -165,11 +227,12 @@ def inner_splits(plants, tr):
     return [(tr[plants[tr] != v], tr[plants[tr] == v]) for v in ps]
 
 
-def early_stopped_epochs(feats, labels, plants, tr, p, n_classes):
+def early_stopped_epochs(feats, labels, plants, tr, p, n_classes, aug=None):
     """Median epoch at which training stops on the inner splits; used to refit on all training plants."""
     eps = []
     for itr, ival in inner_splits(plants, tr):
-        _, ep, _ = train_head(*stack(feats, itr, labels), p, 0, *stack(feats, ival, labels), n_classes=n_classes)
+        _, ep, _ = train_head(*train_set(feats, aug, itr, labels), p, 0, *stack(feats, ival, labels),
+                              n_classes=n_classes)
         eps.append(ep)
     return int(np.median(eps))
 
@@ -180,12 +243,12 @@ def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_
     labels = np.array([classes.index(s.light) for s in samples])
     hours = np.array([s.hours for s in samples])
     plants = np.array([s.plant for s in samples])
-    true, pred, hrs, run_acc, cal_acc, epochs = [], [], [], [], [], {}
+    true, pred, hrs, run_acc, cal_acc, epochs, by_plant = [], [], [], [], [], {}, {}
     for fold, tr, te in leave_one_plant_out(plants):
         g = [gi * white_level for gi in gains(samples, white_reference(samples, tr))]
-        feats = features(samples, g, setting["patch"], setting["stride"], max_patches, f"white-{fold}", net_name)
-        epochs[fold] = early_stopped_epochs(feats, labels, plants, tr, setting, len(classes))
-        X, y = stack(feats, tr, labels)
+        feats, aug = patch_sets(samples, g, setting["patch"], setting["stride"], max_patches, f"white-{fold}", net_name)
+        epochs[fold] = early_stopped_epochs(feats, labels, plants, tr, setting, len(classes), aug)
+        X, y = train_set(feats, aug, tr, labels)
         for seed in range(seeds):
             predict, _, _ = train_head(X, y, setting, seed, epochs=epochs[fold], n_classes=len(classes))
             p = np.array(vote(predict, feats, te, len(classes)))
@@ -194,5 +257,8 @@ def evaluate(samples, setting, max_patches, net_name="resnet50", seeds=5, white_
             true += [classes[i] for i in labels[te]]
             pred += [classes[i] for i in p]
             hrs += hours[te].tolist()
+        t, q, h = (np.array(v[-seeds * len(te):]) for v in (true, pred, hrs))
+        by_plant[fold] = {f"{x}h": float(np.mean(t[h == x] == q[h == x])) for x in sorted(set(h.tolist()))}
+        by_plant[fold]["healthy vs stressed, 72h"] = float(np.mean((t[h == 72] == CONTROL) == (q[h == 72] == CONTROL)))
         print(f"  {net_name} {fold}: {epochs[fold]} epochs, test accuracy {np.median(run_acc[-seeds:]):.2f}", flush=True)
-    return {"epochs_per_test_plant": epochs, **report(true, pred, hrs, run_acc, classes, CONTROL, cal_acc)}
+    return {"epochs_per_test_plant": epochs, "accuracy_by_test_plant_and_time": by_plant, **report(true, pred, hrs, run_acc, classes, CONTROL, cal_acc)}

@@ -1,15 +1,16 @@
 <section id="metrics" data-transition="fade" style="background:#EFEDEB;color:#1F1F1E;font-family:'IBM Plex Sans', Arial, sans-serif;padding:128px 128px 160px;display:flex;flex-direction:column;gap:32px">
 <div style="display:flex;flex-direction:column;gap:12px">
 <p style="font-size:28px;letter-spacing:3px;text-transform:uppercase;color:#9D192B;font-weight:600">Appendix</p>
-<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">What each term means</h2>
+<h2 style="font-family:'Source Serif 4', Georgia, serif;font-size:56px;font-weight:600;line-height:1.1">Definitions</h2>
 </div>
 <table style="font-size:24px;line-height:1.3;color:#1F1F1E;width:1664px">
 <tr style="background:#F3E6E8"><th style="width:22%;text-align:left">Term</th><th style="width:78%;text-align:left">Meaning</th></tr>
-<tr style="background:#FFFFFE"><td><b>Patch</b></td><td>A square cut from the image; tuned to 32 × 32 pixels (searched 8 to 224), enlarged to 224 for the network</td></tr>
-<tr><td><b>Stride</b></td><td>How many pixels the patch window moves each step; tuned to 2 (searched 2 or 4)</td></tr>
+<tr style="background:#FFFFFE"><td><b>Patch</b></td><td>A square cut from the image; chosen by Bayesian optimisation from 8, 16, 32, 64, 128 and 256 pixels, then resized to the 224 × 224 network input</td></tr>
+<tr><td><b>Stride</b></td><td>How many pixels the patch window moves each step; chosen from 2, 4 and 8</td></tr>
 <tr style="background:#FFFFFE"><td><b>Epoch / run</b></td><td>Epoch: one pass of training over all training patches. Run: one full training from a fresh random start</td></tr>
 <tr style="background:#FFFFFE"><td><b>Plant vote</b></td><td>All patches of a plant vote; the most common label is the plant’s answer</td></tr>
 <tr><td><b>White-light normalisation</b></td><td>Each image divided by that day’s healthy-plant average, so stress shows as a difference</td></tr>
+<tr><td><b>Calibration / test accuracy</b></td><td>Calibration: the model scored on the plants it was trained on. Test: scored on the unseen plant</td></tr>
 <tr style="background:#FFFFFE"><td><b>Accuracy</b></td><td>Share of plants given the correct condition. 0.25 is random guessing</td></tr>
 <tr><td><b>Precision</b></td><td>When the model names a condition, how often it is right: TP / (TP + FP)</td></tr>
 <tr style="background:#FFFFFE"><td><b>Recall</b></td><td>Of the plants truly in a condition, how many it finds: TP / (TP + FN)</td></tr>

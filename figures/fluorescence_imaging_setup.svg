@@ -5,6 +5,12 @@
     <marker id="ray" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
       <path d="M0,0 L10,5 L0,10 Z" fill="#2E3F9E"/>
     </marker>
+    <marker id="rayR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#A12B2B"/>
+    </marker>
+    <marker id="dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,1 L10,5 L0,9 Z" fill="#1F1F1E"/>
+    </marker>
   </defs>
 
   <g transform="translate(200,0)">
@@ -17,8 +23,15 @@
         <line x1="377" y1="465" x2="467" y2="508"/>
       </g>
     </g>
+    <!-- right-hand source: 780 nm, mirrored -->
     <g transform="translate(1000,0) scale(-1,1)">
-      <use href="#beam"/>
+    <g id="beamR">
+      <polygon points="400,410 502,436 470,510 377,465" fill="#E08A8A" opacity="0.2"/>
+      <g stroke="#A12B2B" stroke-width="1.6" fill="none" marker-end="url(#rayR)">
+        <line x1="400" y1="410" x2="499" y2="436"/>
+        <line x1="377" y1="465" x2="467" y2="508"/>
+      </g>
+    </g>
     </g>
 
     <!-- frame -->
@@ -41,7 +54,7 @@
     <rect x="480" y="240" width="40" height="14" fill="#2F3A4A"/>
     <rect x="476" y="254" width="48" height="16" rx="2" fill="#E3A33B" stroke="#B57A1E" stroke-width="1.5"/>
 
-    <!-- light source: holder, LED, plano-convex lens (convex side to the LED), excitation filter (left, then mirrored) -->
+    <!-- light source: holder, LED, plano-convex lens (convex side to the LED), excitation filter (left 480 nm; the right copy is 780 nm) -->
     <g id="head" transform="translate(300,400) rotate(22.8)">
       <rect x="-52" y="-16" width="30" height="32" rx="3" fill="#7B7B79"/>
       <rect x="-22" y="-20" width="40" height="40" rx="5" fill="#2F3A4A"/>
@@ -56,8 +69,35 @@
       </g>
     </g>
     <g transform="translate(1000,0) scale(-1,1)">
-      <use href="#head"/>
+    <g id="headR" transform="translate(300,400) rotate(22.8)">
+      <rect x="-52" y="-16" width="30" height="32" rx="3" fill="#7B7B79"/>
+      <rect x="-22" y="-20" width="40" height="40" rx="5" fill="#2F3A4A"/>
+      <rect x="18" y="-12" width="6" height="24" fill="#2F3A4A"/>
+      <path d="M82,-34 L76,-34 Q54,0 76,34 L82,34 Z" fill="#CFE3F2" stroke="#6E9CC0" stroke-width="1.5"/>
+      <rect x="88" y="-30" width="8" height="60" rx="1.5" fill="#C24E4E"/>
+      <!-- light leaving the LED: V-shaped edge rays to the lens -->
+      <polygon points="24,0 70,-26 70,26" fill="#E08A8A" opacity="0.2"/>
+      <g stroke="#A12B2B" stroke-width="1.6" fill="none">
+        <line x1="24" y1="0" x2="70" y2="-26"/>
+        <line x1="24" y1="0" x2="70" y2="26"/>
+      </g>
     </g>
+    </g>
+    <!-- dimensions (left source only, so the text is not mirrored): LED to lens, lens to excitation filter -->
+    <g transform="translate(300,400) rotate(22.8)" font-size="15" fill="#1F1F1E" text-anchor="middle">
+      <g stroke="#1F1F1E" stroke-width="1" fill="none">
+        <line x1="24" y1="-16" x2="24" y2="-84" stroke-dasharray="3 2"/>
+        <line x1="76" y1="-38" x2="76" y2="-84" stroke-dasharray="3 2"/>
+        <line x1="82" y1="-38" x2="82" y2="-52" stroke-dasharray="3 2"/>
+        <line x1="88" y1="-34" x2="88" y2="-52" stroke-dasharray="3 2"/>
+        <line x1="25" y1="-78" x2="75" y2="-78" marker-start="url(#dim)" marker-end="url(#dim)"/>
+        <line x1="70" y1="-46" x2="81" y2="-46" marker-end="url(#dim)"/>
+        <line x1="100" y1="-46" x2="89" y2="-46" marker-end="url(#dim)"/>
+      </g>
+      <text x="50" y="-86">2–3.5 cm</text>
+      <text x="103" y="-52" text-anchor="start">0.5–1.5 cm</text>
+    </g>
+
 
     <!-- sample: plant in a pot -->
     <path d="M472,512 L528,512 L520,570 L480,570 Z" fill="#6B4F3A"/>
@@ -91,7 +131,30 @@
     <text x="232" y="577" text-anchor="end">Excitation filter</text>
     <text x="700" y="646" text-anchor="middle">Sample</text>
   </g>
-  <text x="1090" y="420" font-size="17" fill="#6B6B69" text-anchor="middle">
-    <tspan x="1090">Same light source</tspan><tspan x="1090" dy="22">on both sides</tspan>
+  <!-- excitation wavelengths -->
+  <g font-size="17" font-weight="600" text-anchor="middle">
+    <text x="585" y="530" fill="#2E3F9E">480 nm</text>
+    <text x="815" y="530" fill="#A12B2B">780 nm</text>
+  </g>
+
+  <!-- dimensions: camera to sample, optics to plant -->
+  <g stroke="#1F1F1E" stroke-width="1" fill="none">
+    <line x1="674" y1="270" x2="640" y2="270" stroke-dasharray="3 2"/>
+    <line x1="688" y1="440" x2="640" y2="440" stroke-dasharray="3 2"/>
+    <line x1="648" y1="271" x2="648" y2="439" marker-start="url(#dim)" marker-end="url(#dim)"/>
+    <line x1="796" y1="393" x2="702" y2="418" marker-start="url(#dim)" marker-end="url(#dim)"/>
+    <line x1="800" y1="410" x2="795" y2="391" stroke-dasharray="3 2"/>
+    <line x1="701" y1="436" x2="697" y2="416" stroke-dasharray="3 2"/>
+  </g>
+  <g font-size="15" fill="#1F1F1E">
+    <text x="656" y="345" text-anchor="start">&gt; 35 cm</text>
+    <text x="756" y="392" text-anchor="middle">≈ 30 cm</text>
+  </g>
+
+  <!-- illumination area -->
+  <polyline points="1010,430 990,482 748,482" stroke="#1F1F1E" stroke-width="1.5" fill="none"/>
+  <circle cx="748" cy="482" r="3.5" fill="#1F1F1E"/>
+  <text x="1090" y="420" font-size="17" fill="#1F1F1E" text-anchor="middle">
+    <tspan x="1090">Illumination area</tspan><tspan x="1090" dy="22">≈ 10 × 10 cm</tspan>
   </text>
 </svg>

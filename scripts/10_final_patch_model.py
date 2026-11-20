@@ -17,8 +17,9 @@ To fix the patch size and stride instead, set PATCH and STRIDE (the training set
 trial within that patch size and stride):
     PATCH=64 STRIDE=4 python scripts/10_final_patch_model.py
 
-Reads results/09_tune_<backbone>.json. Writes results/10_final_<backbone>.json and
-results/10_patch_stride_<backbone>.csv (best, mean and median validation accuracy for every patch size
+Uses the same BANDS / AUG / NOISE settings as the 09 run it follows (see stress/patches.py).
+Reads results/09_tune_<run>.json. Writes results/10_final_<run>.json and
+results/10_patch_stride_<run>.csv (best, mean and median validation accuracy for every patch size
 and stride tried, and for every patch size over all strides).
 """
 from __future__ import annotations
@@ -33,7 +34,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from stress.data import load  # noqa: E402
-from stress.patches import BACKBONES, evaluate  # noqa: E402
+from stress.patches import BACKBONES, evaluate, run_name  # noqa: E402
 
 RESULTS = Path(__file__).resolve().parents[1] / "results"
 BACKBONE = os.environ.get("BACKBONE", "resnet50")
@@ -67,34 +68,38 @@ def select(tuning: dict, patch: int | None = None, stride: int | None = None):
 def main():
     if BACKBONE not in BACKBONES:
         raise SystemExit(f"BACKBONE must be one of {BACKBONES}")
-    tuning = json.loads((RESULTS / f"09_tune_{BACKBONE}.json").read_text())
+    run = run_name(BACKBONE)
+    tuning = json.loads((RESULTS / f"09_tune_{run}.json").read_text())
     patch, stride = os.environ.get("PATCH"), os.environ.get("STRIDE")
     if (patch is None) != (stride is None):
         raise SystemExit("Set both PATCH and STRIDE, or neither")
     setting, val_acc, pairs, patches = select(tuning, *(map(int, (patch, stride)) if patch else (None, None)))
     max_patches = tuning["search"]["max_patches"]
 
-    with open(RESULTS / f"10_patch_stride_{BACKBONE}.csv", "w", newline="") as fh:
+    with open(RESULTS / f"10_patch_stride_{run}.csv", "w", newline="") as fh:
         w = csv.writer(fh)
         w.writerow(["Patch (px)", "Stride (px)", "Trials", "Best validation accuracy",
                     "Mean validation accuracy", "Median validation accuracy"])
         for r in patches + pairs:
             w.writerow([r["patch"], r["stride"], r["trials"], *(f"{r[k]:.2f}" for k in ("best", "mean", "median"))])
 
-    print(f"{BACKBONE}: hyperparameters obtained by Bayesian optimisation "
+    print(f"{run}: hyperparameters obtained by Bayesian optimisation "
           f"(validation accuracy {val_acc:.2f})", flush=True)
     for k in SHOWN:
         print(f"  {k:13s} {setting.get(k)}")
     print("  loss          cross-entropy", flush=True)
 
     result = evaluate(load(), setting, max_patches, BACKBONE)
-    out = {"backbone": BACKBONE, "selected_setting": setting, "validation_accuracy": val_acc,
+    out = {"backbone": BACKBONE, "run": run, "selected_setting": setting, "validation_accuracy": val_acc,
            "max_patches": max_patches, "network_input": "224 x 224", "loss": "cross-entropy",
            "patch_size_summary": patches, "patch_stride_table": pairs, **result}
-    (RESULTS / f"10_final_{BACKBONE}.json").write_text(json.dumps(out, indent=2))
+    (RESULTS / f"10_final_{run}.json").write_text(json.dumps(out, indent=2))
 
     a, c = out["accuracy_over_runs"], out["calibration_accuracy_over_runs"]
     print(f"\ncalibration accuracy {c['median']:.2f}, test accuracy median {a['median']:.2f} (mean {a['mean']:.2f})")
+    print("\nAccuracy by test plant and time point (day 3 check)")
+    for plant, row in out["accuracy_by_test_plant_and_time"].items():
+        print(f"  {plant}: " + ", ".join(f"{k} {v:.2f}" for k, v in row.items()))
     for title, key in [("Four classes", "by_time_point"), ("Healthy vs stressed", "by_time_point, stressed vs control")]:
         print(f"\n{title}\n  time   precision recall  F1    accuracy")
         for h, m in out[key].items():
