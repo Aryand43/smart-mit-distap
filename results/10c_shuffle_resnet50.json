@@ -1,0 +1,40 @@
+{
+  "run": "resnet50",
+  "setting": {
+    "patch": 64,
+    "stride": 8,
+    "max_epochs": 27,
+    "lr": 0.0010454282844273213,
+    "lr_decay": 0.9575068099234971,
+    "optimizer": "adam",
+    "weight_decay": 0.0009576499677881729,
+    "batch_size": 64,
+    "epochs_used": 5,
+    "epochs": 5
+  },
+  "real_labels_test_accuracy": {
+    "median": 0.75,
+    "q1": 0.75,
+    "q3": 0.8125,
+    "mean": 0.7708333333333334,
+    "min": 0.6875,
+    "max": 0.875,
+    "n_runs": 15,
+    "n_outliers": 0
+  },
+  "shuffled_labels_test_accuracy": {
+    "median": 0.2875,
+    "mean": 0.2633333333333333,
+    "min": 0.14583333333333334,
+    "max": 0.30833333333333335,
+    "per_shuffle": [
+      0.2708333333333333,
+      0.30416666666666664,
+      0.30833333333333335,
+      0.14583333333333334,
+      0.2875
+    ]
+  },
+  "shuffled_labels_healthy_vs_stressed": 0.6449999999999999,
+  "chance": 0.25
+}

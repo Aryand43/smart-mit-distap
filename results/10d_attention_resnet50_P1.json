@@ -1,0 +1,14 @@
+{
+  "interior": {
+    "attention_share": 0.596294829621911,
+    "area_share": 0.5673829999435871
+  },
+  "edge": {
+    "attention_share": 0.1355051384307444,
+    "area_share": 0.08609859759346018
+  },
+  "background": {
+    "attention_share": 0.26820004219189286,
+    "area_share": 0.3465184024629527
+  }
+}

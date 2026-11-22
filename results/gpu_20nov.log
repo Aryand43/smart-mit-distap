@@ -1,0 +1,384 @@
+resnet50 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 32, 'stride': 8, 'max_epochs': 47, 'lr': 0.0005135589606500231, 'lr_decay': 0.943860151346232, 'optimizer': 'adam', 'weight_decay': 0.000304739361773639, 'batch_size': 64, 'epochs_used': 5}, inner 0.78, test median 0.69
+P2: best {'patch': 64, 'stride': 8, 'max_epochs': 77, 'lr': 0.00036734063004699625, 'lr_decay': 0.9455390777497242, 'optimizer': 'adamw', 'weight_decay': 0.007228158263209031, 'batch_size': 512, 'epochs_used': 5}, inner 0.72, test median 0.81
+P3: best {'patch': 64, 'stride': 8, 'max_epochs': 99, 'lr': 0.0005179234508227921, 'lr_decay': 0.9487721364906029, 'optimizer': 'adamw', 'weight_decay': 0.0001251044355334418, 'batch_size': 512, 'epochs_used': 5}, inner 0.69, test median 0.81
+tuned: accuracy 0.76, F1 0.73, stressed vs control 0.95
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[60, 0, 0, 0], [2, 58, 0, 0], [10, 15, 20, 15], [0, 5, 11, 44]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.53)
+  resnet50 P1: test accuracy 0.75
+  resnet50 P2: test accuracy 0.75
+  resnet50 P3: test accuracy 0.81
+
+resnet50: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.78); one setting and one epoch count for all test plants
+  patch         64
+  stride        8
+  epochs        5
+  lr            0.0010454282844273213
+  lr_decay      0.9575068099234971
+  optimizer     adam
+  weight_decay  0.0009576499677881729
+  batch_size    64
+  loss          cross-entropy
+
+calibration accuracy 1.00, test accuracy median 0.75 (mean 0.77)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.75, 24h 0.75, 48h 0.75, 72h 0.75, healthy vs stressed, 72h 1.00
+  P2: 4h 0.95, 24h 0.75, 48h 0.85, 72h 0.50, healthy vs stressed, 72h 1.00
+  P3: 4h 1.00, 24h 0.60, 48h 0.85, 72h 0.75, healthy vs stressed, 72h 0.75
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.91      0.90    0.90  0.90
+  24h    0.53      0.70    0.60  0.70
+  48h    0.81      0.82    0.81  0.82
+  72h    0.59      0.67    0.60  0.67
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.92      0.97    0.94  0.95
+  48h    1.00      1.00    1.00  1.00
+  72h    0.88      0.94    0.90  0.92
+-> /home/distap/smart-mit-distap/results/10b_mean_curve_resnet50.png
+-> /home/distap/smart-mit-distap/results/10b_curves_resnet50.png
+resnet50: real labels gave test accuracy 0.75; now training on shuffled labels
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.23)
+  resnet50 P1: test accuracy 0.38
+  resnet50 P2: test accuracy 0.25
+  resnet50 P3: test accuracy 0.19
+  shuffle 1: test accuracy 0.27
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.16)
+  resnet50 P1: test accuracy 0.19
+  resnet50 P2: test accuracy 0.31
+  resnet50 P3: test accuracy 0.44
+  shuffle 2: test accuracy 0.30
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.20)
+  resnet50 P1: test accuracy 0.12
+  resnet50 P2: test accuracy 0.44
+  resnet50 P3: test accuracy 0.31
+  shuffle 3: test accuracy 0.31
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.18)
+  resnet50 P1: test accuracy 0.12
+  resnet50 P2: test accuracy 0.12
+  resnet50 P3: test accuracy 0.19
+  shuffle 4: test accuracy 0.15
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.20)
+  resnet50 P1: test accuracy 0.25
+  resnet50 P2: test accuracy 0.25
+  resnet50 P3: test accuracy 0.31
+  shuffle 5: test accuracy 0.29
+
+shuffled labels, 5 random orders: test accuracy mean 0.26 (range 0.15 to 0.31), chance 0.25 -> close to chance: the model is learning from the labels
+-> /home/distap/smart-mit-distap/results/10d_heatmaps_resnet50_P1.png
+where the attention falls (share of heat map vs share of pixels in the patches):
+  interior   attention 0.60   area 0.57
+  edge       attention 0.14   area 0.09
+  background attention 0.27   area 0.35
+-> /home/distap/smart-mit-distap/results/10d_heatmaps_resnet50_P2.png
+where the attention falls (share of heat map vs share of pixels in the patches):
+  interior   attention 0.66   area 0.59
+  edge       attention 0.11   area 0.07
+  background attention 0.23   area 0.34
+-> /home/distap/smart-mit-distap/results/10d_heatmaps_resnet50_P3.png
+where the attention falls (share of heat map vs share of pixels in the patches):
+  interior   attention 0.61   area 0.59
+  edge       attention 0.13   area 0.07
+  background attention 0.26   area 0.34
+resnet50_aug2n0.02 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 16, 'stride': 4, 'max_epochs': 60, 'lr': 0.0017602198452664347, 'lr_decay': 0.9707679755112253, 'optimizer': 'adam', 'weight_decay': 0.00010988670489320919, 'batch_size': 64, 'epochs_used': 5}, inner 0.78, test median 0.62
+P2: best {'patch': 64, 'stride': 4, 'max_epochs': 111, 'lr': 0.0009903494142749559, 'lr_decay': 0.9114554833482831, 'optimizer': 'adamw', 'weight_decay': 0.000401937849587576, 'batch_size': 512, 'epochs_used': 5}, inner 0.78, test median 0.81
+P3: best {'patch': 64, 'stride': 2, 'max_epochs': 32, 'lr': 0.00020771310069443328, 'lr_decay': 0.93539323440233, 'optimizer': 'sgd', 'weight_decay': 0.0020438539811450823, 'batch_size': 256, 'epochs_used': 16}, inner 0.72, test median 0.69
+tuned: accuracy 0.72, F1 0.70, stressed vs control 0.91
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[59, 1, 0, 0], [9, 49, 2, 0], [12, 12, 19, 17], [0, 5, 9, 46]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.46)
+  resnet50 P1: test accuracy 0.62
+  resnet50 P2: test accuracy 0.75
+  resnet50 P3: test accuracy 0.69
+
+resnet50_aug2n0.02: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.78); one setting and one epoch count for all test plants
+  patch         16
+  stride        4
+  epochs        5
+  lr            0.0017602198452664347
+  lr_decay      0.9707679755112253
+  optimizer     adam
+  weight_decay  0.00010988670489320919
+  batch_size    64
+  loss          cross-entropy
+
+calibration accuracy 1.00, test accuracy median 0.69 (mean 0.70)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.95, 24h 0.65, 48h 0.75, 72h 0.25, healthy vs stressed, 72h 0.50
+  P2: 4h 0.95, 24h 0.50, 48h 0.90, 72h 0.70, healthy vs stressed, 72h 1.00
+  P3: 4h 1.00, 24h 0.55, 48h 0.70, 72h 0.50, healthy vs stressed, 72h 0.50
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.97      0.97    0.97  0.97
+  24h    0.53      0.57    0.48  0.57
+  48h    0.86      0.78    0.78  0.78
+  72h    0.48      0.48    0.44  0.48
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     0.99      0.97    0.98  0.98
+  24h    0.77      0.86    0.76  0.78
+  48h    1.00      1.00    1.00  1.00
+  72h    0.69      0.76    0.65  0.67
+-> /home/distap/smart-mit-distap/results/10b_mean_curve_resnet50_aug2n0.02.png
+-> /home/distap/smart-mit-distap/results/10b_curves_resnet50_aug2n0.02.png
+resnet50_plant0.8 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 32, 'stride': 8, 'max_epochs': 47, 'lr': 0.0005135589606500231, 'lr_decay': 0.943860151346232, 'optimizer': 'adam', 'weight_decay': 0.000304739361773639, 'batch_size': 64, 'epochs_used': 5}, inner 0.75, test median 0.62
+P2: best {'patch': 64, 'stride': 8, 'max_epochs': 98, 'lr': 3.340460950331041e-05, 'lr_decay': 0.9671152482111063, 'optimizer': 'adamw', 'weight_decay': 0.00010161982378526407, 'batch_size': 256, 'epochs_used': 19}, inner 0.59, test median 0.81
+P3: best {'patch': 64, 'stride': 8, 'max_epochs': 77, 'lr': 0.00036734063004699625, 'lr_decay': 0.9455390777497242, 'optimizer': 'adamw', 'weight_decay': 0.007228158263209031, 'batch_size': 512, 'epochs_used': 5}, inner 0.62, test median 0.75
+tuned: accuracy 0.72, F1 0.70, stressed vs control 0.91
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[53, 2, 3, 2], [5, 55, 0, 0], [10, 15, 20, 15], [0, 4, 11, 45]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.46)
+  resnet50 P1: test accuracy 0.62
+  resnet50 P2: test accuracy 0.75
+  resnet50 P3: test accuracy 0.69
+
+resnet50_plant0.8: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.75); one setting and one epoch count for all test plants
+  patch         32
+  stride        8
+  epochs        5
+  lr            0.0005135589606500231
+  lr_decay      0.943860151346232
+  optimizer     adam
+  weight_decay  0.000304739361773639
+  batch_size    64
+  loss          cross-entropy
+
+calibration accuracy 1.00, test accuracy median 0.69 (mean 0.67)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.75, 24h 0.50, 48h 0.75, 72h 0.40, healthy vs stressed, 72h 0.65
+  P2: 4h 1.00, 24h 0.70, 48h 0.75, 72h 0.50, healthy vs stressed, 72h 1.00
+  P3: 4h 1.00, 24h 0.50, 48h 0.50, 72h 0.70, healthy vs stressed, 72h 0.70
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.94      0.92    0.91  0.92
+  24h    0.47      0.57    0.51  0.57
+  48h    0.86      0.67    0.65  0.67
+  72h    0.55      0.53    0.49  0.53
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.74      0.76    0.74  0.80
+  48h    1.00      1.00    1.00  1.00
+  72h    0.74      0.81    0.75  0.78
+resnet50_bands0 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 32, 'stride': 8, 'max_epochs': 14, 'lr': 0.00020795981638087704, 'lr_decay': 0.9455410052726703, 'optimizer': 'adamw', 'weight_decay': 0.003260265705011813, 'batch_size': 512, 'epochs_used': 9}, inner 0.84, test median 0.62
+P2: best {'patch': 64, 'stride': 8, 'max_epochs': 115, 'lr': 0.0007186951432421051, 'lr_decay': 0.9878889482665644, 'optimizer': 'adamw', 'weight_decay': 0.0006553533570197201, 'batch_size': 256, 'epochs_used': 5}, inner 0.62, test median 0.88
+P3: best {'patch': 64, 'stride': 8, 'max_epochs': 112, 'lr': 9.03039728888593e-05, 'lr_decay': 0.9667410379963681, 'optimizer': 'adamw', 'weight_decay': 0.0003544655931853293, 'batch_size': 256, 'epochs_used': 5}, inner 0.62, test median 0.81
+tuned: accuracy 0.76, F1 0.72, stressed vs control 0.92
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[55, 5, 0, 0], [0, 58, 2, 0], [14, 7, 14, 25], [0, 4, 1, 55]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.40)
+  resnet50 P1: test accuracy 0.62
+  resnet50 P2: test accuracy 0.75
+  resnet50 P3: test accuracy 0.69
+
+resnet50_bands0: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.84); one setting and one epoch count for all test plants
+  patch         32
+  stride        8
+  epochs        5
+  lr            0.00020795981638087704
+  lr_decay      0.9455410052726703
+  optimizer     adamw
+  weight_decay  0.003260265705011813
+  batch_size    512
+  loss          cross-entropy
+
+calibration accuracy 0.94, test accuracy median 0.69 (mean 0.68)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.75, 24h 0.70, 48h 0.35, 72h 0.75, healthy vs stressed, 72h 1.00
+  P2: 4h 1.00, 24h 0.75, 48h 0.40, 72h 0.70, healthy vs stressed, 72h 1.00
+  P3: 4h 1.00, 24h 0.50, 48h 0.75, 72h 0.50, healthy vs stressed, 72h 0.50
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.94      0.92    0.91  0.92
+  24h    0.50      0.65    0.56  0.65
+  48h    0.43      0.50    0.45  0.50
+  72h    0.54      0.65    0.56  0.65
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.88      0.94    0.90  0.92
+  48h    0.73      0.71    0.72  0.80
+  72h    0.80      0.89    0.81  0.83
+resnet50_bands1 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 256, 'stride': 8, 'max_epochs': 56, 'lr': 0.0015976362494417322, 'lr_decay': 0.9459591655104297, 'optimizer': 'adam', 'weight_decay': 0.001288903768649954, 'batch_size': 256, 'epochs_used': 17}, inner 0.75, test median 0.62
+P2: best {'patch': 128, 'stride': 8, 'max_epochs': 24, 'lr': 0.000365687250050888, 'lr_decay': 0.9054337988339254, 'optimizer': 'sgd', 'weight_decay': 0.0004696497161394397, 'batch_size': 128, 'epochs_used': 5}, inner 0.66, test median 0.50
+P3: best {'patch': 32, 'stride': 8, 'max_epochs': 16, 'lr': 0.008499206771743687, 'lr_decay': 0.9468651201647702, 'optimizer': 'adam', 'weight_decay': 0.00013108813258313508, 'batch_size': 256, 'epochs_used': 5}, inner 0.59, test median 0.69
+tuned: accuracy 0.61, F1 0.60, stressed vs control 0.93
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[53, 0, 7, 0], [0, 39, 6, 15], [10, 7, 16, 27], [0, 11, 10, 39]]}
+  resnet50: 55 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.48)
+  resnet50 P1: test accuracy 0.69
+  resnet50 P2: test accuracy 0.88
+  resnet50 P3: test accuracy 0.62
+
+resnet50_bands1: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.75); one setting and one epoch count for all test plants
+  patch         256
+  stride        8
+  epochs        55
+  lr            0.0015976362494417322
+  lr_decay      0.9459591655104297
+  optimizer     adam
+  weight_decay  0.001288903768649954
+  batch_size    256
+  loss          cross-entropy
+
+calibration accuracy 1.00, test accuracy median 0.69 (mean 0.72)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.45, 24h 0.60, 48h 0.85, 72h 0.75, healthy vs stressed, 72h 1.00
+  P2: 4h 0.75, 24h 0.75, 48h 1.00, 72h 1.00, healthy vs stressed, 72h 1.00
+  P3: 4h 0.70, 24h 0.25, 48h 0.75, 72h 0.75, healthy vs stressed, 72h 0.75
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.66      0.63    0.64  0.63
+  24h    0.51      0.53    0.48  0.53
+  48h    0.88      0.87    0.86  0.87
+  72h    0.88      0.83    0.80  0.83
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.75      0.83    0.73  0.75
+  48h    1.00      1.00    1.00  1.00
+  72h    0.88      0.94    0.90  0.92
+resnet50_bands2 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 64, 'stride': 8, 'max_epochs': 112, 'lr': 9.03039728888593e-05, 'lr_decay': 0.9667410379963681, 'optimizer': 'adamw', 'weight_decay': 0.0003544655931853293, 'batch_size': 256, 'epochs_used': 8}, inner 0.81, test median 0.56
+P2: best {'patch': 64, 'stride': 8, 'max_epochs': 46, 'lr': 0.005676142872521518, 'lr_decay': 0.9423398346780191, 'optimizer': 'adam', 'weight_decay': 0.007715356181387766, 'batch_size': 256, 'epochs_used': 5}, inner 0.66, test median 0.75
+P3: best {'patch': 128, 'stride': 8, 'max_epochs': 15, 'lr': 0.006271889530994017, 'lr_decay': 0.9050742220910333, 'optimizer': 'adam', 'weight_decay': 0.003975321765210567, 'batch_size': 512, 'epochs_used': 6}, inner 0.59, test median 0.75
+tuned: accuracy 0.70, F1 0.68, stressed vs control 0.93
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[52, 8, 0, 0], [3, 50, 2, 5], [5, 6, 17, 32], [0, 2, 9, 49]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.41)
+  resnet50 P1: test accuracy 0.56
+  resnet50 P2: test accuracy 0.69
+  resnet50 P3: test accuracy 0.62
+
+resnet50_bands2: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.81); one setting and one epoch count for all test plants
+  patch         64
+  stride        8
+  epochs        5
+  lr            9.03039728888593e-05
+  lr_decay      0.9667410379963681
+  optimizer     adamw
+  weight_decay  0.0003544655931853293
+  batch_size    256
+  loss          cross-entropy
+
+calibration accuracy 0.97, test accuracy median 0.62 (mean 0.62)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.75, 24h 0.75, 48h 0.00, 72h 0.75, healthy vs stressed, 72h 1.00
+  P2: 4h 0.75, 24h 0.75, 48h 0.60, 72h 0.60, healthy vs stressed, 72h 1.00
+  P3: 4h 0.55, 24h 0.65, 48h 0.85, 72h 0.50, healthy vs stressed, 72h 0.75
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.75      0.68    0.66  0.68
+  24h    0.55      0.72    0.62  0.72
+  48h    0.52      0.48    0.48  0.48
+  72h    0.57      0.62    0.58  0.62
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.94      0.98    0.96  0.97
+  48h    0.95      0.83    0.87  0.92
+  72h    0.88      0.94    0.90  0.92
+resnet50_bands01 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 64, 'stride': 8, 'max_epochs': 35, 'lr': 0.0029390058108372157, 'lr_decay': 0.9858985601835917, 'optimizer': 'adam', 'weight_decay': 0.007633956055685222, 'batch_size': 64, 'epochs_used': 5}, inner 0.88, test median 0.75
+P2: best {'patch': 128, 'stride': 2, 'max_epochs': 80, 'lr': 0.0026083919622691444, 'lr_decay': 0.9705825972241287, 'optimizer': 'adamw', 'weight_decay': 0.035605222971840746, 'batch_size': 256, 'epochs_used': 5}, inner 0.78, test median 0.88
+P3: best {'patch': 128, 'stride': 8, 'max_epochs': 78, 'lr': 0.004766941267399653, 'lr_decay': 0.9462454422042231, 'optimizer': 'adamw', 'weight_decay': 0.015535716308913573, 'batch_size': 512, 'epochs_used': 5}, inner 0.62, test median 0.75
+tuned: accuracy 0.79, F1 0.78, stressed vs control 0.94
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[60, 0, 0, 0], [5, 55, 0, 0], [8, 5, 28, 19], [1, 6, 6, 47]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.51)
+  resnet50 P1: test accuracy 0.75
+  resnet50 P2: test accuracy 0.81
+  resnet50 P3: test accuracy 0.75
+
+resnet50_bands01: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.88); one setting and one epoch count for all test plants
+  patch         64
+  stride        8
+  epochs        5
+  lr            0.0029390058108372157
+  lr_decay      0.9858985601835917
+  optimizer     adam
+  weight_decay  0.007633956055685222
+  batch_size    64
+  loss          cross-entropy
+
+calibration accuracy 1.00, test accuracy median 0.75 (mean 0.78)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.75, 24h 0.75, 48h 0.75, 72h 0.75, healthy vs stressed, 72h 0.90
+  P2: 4h 1.00, 24h 0.75, 48h 0.90, 72h 0.75, healthy vs stressed, 72h 1.00
+  P3: 4h 0.95, 24h 0.50, 48h 0.75, 72h 0.75, healthy vs stressed, 72h 0.75
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.93      0.90    0.90  0.90
+  24h    0.51      0.67    0.57  0.67
+  48h    0.82      0.80    0.80  0.80
+  72h    0.73      0.75    0.72  0.75
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    0.84      0.92    0.86  0.88
+  48h    1.00      1.00    1.00  1.00
+  72h    0.84      0.92    0.86  0.88
+resnet50_bands02 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 32, 'stride': 8, 'max_epochs': 95, 'lr': 0.009764083084167475, 'lr_decay': 0.9615828320582724, 'optimizer': 'adam', 'weight_decay': 0.0008123836556589177, 'batch_size': 256, 'epochs_used': 7}, inner 0.84, test median 0.50
+P2: best {'patch': 64, 'stride': 8, 'max_epochs': 14, 'lr': 0.0045988968266811436, 'lr_decay': 0.9826138993267851, 'optimizer': 'adam', 'weight_decay': 0.0007784444297046003, 'batch_size': 128, 'epochs_used': 5}, inner 0.75, test median 0.81
+P3: best {'patch': 128, 'stride': 8, 'max_epochs': 62, 'lr': 0.001181617141010601, 'lr_decay': 0.9345451209530029, 'optimizer': 'adamw', 'weight_decay': 0.01589566963514752, 'batch_size': 512, 'epochs_used': 5}, inner 0.62, test median 0.75
+tuned: accuracy 0.70, F1 0.68, stressed vs control 0.89
+{'labels': ['WL', 'HL', 'LL', 'SH'], 'rows_true_cols_pred': [[52, 8, 0, 0], [5, 51, 1, 3], [11, 9, 22, 18], [2, 5, 10, 43]]}
+  resnet50: 5 epochs for every test plant (best of the mean validation curve over 6 inner splits, validation accuracy 0.42)
+  resnet50 P1: test accuracy 0.50
+  resnet50 P2: test accuracy 0.69
+  resnet50 P3: test accuracy 0.81
+
+resnet50_bands02: hyperparameters obtained by Bayesian optimisation (validation accuracy 0.84); one setting and one epoch count for all test plants
+  patch         32
+  stride        8
+  epochs        5
+  lr            0.009764083084167475
+  lr_decay      0.9615828320582724
+  optimizer     adam
+  weight_decay  0.0008123836556589177
+  batch_size    256
+  loss          cross-entropy
+
+calibration accuracy 0.97, test accuracy median 0.69 (mean 0.68)
+
+Accuracy by test plant and time point (day 3 check)
+  P1: 4h 0.55, 24h 0.70, 48h 0.35, 72h 0.50, healthy vs stressed, 72h 1.00
+  P2: 4h 0.85, 24h 0.75, 48h 0.50, 72h 0.70, healthy vs stressed, 72h 1.00
+  P3: 4h 1.00, 24h 0.75, 48h 0.75, 72h 0.75, healthy vs stressed, 72h 0.75
+
+Four classes
+  time   precision recall  F1    accuracy
+  4h     0.81      0.80    0.80  0.80
+  24h    0.57      0.73    0.64  0.73
+  48h    0.63      0.53    0.51  0.53
+  72h    0.53      0.65    0.58  0.65
+
+Healthy vs stressed
+  time   precision recall  F1    accuracy
+  4h     1.00      1.00    1.00  1.00
+  24h    1.00      1.00    1.00  1.00
+  48h    0.68      0.62    0.64  0.77
+  72h    0.88      0.94    0.90  0.92
+resnet50_bands12 on cuda, 30 trials per test plant, at most 600 patches per image
