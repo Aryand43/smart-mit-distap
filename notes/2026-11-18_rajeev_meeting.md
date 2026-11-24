@@ -68,3 +68,17 @@ Run 1 and 2 one after the other, not at the same time (one GPU). Each 09 + 10 pa
   interior, leaf edge and background. Laptop check (64 px, test plant 1): interior 0.62 of attention
   (0.60 of area), edge 0.13 (0.09), background 0.25 (0.31): mostly leaf tissue.
 - `PLANT_FRAC=0.8`: patches must be at least 80% plant (was 40%), run as a separate variant.
+
+## 22 Nov: meeting with Dr Praveen (results of all 10 runs)
+
+- Validation loss lowest at epoch 1 then rising (overfitting); 5 was only the floor. Must get both curves
+  coming down together before judging results.
+- Agreed: (1) two-phase fine-tuning: phase 1 head only (lr 1e-3, 5 to 10 epochs), phase 2 unfreeze layer 4
+  only, batch norm frozen, lr 1e-5 (layer 4) / 1e-4 (head), 10 to 20 epochs, early stopping, batch sizes
+  8, 16, 32; (2) dropout 0.5 before a single linear layer, label smoothing 0.15; (3) simpler classifiers on
+  frozen features (logistic regression, SVM, PLS-DA); (4) lighter backbones ResNet-18, MobileNet-V3-small.
+  Report results per phase.
+- Order after this: Raman alone, then multimodal fusion, then kailan and Arabidopsis.
+- Send Prof Ram a gentle reminder email asking for a 15 to 30 minute call.
+- Code: `scripts/12_frozen_heads.py` (3 backbones x linear / logreg / svm / plsda),
+  `scripts/13_finetune.py` (two-phase fine-tuning, batch 8 / 16 / 32, curves per phase).

@@ -68,7 +68,7 @@ def augment(x: np.ndarray, rng: np.random.Generator) -> np.ndarray:
         x = x[:, :, ::-1]
     sd = NOISE * np.sqrt(np.clip(x, 0, None) / WHITE)
     return np.clip(x + rng.standard_normal(x.shape).astype(np.float32) * sd, 0, 1).astype(np.float32)
-BACKBONES = ("resnet50", "vit_b_16")
+BACKBONES = ("resnet50", "vit_b_16", "resnet18", "mobilenet_v3_small")
 
 
 def positions(mask: np.ndarray, size: int, stride: int, max_patches: int) -> np.ndarray:
@@ -109,6 +109,16 @@ def _net(name: str):
             net.heads = torch.nn.Identity()
             net = net.eval().to(_device(name))
             _NETS[name] = net
+        elif name == "resnet18":                     # lighter backbones (Dr Praveen, 22 Nov): 512 / 576 features
+            from torchvision.models import ResNet18_Weights, resnet18
+            net = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+            net.fc = torch.nn.Identity()
+            _NETS[name] = net.eval().to(_device(name))
+        elif name == "mobilenet_v3_small":
+            from torchvision.models import MobileNet_V3_Small_Weights, mobilenet_v3_small
+            net = mobilenet_v3_small(weights=MobileNet_V3_Small_Weights.IMAGENET1K_V1)
+            net.classifier = torch.nn.Identity()
+            _NETS[name] = net.eval().to(_device(name))
         else:
             raise ValueError(f"Unknown backbone {name}; choose from {BACKBONES}")
     return _NETS[name]
