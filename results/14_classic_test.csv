@@ -1,0 +1,4 @@
+Classifier,Setting,Inner validation (patches),Test accuracy (median),Test accuracy (mean),Healthy vs stressed,Calibration accuracy,4 h,24 h,48 h,72 h
+plsda,"{""n_components"": 23}",0.516,0.81,0.79,0.96,1.00,0.92,0.67,0.83,0.75
+logreg,"{""C"": 0.0009238119916812993}",0.527,0.81,0.77,0.98,1.00,0.92,0.75,0.67,0.75
+svm,"{""kernel"": ""linear"", ""C"": 8.574068954874363e-05}",0.525,0.75,0.77,0.96,1.00,0.92,0.67,0.75,0.75

@@ -1,0 +1,96 @@
+
+resnet50: patch 64, stride 8, at most 600 patches per image
+  resnet50 linear: test 0.75 (mean 0.75), healthy vs stressed 0.96, calibration 1.00; epochs 4 (minimum of the mean validation loss; last tried 60)
+  logreg 0.0001: inner validation accuracy (patches) 0.52
+  logreg 0.001: inner validation accuracy (patches) 0.53
+  logreg 0.01: inner validation accuracy (patches) 0.52
+  logreg 0.1: inner validation accuracy (patches) 0.52
+  resnet50 logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00; C 0.001
+  svm 0.0001: inner validation accuracy (patches) 0.53
+  svm 0.001: inner validation accuracy (patches) 0.52
+  svm 0.01: inner validation accuracy (patches) 0.51
+  resnet50 svm: test 0.75 (mean 0.77), healthy vs stressed 0.96, calibration 1.00; C 0.0001
+  plsda 2: inner validation accuracy (patches) 0.44
+  plsda 5: inner validation accuracy (patches) 0.46
+  plsda 10: inner validation accuracy (patches) 0.51
+  plsda 20: inner validation accuracy (patches) 0.51
+  resnet50 plsda: test 0.81 (mean 0.79), healthy vs stressed 0.98, calibration 1.00; components 20
+
+resnet18: patch 64, stride 8, at most 600 patches per image
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /home/distap/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+  0%|          | 0.00/44.7M [00:00<?, ?B/s]  1%|▏         | 640k/44.7M [00:00<00:09, 4.84MB/s]  4%|▎         | 1.62M/44.7M [00:00<00:06, 7.29MB/s]  6%|▋         | 2.88M/44.7M [00:00<00:04, 9.42MB/s]  9%|▉         | 4.00M/44.7M [00:00<00:04, 10.2MB/s] 12%|█▏        | 5.50M/44.7M [00:00<00:03, 11.9MB/s] 17%|█▋        | 7.75M/44.7M [00:00<00:02, 15.6MB/s] 24%|██▍       | 10.6M/44.7M [00:00<00:01, 20.2MB/s] 33%|███▎      | 14.6M/44.7M [00:00<00:01, 26.8MB/s] 42%|████▏     | 18.8M/44.7M [00:00<00:00, 31.6MB/s] 53%|█████▎    | 23.6M/44.7M [00:01<00:00, 37.3MB/s] 66%|██████▌   | 29.4M/44.7M [00:01<00:00, 44.2MB/s] 81%|████████  | 36.0M/44.7M [00:01<00:00, 51.6MB/s] 92%|█████████▏| 41.0M/44.7M [00:01<00:00, 47.1MB/s]100%|██████████| 44.7M/44.7M [00:01<00:00, 32.2MB/s]
+  resnet18 linear: test 0.69 (mean 0.70), healthy vs stressed 0.94, calibration 0.94; epochs 7 (minimum of the mean validation loss; last tried 60)
+  logreg 0.0001: inner validation accuracy (patches) 0.49
+  logreg 0.001: inner validation accuracy (patches) 0.50
+  logreg 0.01: inner validation accuracy (patches) 0.50
+  logreg 0.1: inner validation accuracy (patches) 0.49
+  resnet18 logreg: test 0.81 (mean 0.77), healthy vs stressed 0.96, calibration 0.97; C 0.001
+  svm 0.0001: inner validation accuracy (patches) 0.50
+  svm 0.001: inner validation accuracy (patches) 0.50
+  svm 0.01: inner validation accuracy (patches) 0.50
+  resnet18 svm: test 0.75 (mean 0.75), healthy vs stressed 0.94, calibration 0.97; C 0.0001
+  plsda 2: inner validation accuracy (patches) 0.41
+  plsda 5: inner validation accuracy (patches) 0.48
+  plsda 10: inner validation accuracy (patches) 0.49
+  plsda 20: inner validation accuracy (patches) 0.49
+  resnet18 plsda: test 0.75 (mean 0.75), healthy vs stressed 0.94, calibration 0.94; components 10
+
+mobilenet_v3_small: patch 64, stride 8, at most 600 patches per image
+Downloading: "https://download.pytorch.org/models/mobilenet_v3_small-047dcff4.pth" to /home/distap/.cache/torch/hub/checkpoints/mobilenet_v3_small-047dcff4.pth
+  0%|          | 0.00/9.83M [00:00<?, ?B/s]  6%|▋         | 640k/9.83M [00:00<00:01, 5.37MB/s] 13%|█▎        | 1.25M/9.83M [00:00<00:01, 5.71MB/s] 23%|██▎       | 2.25M/9.83M [00:00<00:01, 7.68MB/s] 37%|███▋      | 3.62M/9.83M [00:00<00:00, 10.2MB/s] 56%|█████▌    | 5.50M/9.83M [00:00<00:00, 13.4MB/s] 85%|████████▌ | 8.38M/9.83M [00:00<00:00, 18.9MB/s]100%|██████████| 9.83M/9.83M [00:00<00:00, 15.1MB/s]
+  mobilenet_v3_small linear: test 0.62 (mean 0.62), healthy vs stressed 0.91, calibration 0.97; epochs 5 (minimum of the mean validation loss; last tried 60)
+  logreg 0.0001: inner validation accuracy (patches) 0.47
+  logreg 0.001: inner validation accuracy (patches) 0.48
+  logreg 0.01: inner validation accuracy (patches) 0.48
+  logreg 0.1: inner validation accuracy (patches) 0.47
+  mobilenet_v3_small logreg: test 0.69 (mean 0.71), healthy vs stressed 0.96, calibration 0.97; C 0.001
+  svm 0.0001: inner validation accuracy (patches) 0.47
+  svm 0.001: inner validation accuracy (patches) 0.47
+  svm 0.01: inner validation accuracy (patches) 0.47
+  mobilenet_v3_small svm: test 0.69 (mean 0.69), healthy vs stressed 0.94, calibration 0.97; C 0.0001
+  plsda 2: inner validation accuracy (patches) 0.41
+  plsda 5: inner validation accuracy (patches) 0.45
+  plsda 10: inner validation accuracy (patches) 0.46
+  plsda 20: inner validation accuracy (patches) 0.46
+  mobilenet_v3_small plsda: test 0.62 (mean 0.62), healthy vs stressed 0.92, calibration 0.94; components 10
+
+-> /home/distap/smart-mit-distap/results/12_frozen_heads.json, results/12_frozen_heads.csv
+ResNet-50 two-phase fine-tuning on cuda: patch 64, stride 8, at most 200 patches per image; phase 1 5 epochs (lr 0.001), phase 2 up to 20 epochs (layer 4 lr 1e-05, head lr 0.0001); label smoothing 0.15, dropout 0.5, weight decay 0.01
+  batch 32, P1, validate on plant 2: validation loss 1.40 1.22 1.20 1.19 1.18 1.18 1.20 1.20 1.20 1.21 1.21 1.21 1.23 1.21 1.19 1.21 1.22 1.21 1.22 1.20 1.21 1.21 1.21 1.20 1.20 1.19  (89 s)
+  batch 32, P1, validate on plant 3: validation loss 1.40 1.20 1.16 1.17 1.15 1.16 1.19 1.23 1.20 1.25 1.24 1.22 1.22 1.24 1.24 1.22 1.23 1.22 1.21 1.21 1.20 1.19 1.19 1.21 1.19 1.20  (178 s)
+  batch 32, P2, validate on plant 1: validation loss 1.41 1.26 1.24 1.23 1.22 1.22 1.26 1.27 1.29 1.30 1.30 1.31 1.32 1.33 1.31 1.34 1.34 1.36 1.36 1.36 1.34 1.37 1.36 1.34 1.37 1.36  (266 s)
+  batch 32, P2, validate on plant 3: validation loss 1.41 1.22 1.19 1.18 1.18 1.18 1.21 1.21 1.22 1.23 1.24 1.24 1.24 1.29 1.29 1.29 1.31 1.30 1.32 1.32 1.31 1.32 1.32 1.34 1.32 1.35  (355 s)
+  batch 32, P3, validate on plant 1: validation loss 1.40 1.26 1.23 1.23 1.22 1.23 1.27 1.32 1.31 1.37 1.36 1.36 1.38 1.37 1.40 1.39 1.39 1.40 1.39 1.37 1.37 1.37 1.36 1.39 1.37 1.37  (444 s)
+  batch 32, P3, validate on plant 2: validation loss 1.40 1.27 1.24 1.24 1.24 1.24 1.29 1.30 1.30 1.32 1.35 1.35 1.34 1.39 1.40 1.38 1.40 1.39 1.43 1.40 1.41 1.40 1.43 1.40 1.40 1.41  (533 s)
+  batch 32: phase 2 epochs 0 (minimum of the mean validation loss)
+  batch 32, test P1: phase 1 0.62, phase 1 + 2 0.62
+  batch 32, test P2: phase 1 0.81, phase 1 + 2 0.81
+  batch 32, test P3: phase 1 0.69, phase 1 + 2 0.69
+  batch 16, P1, validate on plant 2: validation loss 1.40 1.22 1.20 1.19 1.18 1.18 1.20 1.21 1.21 1.19 1.21 1.20 1.19 1.21 1.19 1.19 1.18 1.21 1.22 1.19 1.23 1.19 1.20 1.19 1.21 1.18  (100 s)
+  batch 16, P1, validate on plant 3: validation loss 1.40 1.20 1.16 1.17 1.15 1.16 1.19 1.21 1.20 1.25 1.26 1.24 1.22 1.24 1.21 1.21 1.19 1.21 1.19 1.20 1.18 1.17 1.17 1.17 1.16 1.17  (202 s)
+  batch 16, P2, validate on plant 1: validation loss 1.41 1.26 1.24 1.23 1.22 1.22 1.27 1.30 1.29 1.31 1.31 1.32 1.33 1.34 1.35 1.37 1.35 1.39 1.36 1.35 1.38 1.33 1.36 1.36 1.35 1.36  (302 s)
+  batch 16, P2, validate on plant 3: validation loss 1.41 1.22 1.19 1.18 1.18 1.18 1.22 1.23 1.25 1.24 1.29 1.29 1.31 1.31 1.33 1.32 1.32 1.31 1.32 1.34 1.35 1.34 1.32 1.31 1.33 1.31  (405 s)
+  batch 16, P3, validate on plant 1: validation loss 1.40 1.26 1.23 1.23 1.22 1.23 1.28 1.34 1.34 1.40 1.42 1.42 1.40 1.43 1.39 1.39 1.36 1.39 1.40 1.37 1.37 1.38 1.36 1.37 1.36 1.37  (505 s)
+  batch 16, P3, validate on plant 2: validation loss 1.40 1.27 1.24 1.24 1.24 1.24 1.31 1.33 1.36 1.34 1.35 1.37 1.40 1.38 1.40 1.39 1.40 1.39 1.40 1.41 1.43 1.44 1.40 1.39 1.41 1.40  (606 s)
+  batch 16: phase 2 epochs 0 (minimum of the mean validation loss)
+  batch 16, test P1: phase 1 0.62, phase 1 + 2 0.62
+  batch 16, test P2: phase 1 0.81, phase 1 + 2 0.81
+  batch 16, test P3: phase 1 0.69, phase 1 + 2 0.69
+  batch 8, P1, validate on plant 2: validation loss 1.40 1.22 1.20 1.19 1.18 1.18 1.19 1.19 1.21 1.22 1.23 1.20 1.20 1.19 1.25 1.23 1.18 1.16 1.19 1.17 1.17 1.17 1.15 1.18 1.16 1.17  (136 s)
+  batch 8, P1, validate on plant 3: validation loss 1.40 1.20 1.16 1.17 1.15 1.16 1.24 1.22 1.20 1.19 1.25 1.24 1.26 1.20 1.23 1.18 1.21 1.23 1.18 1.22 1.19 1.18 1.15 1.15 1.16 1.16  (277 s)
+  batch 8, P2, validate on plant 1: validation loss 1.41 1.26 1.24 1.23 1.22 1.22 1.28 1.29 1.33 1.29 1.34 1.33 1.34 1.34 1.41 1.38 1.35 1.33 1.32 1.35 1.38 1.37 1.33 1.31 1.35 1.35  (420 s)
+  batch 8, P2, validate on plant 3: validation loss 1.41 1.22 1.19 1.18 1.18 1.18 1.22 1.23 1.24 1.25 1.25 1.28 1.29 1.31 1.34 1.30 1.31 1.31 1.33 1.32 1.31 1.32 1.33 1.29 1.33 1.28  (564 s)
+  batch 8, P3, validate on plant 1: validation loss 1.40 1.26 1.23 1.23 1.22 1.23 1.34 1.34 1.35 1.35 1.39 1.42 1.43 1.36 1.41 1.37 1.39 1.42 1.38 1.43 1.43 1.37 1.34 1.35 1.35 1.34  (701 s)
+  batch 8, P3, validate on plant 2: validation loss 1.40 1.27 1.24 1.24 1.24 1.24 1.30 1.35 1.35 1.37 1.35 1.41 1.43 1.44 1.41 1.39 1.40 1.38 1.43 1.41 1.42 1.43 1.42 1.39 1.41 1.39  (839 s)
+  batch 8: phase 2 epochs 0 (minimum of the mean validation loss)
+  batch 8, test P1: phase 1 0.62, phase 1 + 2 0.62
+  batch 8, test P2: phase 1 0.81, phase 1 + 2 0.81
+  batch 8, test P3: phase 1 0.69, phase 1 + 2 0.69
+
+batch  phase          test (median / mean)  healthy vs stressed  calibration
+   32  phase 1 only   0.69 / 0.71           0.96                 1.00
+   32  phase 1 + 2    0.69 / 0.71           0.96                 1.00
+   16  phase 1 only   0.69 / 0.71           0.96                 1.00
+   16  phase 1 + 2    0.69 / 0.71           0.96                 1.00
+    8  phase 1 only   0.69 / 0.71           0.96                 1.00
+    8  phase 1 + 2    0.69 / 0.71           0.96                 1.00

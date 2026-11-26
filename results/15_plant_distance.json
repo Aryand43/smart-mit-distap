@@ -1,0 +1,976 @@
+{
+  "explained_variance_ratio": [
+    0.18669642508029938,
+    0.11075219511985779,
+    0.09663918614387512,
+    0.07023321092128754,
+    0.06046152859926224,
+    0.04929584637284279,
+    0.03667345643043518,
+    0.03129678964614868,
+    0.030718814581632614,
+    0.0270975511521101
+  ],
+  "distances": [
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 3.570810317993164,
+      "mahalanobis": 0.19280525522671949
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 3.7221646308898926,
+      "mahalanobis": 0.20218448492193514
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 0.17596811056137085,
+      "mahalanobis": 0.010950540130680878
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 7.156939506530762,
+      "mahalanobis": 0.44370794233695476
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 0.705859363079071,
+      "mahalanobis": 0.0361285684882766
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 6.834449291229248,
+      "mahalanobis": 0.43204079646690025
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 4.1706862449646,
+      "mahalanobis": 0.22366114577485235
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 5.611676216125488,
+      "mahalanobis": 0.2962405744376902
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 1.4835398197174072,
+      "mahalanobis": 0.07602120148257005
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 3.22759747505188,
+      "mahalanobis": 0.2047647713132016
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 4.885288238525391,
+      "mahalanobis": 0.31928002558616336
+    },
+    {
+      "time": "all",
+      "components": 2,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 3.642544984817505,
+      "mahalanobis": 0.20144929163364775
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 11.312406539916992,
+      "mahalanobis": 1.3312015260084067
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 7.883747100830078,
+      "mahalanobis": 0.8737897040626793
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 6.903912544250488,
+      "mahalanobis": 0.8691791322755846
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 11.798696517944336,
+      "mahalanobis": 1.3371695437628988
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 7.308114051818848,
+      "mahalanobis": 0.8215749619331132
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 11.66042423248291,
+      "mahalanobis": 1.2774530223356502
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 9.477717399597168,
+      "mahalanobis": 1.1237320094757475
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 12.172980308532715,
+      "mahalanobis": 1.3175130010966267
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 9.342450141906738,
+      "mahalanobis": 1.13557039119666
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 14.085447311401367,
+      "mahalanobis": 1.38333404963801
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 11.701207160949707,
+      "mahalanobis": 1.2113301914925736
+    },
+    {
+      "time": "all",
+      "components": 10,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 6.736295223236084,
+      "mahalanobis": 0.7373586956997409
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 7.811347961425781,
+      "mahalanobis": 0.4885990465053767
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 4.514272212982178,
+      "mahalanobis": 0.2317703756294714
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 7.158008575439453,
+      "mahalanobis": 0.4784579279576008
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 8.682230949401855,
+      "mahalanobis": 0.5773150019356389
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 6.015889644622803,
+      "mahalanobis": 0.3070263109452842
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 11.145633697509766,
+      "mahalanobis": 0.6729398155211274
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 12.529525756835938,
+      "mahalanobis": 0.6839155366384835
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 4.824863910675049,
+      "mahalanobis": 0.2474880197105725
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 8.143165588378906,
+      "mahalanobis": 0.46879567516410076
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 12.866930961608887,
+      "mahalanobis": 0.8520250343805307
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 17.05455780029297,
+      "mahalanobis": 1.139633675068034
+    },
+    {
+      "time": "4h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 4.863889217376709,
+      "mahalanobis": 0.31425935438586466
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 11.376862525939941,
+      "mahalanobis": 1.142243614737026
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 10.022711753845215,
+      "mahalanobis": 1.111222494116277
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 13.835451126098633,
+      "mahalanobis": 1.6218116607896174
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 16.59068489074707,
+      "mahalanobis": 1.7882802233936141
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 13.118675231933594,
+      "mahalanobis": 1.580281550739061
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 17.416288375854492,
+      "mahalanobis": 1.6611435631653224
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 25.27389907836914,
+      "mahalanobis": 2.3878241982904136
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 9.601920127868652,
+      "mahalanobis": 0.9654962551874947
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 20.040241241455078,
+      "mahalanobis": 2.0235595074595785
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 34.2620849609375,
+      "mahalanobis": 3.188796952251591
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 32.54487991333008,
+      "mahalanobis": 3.0214340369865833
+    },
+    {
+      "time": "4h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 10.884096145629883,
+      "mahalanobis": 1.0302157862395915
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 8.784873962402344,
+      "mahalanobis": 0.5819766012388049
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 2.4635233879089355,
+      "mahalanobis": 0.16063741840271537
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 6.82047176361084,
+      "mahalanobis": 0.4411664975440865
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 6.205686569213867,
+      "mahalanobis": 0.37368117730472566
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 9.35777473449707,
+      "mahalanobis": 0.47745981257618425
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 14.373905181884766,
+      "mahalanobis": 0.7627702360295044
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 13.033374786376953,
+      "mahalanobis": 0.6712597559891574
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 27.658306121826172,
+      "mahalanobis": 1.411460593415448
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 14.82786750793457,
+      "mahalanobis": 0.7579031386318754
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 7.464657783508301,
+      "mahalanobis": 0.43635861914650376
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 7.080092906951904,
+      "mahalanobis": 0.3717433848746512
+    },
+    {
+      "time": "24h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 7.0711236000061035,
+      "mahalanobis": 0.46998937837941235
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 23.914613723754883,
+      "mahalanobis": 2.460253632787118
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 10.549020767211914,
+      "mahalanobis": 1.129734937976394
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 16.705066680908203,
+      "mahalanobis": 1.6424535841496386
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 21.380952835083008,
+      "mahalanobis": 2.3287493617453325
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 21.087440490722656,
+      "mahalanobis": 2.192532239249334
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 22.744474411010742,
+      "mahalanobis": 2.2044917971662517
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 23.45815086364746,
+      "mahalanobis": 2.2196031744290243
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 36.12333679199219,
+      "mahalanobis": 3.3653292916724014
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 27.15452003479004,
+      "mahalanobis": 2.6494606916417016
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 18.52825355529785,
+      "mahalanobis": 2.127421661546279
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 14.883354187011719,
+      "mahalanobis": 1.443289497035039
+    },
+    {
+      "time": "24h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 18.31704330444336,
+      "mahalanobis": 2.2122684625474887
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 4.804234504699707,
+      "mahalanobis": 0.3040742288150215
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 7.646327972412109,
+      "mahalanobis": 0.5016594770184706
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 5.621549129486084,
+      "mahalanobis": 0.31713503574103485
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 11.132577896118164,
+      "mahalanobis": 0.6635508967335391
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 2.43212628364563,
+      "mahalanobis": 0.16162370031810586
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 13.204034805297852,
+      "mahalanobis": 0.808283033813424
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 9.380020141601562,
+      "mahalanobis": 0.47845726397299637
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 6.517339706420898,
+      "mahalanobis": 0.4258949907032431
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 13.084953308105469,
+      "mahalanobis": 0.7196571281698333
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 6.470280170440674,
+      "mahalanobis": 0.4095904391953709
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 7.839817047119141,
+      "mahalanobis": 0.5151835882203185
+    },
+    {
+      "time": "48h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 2.1441457271575928,
+      "mahalanobis": 0.13683565782300458
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 17.70089340209961,
+      "mahalanobis": 2.055135631376201
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 18.74980354309082,
+      "mahalanobis": 2.28459622759064
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 9.460360527038574,
+      "mahalanobis": 0.8349359656355666
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 19.31599998474121,
+      "mahalanobis": 2.0624709560359764
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 9.310139656066895,
+      "mahalanobis": 1.0488184649474968
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 20.5439510345459,
+      "mahalanobis": 2.1792414774059963
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 14.934040069580078,
+      "mahalanobis": 1.1287638689011155
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 12.315046310424805,
+      "mahalanobis": 1.0820363959658341
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 14.422032356262207,
+      "mahalanobis": 1.0981408937125352
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 18.467897415161133,
+      "mahalanobis": 2.220594071152031
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 16.32267951965332,
+      "mahalanobis": 1.71860737476324
+    },
+    {
+      "time": "48h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 5.62131929397583,
+      "mahalanobis": 0.768497866489272
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 9.007872581481934,
+      "mahalanobis": 0.4870258169679529
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 10.588499069213867,
+      "mahalanobis": 0.5473813225380388
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 2.758119583129883,
+      "mahalanobis": 0.15824757796253217
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 6.396970272064209,
+      "mahalanobis": 0.34028485477517934
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 6.908117771148682,
+      "mahalanobis": 0.3644599055569757
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 0.5751909613609314,
+      "mahalanobis": 0.029542444480822765
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 14.89830207824707,
+      "mahalanobis": 0.9779709994488089
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 2.5964407920837402,
+      "mahalanobis": 0.171757708151616
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 12.309967041015625,
+      "mahalanobis": 0.8065443694003849
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 12.539605140686035,
+      "mahalanobis": 0.6453270754181355
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 8.32184886932373,
+      "mahalanobis": 0.5506384042397153
+    },
+    {
+      "time": "72h",
+      "components": 2,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 12.196078300476074,
+      "mahalanobis": 0.6761934280212469
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 1,
+      "euclidean": 14.204236030578613,
+      "mahalanobis": 1.6678032179415962
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 2,
+      "euclidean": 14.24113655090332,
+      "mahalanobis": 1.2098301784699015
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "WL",
+      "plant": 3,
+      "euclidean": 11.625493049621582,
+      "mahalanobis": 1.4146816412710628
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 1,
+      "euclidean": 23.732696533203125,
+      "mahalanobis": 2.4825329885156133
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 2,
+      "euclidean": 13.504389762878418,
+      "mahalanobis": 1.4893060356570662
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "HL",
+      "plant": 3,
+      "euclidean": 26.022212982177734,
+      "mahalanobis": 2.5371202840747524
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 1,
+      "euclidean": 32.32197952270508,
+      "mahalanobis": 3.4491238396816
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 2,
+      "euclidean": 24.760828018188477,
+      "mahalanobis": 3.124376879012572
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "LL",
+      "plant": 3,
+      "euclidean": 29.31492805480957,
+      "mahalanobis": 2.898158465865048
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 1,
+      "euclidean": 32.57474899291992,
+      "mahalanobis": 3.314333873962725
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 2,
+      "euclidean": 27.382883071899414,
+      "mahalanobis": 2.8048291090307598
+    },
+    {
+      "time": "72h",
+      "components": 10,
+      "condition": "SH",
+      "plant": 3,
+      "euclidean": 22.91431999206543,
+      "mahalanobis": 2.48192601843876
+    }
+  ]
+}

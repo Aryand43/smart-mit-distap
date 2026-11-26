@@ -1,0 +1,1014 @@
+{
+  "plsda": {
+    "params": {
+      "n_components": 23
+    },
+    "validation_patch_accuracy": 0.5156076388888888,
+    "validation_split_accuracy": [
+      0.54625,
+      0.5964583333333333,
+      0.4496875,
+      0.51375,
+      0.4728125,
+      0.5146875
+    ],
+    "n_trials": 49,
+    "all_trials": [
+      {
+        "params": {
+          "n_components": 31
+        },
+        "value": 0.5125,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 6
+        },
+        "value": 0.48385416666666664,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 28
+        },
+        "value": 0.5134201388888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 32
+        },
+        "value": 0.5125000000000001,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 34
+        },
+        "value": 0.5094965277777778,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 39
+        },
+        "value": 0.5074479166666666,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 36
+        },
+        "value": 0.5097395833333334,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 42
+        },
+        "value": 0.5063020833333334,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 9
+        },
+        "value": 0.5059201388888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 12
+        },
+        "value": 0.5105555555555557,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 13
+        },
+        "value": 0.5106076388888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 33
+        },
+        "value": 0.5105381944444444,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 35
+        },
+        "value": 0.5099131944444445,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 29
+        },
+        "value": 0.5122395833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 50
+        },
+        "value": 0.5030208333333334,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 4
+        },
+        "value": 0.4637326388888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 48
+        },
+        "value": 0.5037847222222221,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 20
+        },
+        "value": 0.5139236111111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 17
+        },
+        "value": 0.507986111111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 30
+        },
+        "value": 0.5123958333333334,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 24
+        },
+        "value": 0.5148437499999999,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 18
+        },
+        "value": 0.5115798611111112,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 43
+        },
+        "value": 0.5064409722222222,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 22
+        },
+        "value": 0.5144965277777778,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 44
+        },
+        "value": 0.5046701388888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 10
+        },
+        "value": 0.5096701388888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 15
+        },
+        "value": 0.5138194444444444,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 27
+        },
+        "value": 0.511875,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 7
+        },
+        "value": 0.49300347222222224,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 19
+        },
+        "value": 0.5116145833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 37
+        },
+        "value": 0.5096527777777778,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 16
+        },
+        "value": 0.5119270833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 40
+        },
+        "value": 0.5055381944444445,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 3
+        },
+        "value": 0.4461458333333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 14
+        },
+        "value": 0.5107291666666667,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 45
+        },
+        "value": 0.5044618055555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 26
+        },
+        "value": 0.5124479166666667,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 8
+        },
+        "value": 0.49463541666666666,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 25
+        },
+        "value": 0.51453125,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 38
+        },
+        "value": 0.5076909722222221,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 23
+        },
+        "value": 0.5156076388888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 21
+        },
+        "value": 0.5123090277777779,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 11
+        },
+        "value": 0.5123263888888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 41
+        },
+        "value": 0.5053819444444444,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 47
+        },
+        "value": 0.5039930555555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 5
+        },
+        "value": 0.46336805555555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 2
+        },
+        "value": 0.44375000000000003,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 49
+        },
+        "value": 0.5029340277777777,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "n_components": 46
+        },
+        "value": 0.5038020833333333,
+        "state": "COMPLETE"
+      }
+    ],
+    "features": "ResNet-50 frozen, patch 64, stride 8, at most 600 patches, all bands"
+  },
+  "logreg": {
+    "params": {
+      "C": 0.0009238119916812993
+    },
+    "validation_patch_accuracy": 0.5267708333333333,
+    "validation_split_accuracy": [
+      0.5534375,
+      0.6046875,
+      0.45697916666666666,
+      0.5375,
+      0.49291666666666667,
+      0.5151041666666667
+    ],
+    "n_trials": 40,
+    "all_trials": [
+      {
+        "params": {
+          "C": 0.006945356257424776
+        },
+        "value": 0.52390625,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.10146717394418031
+        },
+        "value": 0.5176388888888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.016570805984346845
+        },
+        "value": 0.5219097222222223,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.00651901951281781
+        },
+        "value": 0.5241840277777777,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.0009238119916812993
+        },
+        "value": 0.5267708333333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.033209228886981655
+        },
+        "value": 0.5203125000000001,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.0011564063794438954
+        },
+        "value": 0.5263368055555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 1.7474751375465036
+        },
+        "value": 0.5116145833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 5.567232047731109
+        },
+        "value": 0.5638020833333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.00048315962083818554
+        },
+        "value": 0.576875,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 1.387846074585453e-06
+        },
+        "value": 0.4888541666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.00010620510345559735
+        },
+        "value": 0.56296875,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0001368003813259989
+        },
+        "value": 0.566875,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 1.6096278589728577e-05
+        },
+        "value": 0.5269791666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0007768605957588437
+        },
+        "value": 0.5788541666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.34577221391240187
+        },
+        "value": 0.5706249999999999,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0016040704090258147
+        },
+        "value": 0.5261979166666667,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 2.964040249834988e-05
+        },
+        "value": 0.5392708333333334,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 3.082953494797933e-06
+        },
+        "value": 0.4966145833333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.003281365946920547
+        },
+        "value": 0.5257986111111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.0002179652852715955
+        },
+        "value": 0.5728645833333332,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0014218444275108134
+        },
+        "value": 0.5261458333333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.0018573637119266356
+        },
+        "value": 0.5257986111111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 3.945081417432397e-05
+        },
+        "value": 0.5444270833333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.048585030003377175
+        },
+        "value": 0.5774479166666666,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0004319840533396524
+        },
+        "value": 0.5760416666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 7.4055140080443e-06
+        },
+        "value": 0.5111458333333334,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.008782873590232013
+        },
+        "value": 0.5233506944444445,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.0020867231831349494
+        },
+        "value": 0.5257118055555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.006768101576010089
+        },
+        "value": 0.5240104166666667,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.21646998141049106
+        },
+        "value": 0.5740625,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0012169054968925056
+        },
+        "value": 0.5794270833333334,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0002802648708669108
+        },
+        "value": 0.5743750000000001,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 6.013381761214028e-05
+        },
+        "value": 0.5524479166666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.018051973528314377
+        },
+        "value": 0.5793229166666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0009877758951555486
+        },
+        "value": 0.5266666666666667,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.00338229831505237
+        },
+        "value": 0.5254513888888889,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "C": 0.02277882536871312
+        },
+        "value": 0.5783854166666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0006914925689666963
+        },
+        "value": 0.5786458333333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "C": 0.0542580760240421
+        },
+        "value": 0.57734375,
+        "state": "PRUNED"
+      }
+    ],
+    "features": "ResNet-50 frozen, patch 64, stride 8, at most 600 patches, all bands"
+  },
+  "svm": {
+    "params": {
+      "kernel": "linear",
+      "C": 8.574068954874363e-05
+    },
+    "validation_patch_accuracy": 0.5249131944444444,
+    "validation_split_accuracy": [
+      0.54625,
+      0.6040625,
+      0.451875,
+      0.5345833333333333,
+      0.4867708333333333,
+      0.5259375
+    ],
+    "n_trials": 40,
+    "all_trials": [
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 10.323260351976563,
+          "gamma": 0.00015119336467641018
+        },
+        "value": 0.510625,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 1.5414734761917084,
+          "gamma": 0.0036905577292137633
+        },
+        "value": 0.33154513888888887,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.05627949975223145
+        },
+        "value": 0.49954861111111115,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 424.6031301768206,
+          "gamma": 1.92373050965465e-06
+        },
+        "value": 0.51140625,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.09901912249089666
+        },
+        "value": 0.49796875,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 781.7928805172353,
+          "gamma": 0.0015726578854179517
+        },
+        "value": 0.43810763888888893,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 0.039027625535532934,
+          "gamma": 0.00036281404040243816
+        },
+        "value": 0.38272569444444443,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 4.0666950653938425,
+          "gamma": 4.556671913921479e-05
+        },
+        "value": 0.5167013888888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 1.9087614756145952,
+          "gamma": 0.00018781738757161942
+        },
+        "value": 0.5130034722222222,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 11.494196400307425,
+          "gamma": 0.0002935864364395363
+        },
+        "value": 0.5049305555555555,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 1.791117433721984e-06
+        },
+        "value": 0.5238020833333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 0.5591683260756272,
+          "gamma": 1.876237977605199e-05
+        },
+        "value": 0.4676041666666666,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 1.6977031658653805,
+          "gamma": 2.9375546074740164e-05
+        },
+        "value": 0.5452604166666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 16.348891367091067,
+          "gamma": 2.6071866931624756e-05
+        },
+        "value": 0.5155034722222221,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 2.5460294477165997e-06
+        },
+        "value": 0.5306249999999999,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 67.27068426468163,
+          "gamma": 9.073011080956895e-06
+        },
+        "value": 0.5129861111111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 44.543807647269276,
+          "gamma": 3.409350559745825e-06
+        },
+        "value": 0.5178645833333334,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "rbf",
+          "C_rbf": 99.64278799732857,
+          "gamma": 1.2489373023945802e-06
+        },
+        "value": 0.5167361111111112,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.001087751645683806
+        },
+        "value": 0.5178645833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.000574480841211695
+        },
+        "value": 0.5208159722222222,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.0002665616200593962
+        },
+        "value": 0.5239409722222222,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.00029781456449716584
+        },
+        "value": 0.5234201388888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.0003865441231903533
+        },
+        "value": 0.5225868055555556,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.00021142043488905468
+        },
+        "value": 0.5240451388888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 6.720615662592949e-05
+        },
+        "value": 0.5241145833333333,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 2.9456778461519788e-05
+        },
+        "value": 0.5697916666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 5.163312553075458e-05
+        },
+        "value": 0.52359375,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.004036288027444277
+        },
+        "value": 0.5638541666666667,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 3.2542286776512945e-05
+        },
+        "value": 0.5713541666666666,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.006264866884376656
+        },
+        "value": 0.5614583333333334,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 8.574068954874363e-05
+        },
+        "value": 0.5249131944444444,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.00010966862167913648
+        },
+        "value": 0.5248263888888888,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 6.0168636971788985e-05
+        },
+        "value": 0.5240972222222222,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 1.0704586340019655e-05
+        },
+        "value": 0.5583333333333333,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 5.9233897286937467e-05
+        },
+        "value": 0.5240798611111112,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 9.808470215182932e-06
+        },
+        "value": 0.5565625000000001,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.00010506323289015195
+        },
+        "value": 0.5249131944444444,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.002110526746773366
+        },
+        "value": 0.56796875,
+        "state": "PRUNED"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 0.00012541943634750957
+        },
+        "value": 0.5243923611111111,
+        "state": "COMPLETE"
+      },
+      {
+        "params": {
+          "kernel": "linear",
+          "C_linear": 1.0308653956671721e-05
+        },
+        "value": 0.5572395833333333,
+        "state": "PRUNED"
+      }
+    ],
+    "features": "ResNet-50 frozen, patch 64, stride 8, at most 600 patches, all bands"
+  }
+}

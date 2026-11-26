@@ -1,0 +1,2 @@
+resnet50 on cuda, 30 trials per test plant, at most 600 patches per image
+P1: best {'patch': 32, 'stride': 8, 'max_epochs': 47, 'lr': 0.0005135589606500231, 'lr_decay': 0.943860151346232, 'optimizer': 'adam', 'weight_decay': 0.000304739361773639, 'batch_size': 64, 'epochs_used': 5}, inner 0.78, test median 0.69

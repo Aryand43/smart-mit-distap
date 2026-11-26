@@ -1,0 +1,341 @@
+time  space   condition     plant  euclidean  mahalanobis
+all   2 PCs   white light   P1          3.57  0.19
+all   2 PCs   white light   P2          3.72  0.20
+all   2 PCs   white light   P3          0.18  0.01
+all   2 PCs   high light    P1          7.16  0.44
+all   2 PCs   high light    P2          0.71  0.04
+all   2 PCs   high light    P3          6.83  0.43
+all   2 PCs   low light     P1          4.17  0.22
+all   2 PCs   low light     P2          5.61  0.30
+all   2 PCs   low light     P3          1.48  0.08
+all   2 PCs   shade         P1          3.23  0.20
+all   2 PCs   shade         P2          4.89  0.32
+all   2 PCs   shade         P3          3.64  0.20
+all   10 PCs  white light   P1         11.31  1.33
+all   10 PCs  white light   P2          7.88  0.87
+all   10 PCs  white light   P3          6.90  0.87
+all   10 PCs  high light    P1         11.80  1.34
+all   10 PCs  high light    P2          7.31  0.82
+all   10 PCs  high light    P3         11.66  1.28
+all   10 PCs  low light     P1          9.48  1.12
+all   10 PCs  low light     P2         12.17  1.32
+all   10 PCs  low light     P3          9.34  1.14
+all   10 PCs  shade         P1         14.09  1.38
+all   10 PCs  shade         P2         11.70  1.21
+all   10 PCs  shade         P3          6.74  0.74
+all   2 PCs   whole plant   P1          3.22  (from the other two: 4.83)
+all   2 PCs   whole plant   P2          2.96  (from the other two: 4.43)
+all   2 PCs   whole plant   P3          1.08  (from the other two: 1.62)
+all   10 PCs  whole plant   P1          6.82  (from the other two: 10.23)
+all   10 PCs  whole plant   P2          6.36  (from the other two: 9.54)
+all   10 PCs  whole plant   P3          3.85  (from the other two: 5.78)
+-> results/15_plant_pca.png, 15_plant_pca_by_time.png, 15_plant_distance.csv
+ResNet-50 frozen features: patch 64, stride 8, at most 600 patches per image; 6 inner splits
+[I 2026-11-26 14:02:33,656] A new study created in RDB with name: plsda_p64_s8_n600
+[I 2026-11-26 14:03:30,872] Trial 0 finished with value: 0.5125 and parameters: {'n_components': 31}. Best is trial 0 with value: 0.5125.
+  plsda trial 0: {'n_components': 31} -> 0.5125  (58 s)
+[I 2026-11-26 14:03:40,563] Trial 1 finished with value: 0.48385416666666664 and parameters: {'n_components': 6}. Best is trial 0 with value: 0.5125.
+  plsda trial 1: {'n_components': 6} -> 0.48385416666666664  (67 s)
+[I 2026-11-26 14:04:31,157] Trial 2 finished with value: 0.5134201388888888 and parameters: {'n_components': 28}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 2: {'n_components': 28} -> 0.5134201388888888  (118 s)
+[I 2026-11-26 14:05:32,153] Trial 3 finished with value: 0.5125000000000001 and parameters: {'n_components': 32}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 3: {'n_components': 32} -> 0.5125000000000001  (179 s)
+[I 2026-11-26 14:06:42,301] Trial 4 finished with value: 0.5094965277777778 and parameters: {'n_components': 34}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 4: {'n_components': 34} -> 0.5094965277777778  (249 s)
+[I 2026-11-26 14:08:04,102] Trial 5 finished with value: 0.5074479166666666 and parameters: {'n_components': 39}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 5: {'n_components': 39} -> 0.5074479166666666  (331 s)
+[I 2026-11-26 14:09:20,081] Trial 6 finished with value: 0.5097395833333334 and parameters: {'n_components': 36}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 6: {'n_components': 36} -> 0.5097395833333334  (407 s)
+[I 2026-11-26 14:10:52,997] Trial 7 finished with value: 0.5063020833333334 and parameters: {'n_components': 42}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 7: {'n_components': 42} -> 0.5063020833333334  (500 s)
+[I 2026-11-26 14:11:07,406] Trial 8 finished with value: 0.5059201388888889 and parameters: {'n_components': 9}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 8: {'n_components': 9} -> 0.5059201388888889  (514 s)
+[I 2026-11-26 14:11:26,099] Trial 9 finished with value: 0.5105555555555557 and parameters: {'n_components': 12}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 9: {'n_components': 12} -> 0.5105555555555557  (533 s)
+[I 2026-11-26 14:11:46,053] Trial 10 finished with value: 0.5106076388888889 and parameters: {'n_components': 13}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 10: {'n_components': 13} -> 0.5106076388888889  (553 s)
+[I 2026-11-26 14:12:51,477] Trial 11 finished with value: 0.5105381944444444 and parameters: {'n_components': 33}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 11: {'n_components': 33} -> 0.5105381944444444  (618 s)
+[I 2026-11-26 14:14:03,792] Trial 12 finished with value: 0.5099131944444445 and parameters: {'n_components': 35}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 12: {'n_components': 35} -> 0.5099131944444445  (690 s)
+[I 2026-11-26 14:14:57,386] Trial 13 finished with value: 0.5122395833333333 and parameters: {'n_components': 29}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 13: {'n_components': 29} -> 0.5122395833333333  (744 s)
+[I 2026-11-26 14:16:49,325] Trial 14 finished with value: 0.5030208333333334 and parameters: {'n_components': 50}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 14: {'n_components': 50} -> 0.5030208333333334  (856 s)
+[I 2026-11-26 14:16:55,407] Trial 15 finished with value: 0.4637326388888889 and parameters: {'n_components': 4}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 15: {'n_components': 4} -> 0.4637326388888889  (862 s)
+[I 2026-11-26 14:18:42,696] Trial 16 finished with value: 0.5037847222222221 and parameters: {'n_components': 48}. Best is trial 2 with value: 0.5134201388888888.
+  plsda trial 16: {'n_components': 48} -> 0.5037847222222221  (969 s)
+[I 2026-11-26 14:19:16,812] Trial 17 finished with value: 0.5139236111111111 and parameters: {'n_components': 20}. Best is trial 17 with value: 0.5139236111111111.
+  plsda trial 17: {'n_components': 20} -> 0.5139236111111111  (1003 s)
+[I 2026-11-26 14:19:45,665] Trial 18 finished with value: 0.507986111111111 and parameters: {'n_components': 17}. Best is trial 17 with value: 0.5139236111111111.
+  plsda trial 18: {'n_components': 17} -> 0.507986111111111  (1032 s)
+[I 2026-11-26 14:20:39,469] Trial 19 finished with value: 0.5123958333333334 and parameters: {'n_components': 30}. Best is trial 17 with value: 0.5139236111111111.
+  plsda trial 19: {'n_components': 30} -> 0.5123958333333334  (1086 s)
+[I 2026-11-26 14:21:21,778] Trial 20 finished with value: 0.5148437499999999 and parameters: {'n_components': 24}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 20: {'n_components': 24} -> 0.5148437499999999  (1128 s)
+[I 2026-11-26 14:21:52,316] Trial 21 finished with value: 0.5115798611111112 and parameters: {'n_components': 18}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 21: {'n_components': 18} -> 0.5115798611111112  (1159 s)
+[I 2026-11-26 14:23:25,663] Trial 22 finished with value: 0.5064409722222222 and parameters: {'n_components': 43}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 22: {'n_components': 43} -> 0.5064409722222222  (1252 s)
+[I 2026-11-26 14:24:05,060] Trial 23 finished with value: 0.5144965277777778 and parameters: {'n_components': 22}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 23: {'n_components': 22} -> 0.5144965277777778  (1292 s)
+[I 2026-11-26 14:25:41,390] Trial 24 finished with value: 0.5046701388888889 and parameters: {'n_components': 44}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 24: {'n_components': 44} -> 0.5046701388888889  (1388 s)
+[I 2026-11-26 14:25:57,019] Trial 25 finished with value: 0.5096701388888888 and parameters: {'n_components': 10}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 25: {'n_components': 10} -> 0.5096701388888888  (1404 s)
+[I 2026-11-26 14:26:21,240] Trial 26 finished with value: 0.5138194444444444 and parameters: {'n_components': 15}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 26: {'n_components': 15} -> 0.5138194444444444  (1428 s)
+[I 2026-11-26 14:27:11,691] Trial 27 finished with value: 0.511875 and parameters: {'n_components': 27}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 27: {'n_components': 27} -> 0.511875  (1478 s)
+[I 2026-11-26 14:27:22,953] Trial 28 finished with value: 0.49300347222222224 and parameters: {'n_components': 7}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 28: {'n_components': 7} -> 0.49300347222222224  (1490 s)
+[I 2026-11-26 14:27:56,946] Trial 29 finished with value: 0.5116145833333333 and parameters: {'n_components': 19}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 29: {'n_components': 19} -> 0.5116145833333333  (1524 s)
+[I 2026-11-26 14:29:16,768] Trial 30 finished with value: 0.5096527777777778 and parameters: {'n_components': 37}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 30: {'n_components': 37} -> 0.5096527777777778  (1603 s)
+[I 2026-11-26 14:29:44,517] Trial 31 finished with value: 0.5119270833333333 and parameters: {'n_components': 16}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 31: {'n_components': 16} -> 0.5119270833333333  (1631 s)
+[I 2026-11-26 14:31:09,291] Trial 32 finished with value: 0.5055381944444445 and parameters: {'n_components': 40}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 32: {'n_components': 40} -> 0.5055381944444445  (1716 s)
+[I 2026-11-26 14:31:14,215] Trial 33 finished with value: 0.4461458333333333 and parameters: {'n_components': 3}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 33: {'n_components': 3} -> 0.4461458333333333  (1721 s)
+[I 2026-11-26 14:31:36,372] Trial 34 finished with value: 0.5107291666666667 and parameters: {'n_components': 14}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 34: {'n_components': 14} -> 0.5107291666666667  (1743 s)
+[I 2026-11-26 14:33:16,668] Trial 35 finished with value: 0.5044618055555555 and parameters: {'n_components': 45}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 35: {'n_components': 45} -> 0.5044618055555555  (1843 s)
+[I 2026-11-26 14:34:03,932] Trial 36 finished with value: 0.5124479166666667 and parameters: {'n_components': 26}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 36: {'n_components': 26} -> 0.5124479166666667  (1891 s)
+[I 2026-11-26 14:34:17,258] Trial 37 finished with value: 0.49463541666666666 and parameters: {'n_components': 8}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 37: {'n_components': 8} -> 0.49463541666666666  (1904 s)
+[I 2026-11-26 14:35:00,338] Trial 38 finished with value: 0.51453125 and parameters: {'n_components': 25}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 38: {'n_components': 25} -> 0.51453125  (1947 s)
+[I 2026-11-26 14:36:21,033] Trial 39 finished with value: 0.5076909722222221 and parameters: {'n_components': 38}. Best is trial 20 with value: 0.5148437499999999.
+  plsda trial 39: {'n_components': 38} -> 0.5076909722222221  (2028 s)
+[I 2026-11-26 14:37:00,557] Trial 40 finished with value: 0.5156076388888888 and parameters: {'n_components': 23}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 40: {'n_components': 23} -> 0.5156076388888888  (2067 s)
+[I 2026-11-26 14:37:37,235] Trial 41 finished with value: 0.5123090277777779 and parameters: {'n_components': 21}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 41: {'n_components': 21} -> 0.5123090277777779  (2104 s)
+[I 2026-11-26 14:37:55,423] Trial 42 finished with value: 0.5123263888888888 and parameters: {'n_components': 11}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 42: {'n_components': 11} -> 0.5123263888888888  (2122 s)
+[I 2026-11-26 14:39:23,954] Trial 43 finished with value: 0.5053819444444444 and parameters: {'n_components': 41}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 43: {'n_components': 41} -> 0.5053819444444444  (2211 s)
+[I 2026-11-26 14:41:08,305] Trial 44 finished with value: 0.5039930555555555 and parameters: {'n_components': 47}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 44: {'n_components': 47} -> 0.5039930555555555  (2315 s)
+[I 2026-11-26 14:41:17,079] Trial 45 finished with value: 0.46336805555555555 and parameters: {'n_components': 5}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 45: {'n_components': 5} -> 0.46336805555555555  (2324 s)
+[I 2026-11-26 14:41:20,312] Trial 46 finished with value: 0.44375000000000003 and parameters: {'n_components': 2}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 46: {'n_components': 2} -> 0.44375000000000003  (2327 s)
+[I 2026-11-26 14:43:09,025] Trial 47 finished with value: 0.5029340277777777 and parameters: {'n_components': 49}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 47: {'n_components': 49} -> 0.5029340277777777  (2436 s)
+[I 2026-11-26 14:44:51,505] Trial 48 finished with value: 0.5038020833333333 and parameters: {'n_components': 46}. Best is trial 40 with value: 0.5156076388888888.
+  plsda trial 48: {'n_components': 46} -> 0.5038020833333333  (2538 s)
+  plsda: best {'n_components': 23}, inner validation patch accuracy 0.516 (49 trials)
+  plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+[I 2026-11-26 14:45:44,518] A new study created in RDB with name: logreg_p64_s8_n600
+[I 2026-11-26 14:46:58,768] Trial 0 finished with value: 0.52390625 and parameters: {'C': 0.006945356257424776}. Best is trial 0 with value: 0.52390625.
+  logreg trial 0: {'C': 0.006945356257424776} -> 0.52390625  (74 s)
+[I 2026-11-26 14:47:52,270] Trial 1 finished with value: 0.5176388888888889 and parameters: {'C': 0.10146717394418031}. Best is trial 0 with value: 0.52390625.
+  logreg trial 1: {'C': 0.10146717394418031} -> 0.5176388888888889  (128 s)
+[I 2026-11-26 14:49:04,102] Trial 2 finished with value: 0.5219097222222223 and parameters: {'C': 0.016570805984346845}. Best is trial 0 with value: 0.52390625.
+  logreg trial 2: {'C': 0.016570805984346845} -> 0.5219097222222223  (200 s)
+[I 2026-11-26 14:50:12,062] Trial 3 finished with value: 0.5241840277777777 and parameters: {'C': 0.00651901951281781}. Best is trial 3 with value: 0.5241840277777777.
+  logreg trial 3: {'C': 0.00651901951281781} -> 0.5241840277777777  (268 s)
+[I 2026-11-26 14:51:03,268] Trial 4 finished with value: 0.5267708333333333 and parameters: {'C': 0.0009238119916812993}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 4: {'C': 0.0009238119916812993} -> 0.5267708333333333  (319 s)
+[I 2026-11-26 14:52:07,808] Trial 5 finished with value: 0.5203125000000001 and parameters: {'C': 0.033209228886981655}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 5: {'C': 0.033209228886981655} -> 0.5203125000000001  (383 s)
+[I 2026-11-26 14:53:02,085] Trial 6 finished with value: 0.5263368055555555 and parameters: {'C': 0.0011564063794438954}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 6: {'C': 0.0011564063794438954} -> 0.5263368055555555  (438 s)
+[I 2026-11-26 14:53:29,980] Trial 7 finished with value: 0.5116145833333333 and parameters: {'C': 1.7474751375465036}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 7: {'C': 1.7474751375465036} -> 0.5116145833333333  (465 s)
+[I 2026-11-26 14:53:38,728] Trial 8 pruned. 
+  logreg trial 8: {'C': 5.567232047731109} -> 0.5638020833333333  (474 s)
+[I 2026-11-26 14:53:55,462] Trial 9 pruned. 
+  logreg trial 9: {'C': 0.00048315962083818554} -> 0.576875  (491 s)
+[I 2026-11-26 14:53:57,535] Trial 10 pruned. 
+  logreg trial 10: {'C': 1.387846074585453e-06} -> 0.4888541666666667  (493 s)
+[I 2026-11-26 14:54:09,576] Trial 11 pruned. 
+  logreg trial 11: {'C': 0.00010620510345559735} -> 0.56296875  (505 s)
+[I 2026-11-26 14:54:19,439] Trial 12 pruned. 
+  logreg trial 12: {'C': 0.0001368003813259989} -> 0.566875  (515 s)
+[I 2026-11-26 14:54:28,047] Trial 13 pruned. 
+  logreg trial 13: {'C': 1.6096278589728577e-05} -> 0.5269791666666667  (524 s)
+[I 2026-11-26 14:54:46,302] Trial 14 pruned. 
+  logreg trial 14: {'C': 0.0007768605957588437} -> 0.5788541666666667  (542 s)
+[I 2026-11-26 14:54:58,076] Trial 15 pruned. 
+  logreg trial 15: {'C': 0.34577221391240187} -> 0.5706249999999999  (554 s)
+[I 2026-11-26 14:55:53,155] Trial 16 finished with value: 0.5261979166666667 and parameters: {'C': 0.0016040704090258147}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 16: {'C': 0.0016040704090258147} -> 0.5261979166666667  (609 s)
+[I 2026-11-26 14:56:01,835] Trial 17 pruned. 
+  logreg trial 17: {'C': 2.964040249834988e-05} -> 0.5392708333333334  (617 s)
+[I 2026-11-26 14:56:05,512] Trial 18 pruned. 
+  logreg trial 18: {'C': 3.082953494797933e-06} -> 0.4966145833333333  (621 s)
+[I 2026-11-26 14:57:03,638] Trial 19 finished with value: 0.5257986111111111 and parameters: {'C': 0.003281365946920547}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 19: {'C': 0.003281365946920547} -> 0.5257986111111111  (679 s)
+[I 2026-11-26 14:57:18,273] Trial 20 pruned. 
+  logreg trial 20: {'C': 0.0002179652852715955} -> 0.5728645833333332  (694 s)
+[I 2026-11-26 14:58:13,254] Trial 21 finished with value: 0.5261458333333333 and parameters: {'C': 0.0014218444275108134}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 21: {'C': 0.0014218444275108134} -> 0.5261458333333333  (749 s)
+[I 2026-11-26 14:59:09,548] Trial 22 finished with value: 0.5257986111111111 and parameters: {'C': 0.0018573637119266356}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 22: {'C': 0.0018573637119266356} -> 0.5257986111111111  (805 s)
+[I 2026-11-26 14:59:19,856] Trial 23 pruned. 
+  logreg trial 23: {'C': 3.945081417432397e-05} -> 0.5444270833333333  (815 s)
+[I 2026-11-26 14:59:43,223] Trial 24 pruned. 
+  logreg trial 24: {'C': 0.048585030003377175} -> 0.5774479166666666  (839 s)
+[I 2026-11-26 15:00:01,367] Trial 25 pruned. 
+  logreg trial 25: {'C': 0.0004319840533396524} -> 0.5760416666666667  (857 s)
+[I 2026-11-26 15:00:05,964] Trial 26 pruned. 
+  logreg trial 26: {'C': 7.4055140080443e-06} -> 0.5111458333333334  (861 s)
+[I 2026-11-26 15:01:13,939] Trial 27 finished with value: 0.5233506944444445 and parameters: {'C': 0.008782873590232013}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 27: {'C': 0.008782873590232013} -> 0.5233506944444445  (929 s)
+[I 2026-11-26 15:02:16,692] Trial 28 finished with value: 0.5257118055555555 and parameters: {'C': 0.0020867231831349494}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 28: {'C': 0.0020867231831349494} -> 0.5257118055555555  (992 s)
+[I 2026-11-26 15:03:27,651] Trial 29 finished with value: 0.5240104166666667 and parameters: {'C': 0.006768101576010089}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 29: {'C': 0.006768101576010089} -> 0.5240104166666667  (1063 s)
+[I 2026-11-26 15:03:42,193] Trial 30 pruned. 
+  logreg trial 30: {'C': 0.21646998141049106} -> 0.5740625  (1078 s)
+[I 2026-11-26 15:03:59,074] Trial 31 pruned. 
+  logreg trial 31: {'C': 0.0012169054968925056} -> 0.5794270833333334  (1095 s)
+[I 2026-11-26 15:04:15,444] Trial 32 pruned. 
+  logreg trial 32: {'C': 0.0002802648708669108} -> 0.5743750000000001  (1111 s)
+[I 2026-11-26 15:04:25,296] Trial 33 pruned. 
+  logreg trial 33: {'C': 6.013381761214028e-05} -> 0.5524479166666667  (1121 s)
+[I 2026-11-26 15:04:49,647] Trial 34 pruned. 
+  logreg trial 34: {'C': 0.018051973528314377} -> 0.5793229166666667  (1145 s)
+[I 2026-11-26 15:05:44,900] Trial 35 finished with value: 0.5266666666666667 and parameters: {'C': 0.0009877758951555486}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 35: {'C': 0.0009877758951555486} -> 0.5266666666666667  (1200 s)
+[I 2026-11-26 15:06:44,109] Trial 36 finished with value: 0.5254513888888889 and parameters: {'C': 0.00338229831505237}. Best is trial 4 with value: 0.5267708333333333.
+  logreg trial 36: {'C': 0.00338229831505237} -> 0.5254513888888889  (1260 s)
+[I 2026-11-26 15:07:04,883] Trial 37 pruned. 
+  logreg trial 37: {'C': 0.02277882536871312} -> 0.5783854166666667  (1280 s)
+[I 2026-11-26 15:07:22,661] Trial 38 pruned. 
+  logreg trial 38: {'C': 0.0006914925689666963} -> 0.5786458333333333  (1298 s)
+[I 2026-11-26 15:07:44,319] Trial 39 pruned. 
+  logreg trial 39: {'C': 0.0542580760240421} -> 0.57734375  (1320 s)
+  logreg: best {'C': 0.0009238119916812993}, inner validation patch accuracy 0.527 (40 trials)
+  logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+[I 2026-11-26 15:08:37,029] A new study created in RDB with name: svm_p64_s8_n600
+[I 2026-11-26 15:10:05,175] Trial 0 finished with value: 0.510625 and parameters: {'kernel': 'rbf', 'C_rbf': 10.323260351976563, 'gamma': 0.00015119336467641018}. Best is trial 0 with value: 0.510625.
+  svm trial 0: {'kernel': 'rbf', 'C_rbf': 10.323260351976563, 'gamma': 0.00015119336467641018} -> 0.510625  (88 s)
+[I 2026-11-26 15:12:18,378] Trial 1 finished with value: 0.33154513888888887 and parameters: {'kernel': 'rbf', 'C_rbf': 1.5414734761917084, 'gamma': 0.0036905577292137633}. Best is trial 0 with value: 0.510625.
+  svm trial 1: {'kernel': 'rbf', 'C_rbf': 1.5414734761917084, 'gamma': 0.0036905577292137633} -> 0.33154513888888887  (221 s)
+[I 2026-11-26 15:21:53,332] Trial 2 finished with value: 0.49954861111111115 and parameters: {'kernel': 'linear', 'C_linear': 0.05627949975223145}. Best is trial 0 with value: 0.510625.
+  svm trial 2: {'kernel': 'linear', 'C_linear': 0.05627949975223145} -> 0.49954861111111115  (796 s)
+[I 2026-11-26 15:22:58,443] Trial 3 finished with value: 0.51140625 and parameters: {'kernel': 'rbf', 'C_rbf': 424.6031301768206, 'gamma': 1.92373050965465e-06}. Best is trial 3 with value: 0.51140625.
+  svm trial 3: {'kernel': 'rbf', 'C_rbf': 424.6031301768206, 'gamma': 1.92373050965465e-06} -> 0.51140625  (861 s)
+[I 2026-11-26 15:38:42,193] Trial 4 finished with value: 0.49796875 and parameters: {'kernel': 'linear', 'C_linear': 0.09901912249089666}. Best is trial 3 with value: 0.51140625.
+  svm trial 4: {'kernel': 'linear', 'C_linear': 0.09901912249089666} -> 0.49796875  (1805 s)
+[I 2026-11-26 15:40:34,423] Trial 5 finished with value: 0.43810763888888893 and parameters: {'kernel': 'rbf', 'C_rbf': 781.7928805172353, 'gamma': 0.0015726578854179517}. Best is trial 3 with value: 0.51140625.
+  svm trial 5: {'kernel': 'rbf', 'C_rbf': 781.7928805172353, 'gamma': 0.0015726578854179517} -> 0.43810763888888893  (1917 s)
+[I 2026-11-26 15:42:32,170] Trial 6 finished with value: 0.38272569444444443 and parameters: {'kernel': 'rbf', 'C_rbf': 0.039027625535532934, 'gamma': 0.00036281404040243816}. Best is trial 3 with value: 0.51140625.
+  svm trial 6: {'kernel': 'rbf', 'C_rbf': 0.039027625535532934, 'gamma': 0.00036281404040243816} -> 0.38272569444444443  (2035 s)
+[I 2026-11-26 15:43:50,108] Trial 7 finished with value: 0.5167013888888888 and parameters: {'kernel': 'rbf', 'C_rbf': 4.0666950653938425, 'gamma': 4.556671913921479e-05}. Best is trial 7 with value: 0.5167013888888888.
+  svm trial 7: {'kernel': 'rbf', 'C_rbf': 4.0666950653938425, 'gamma': 4.556671913921479e-05} -> 0.5167013888888888  (2113 s)
+[I 2026-11-26 15:45:10,909] Trial 8 finished with value: 0.5130034722222222 and parameters: {'kernel': 'rbf', 'C_rbf': 1.9087614756145952, 'gamma': 0.00018781738757161942}. Best is trial 7 with value: 0.5167013888888888.
+  svm trial 8: {'kernel': 'rbf', 'C_rbf': 1.9087614756145952, 'gamma': 0.00018781738757161942} -> 0.5130034722222222  (2194 s)
+[I 2026-11-26 15:46:40,475] Trial 9 finished with value: 0.5049305555555555 and parameters: {'kernel': 'rbf', 'C_rbf': 11.494196400307425, 'gamma': 0.0002935864364395363}. Best is trial 7 with value: 0.5167013888888888.
+  svm trial 9: {'kernel': 'rbf', 'C_rbf': 11.494196400307425, 'gamma': 0.0002935864364395363} -> 0.5049305555555555  (2283 s)
+[I 2026-11-26 15:46:47,489] Trial 10 pruned. 
+  svm trial 10: {'kernel': 'linear', 'C_linear': 1.791117433721984e-06} -> 0.5238020833333333  (2290 s)
+[I 2026-11-26 15:47:25,782] Trial 11 pruned. 
+  svm trial 11: {'kernel': 'rbf', 'C_rbf': 0.5591683260756272, 'gamma': 1.876237977605199e-05} -> 0.4676041666666666  (2329 s)
+[I 2026-11-26 15:47:59,557] Trial 12 pruned. 
+  svm trial 12: {'kernel': 'rbf', 'C_rbf': 1.6977031658653805, 'gamma': 2.9375546074740164e-05} -> 0.5452604166666667  (2363 s)
+[I 2026-11-26 15:49:06,519] Trial 13 finished with value: 0.5155034722222221 and parameters: {'kernel': 'rbf', 'C_rbf': 16.348891367091067, 'gamma': 2.6071866931624756e-05}. Best is trial 7 with value: 0.5167013888888888.
+  svm trial 13: {'kernel': 'rbf', 'C_rbf': 16.348891367091067, 'gamma': 2.6071866931624756e-05} -> 0.5155034722222221  (2430 s)
+[I 2026-11-26 15:49:13,255] Trial 14 pruned. 
+  svm trial 14: {'kernel': 'linear', 'C_linear': 2.5460294477165997e-06} -> 0.5306249999999999  (2436 s)
+[I 2026-11-26 15:50:13,635] Trial 15 finished with value: 0.5129861111111111 and parameters: {'kernel': 'rbf', 'C_rbf': 67.27068426468163, 'gamma': 9.073011080956895e-06}. Best is trial 7 with value: 0.5167013888888888.
+  svm trial 15: {'kernel': 'rbf', 'C_rbf': 67.27068426468163, 'gamma': 9.073011080956895e-06} -> 0.5129861111111111  (2497 s)
+[I 2026-11-26 15:51:33,167] Trial 16 finished with value: 0.5178645833333334 and parameters: {'kernel': 'rbf', 'C_rbf': 44.543807647269276, 'gamma': 3.409350559745825e-06}. Best is trial 16 with value: 0.5178645833333334.
+  svm trial 16: {'kernel': 'rbf', 'C_rbf': 44.543807647269276, 'gamma': 3.409350559745825e-06} -> 0.5178645833333334  (2576 s)
+[I 2026-11-26 15:52:55,913] Trial 17 finished with value: 0.5167361111111112 and parameters: {'kernel': 'rbf', 'C_rbf': 99.64278799732857, 'gamma': 1.2489373023945802e-06}. Best is trial 16 with value: 0.5178645833333334.
+  svm trial 17: {'kernel': 'rbf', 'C_rbf': 99.64278799732857, 'gamma': 1.2489373023945802e-06} -> 0.5167361111111112  (2659 s)
+[I 2026-11-26 15:54:04,776] Trial 18 finished with value: 0.5178645833333333 and parameters: {'kernel': 'linear', 'C_linear': 0.001087751645683806}. Best is trial 16 with value: 0.5178645833333334.
+  svm trial 18: {'kernel': 'linear', 'C_linear': 0.001087751645683806} -> 0.5178645833333333  (2728 s)
+[I 2026-11-26 15:55:10,161] Trial 19 finished with value: 0.5208159722222222 and parameters: {'kernel': 'linear', 'C_linear': 0.000574480841211695}. Best is trial 19 with value: 0.5208159722222222.
+  svm trial 19: {'kernel': 'linear', 'C_linear': 0.000574480841211695} -> 0.5208159722222222  (2793 s)
+[I 2026-11-26 15:56:10,823] Trial 20 finished with value: 0.5239409722222222 and parameters: {'kernel': 'linear', 'C_linear': 0.0002665616200593962}. Best is trial 20 with value: 0.5239409722222222.
+  svm trial 20: {'kernel': 'linear', 'C_linear': 0.0002665616200593962} -> 0.5239409722222222  (2854 s)
+[I 2026-11-26 15:57:13,252] Trial 21 finished with value: 0.5234201388888888 and parameters: {'kernel': 'linear', 'C_linear': 0.00029781456449716584}. Best is trial 20 with value: 0.5239409722222222.
+  svm trial 21: {'kernel': 'linear', 'C_linear': 0.00029781456449716584} -> 0.5234201388888888  (2916 s)
+[I 2026-11-26 15:58:17,112] Trial 22 finished with value: 0.5225868055555556 and parameters: {'kernel': 'linear', 'C_linear': 0.0003865441231903533}. Best is trial 20 with value: 0.5239409722222222.
+  svm trial 22: {'kernel': 'linear', 'C_linear': 0.0003865441231903533} -> 0.5225868055555556  (2980 s)
+[I 2026-11-26 15:59:18,101] Trial 23 finished with value: 0.5240451388888888 and parameters: {'kernel': 'linear', 'C_linear': 0.00021142043488905468}. Best is trial 23 with value: 0.5240451388888888.
+  svm trial 23: {'kernel': 'linear', 'C_linear': 0.00021142043488905468} -> 0.5240451388888888  (3041 s)
+[I 2026-11-26 16:00:10,039] Trial 24 finished with value: 0.5241145833333333 and parameters: {'kernel': 'linear', 'C_linear': 6.720615662592949e-05}. Best is trial 24 with value: 0.5241145833333333.
+  svm trial 24: {'kernel': 'linear', 'C_linear': 6.720615662592949e-05} -> 0.5241145833333333  (3093 s)
+[I 2026-11-26 16:00:24,305] Trial 25 pruned. 
+  svm trial 25: {'kernel': 'linear', 'C_linear': 2.9456778461519788e-05} -> 0.5697916666666667  (3107 s)
+[I 2026-11-26 16:01:13,352] Trial 26 finished with value: 0.52359375 and parameters: {'kernel': 'linear', 'C_linear': 5.163312553075458e-05}. Best is trial 24 with value: 0.5241145833333333.
+  svm trial 26: {'kernel': 'linear', 'C_linear': 5.163312553075458e-05} -> 0.52359375  (3156 s)
+[I 2026-11-26 16:01:39,299] Trial 27 pruned. 
+  svm trial 27: {'kernel': 'linear', 'C_linear': 0.004036288027444277} -> 0.5638541666666667  (3182 s)
+[I 2026-11-26 16:01:54,636] Trial 28 pruned. 
+  svm trial 28: {'kernel': 'linear', 'C_linear': 3.2542286776512945e-05} -> 0.5713541666666666  (3198 s)
+[I 2026-11-26 16:02:22,313] Trial 29 pruned. 
+  svm trial 29: {'kernel': 'linear', 'C_linear': 0.006264866884376656} -> 0.5614583333333334  (3225 s)
+[I 2026-11-26 16:03:16,810] Trial 30 finished with value: 0.5249131944444444 and parameters: {'kernel': 'linear', 'C_linear': 8.574068954874363e-05}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 30: {'kernel': 'linear', 'C_linear': 8.574068954874363e-05} -> 0.5249131944444444  (3280 s)
+[I 2026-11-26 16:04:14,185] Trial 31 finished with value: 0.5248263888888888 and parameters: {'kernel': 'linear', 'C_linear': 0.00010966862167913648}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 31: {'kernel': 'linear', 'C_linear': 0.00010966862167913648} -> 0.5248263888888888  (3337 s)
+[I 2026-11-26 16:05:05,309] Trial 32 finished with value: 0.5240972222222222 and parameters: {'kernel': 'linear', 'C_linear': 6.0168636971788985e-05}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 32: {'kernel': 'linear', 'C_linear': 6.0168636971788985e-05} -> 0.5240972222222222  (3388 s)
+[I 2026-11-26 16:05:15,810] Trial 33 pruned. 
+  svm trial 33: {'kernel': 'linear', 'C_linear': 1.0704586340019655e-05} -> 0.5583333333333333  (3399 s)
+[I 2026-11-26 16:06:06,745] Trial 34 finished with value: 0.5240798611111112 and parameters: {'kernel': 'linear', 'C_linear': 5.9233897286937467e-05}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 34: {'kernel': 'linear', 'C_linear': 5.9233897286937467e-05} -> 0.5240798611111112  (3450 s)
+[I 2026-11-26 16:06:17,125] Trial 35 pruned. 
+  svm trial 35: {'kernel': 'linear', 'C_linear': 9.808470215182932e-06} -> 0.5565625000000001  (3460 s)
+[I 2026-11-26 16:07:14,893] Trial 36 finished with value: 0.5249131944444444 and parameters: {'kernel': 'linear', 'C_linear': 0.00010506323289015195}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 36: {'kernel': 'linear', 'C_linear': 0.00010506323289015195} -> 0.5249131944444444  (3518 s)
+[I 2026-11-26 16:07:38,913] Trial 37 pruned. 
+  svm trial 37: {'kernel': 'linear', 'C_linear': 0.002110526746773366} -> 0.56796875  (3542 s)
+[I 2026-11-26 16:08:38,168] Trial 38 finished with value: 0.5243923611111111 and parameters: {'kernel': 'linear', 'C_linear': 0.00012541943634750957}. Best is trial 30 with value: 0.5249131944444444.
+  svm trial 38: {'kernel': 'linear', 'C_linear': 0.00012541943634750957} -> 0.5243923611111111  (3601 s)
+[I 2026-11-26 16:08:48,856] Trial 39 pruned. 
+  svm trial 39: {'kernel': 'linear', 'C_linear': 1.0308653956671721e-05} -> 0.5572395833333333  (3612 s)
+  svm: best {'kernel': 'linear', 'C': 8.574068954874363e-05}, inner validation patch accuracy 0.525 (40 trials)
+  svm: test 0.75 (mean 0.77), healthy vs stressed 0.96, calibration 1.00
+
+-> 14_classic_settings.json, 14_classic_test.json, 14_classic_test.csv
+  test P1: distance of each plant from the other two {1: 9.95104694366455, 2: 9.403398513793945, 3: 5.854451656341553} -> outlier none
+  test P2: distance of each plant from the other two {1: 10.336679458618164, 2: 9.558914184570312, 3: 5.799273490905762} -> outlier none
+  test P3: distance of each plant from the other two {1: 10.219263076782227, 2: 9.530396461486816, 3: 5.706123352050781} -> outlier none
+  none logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+  none plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+  feature logreg: test 0.81 (mean 0.79), healthy vs stressed 0.98, calibration 1.00
+  feature plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+  image, test P1: band shifts P1 [-0.0010000000474974513, 0.009999999776482582, 0.003000000026077032], P2 [-0.0020000000949949026, -0.00800000037997961, -0.004999999888241291], P3 [0.003000000026077032, -0.003000000026077032, 0.0010000000474974513]
+  image, test P2: band shifts P1 [-0.0, 0.008999999612569809, 0.004000000189989805], P2 [-0.003000000026077032, -0.007000000216066837, -0.004999999888241291], P3 [0.003000000026077032, -0.0020000000949949026, 0.0010000000474974513]
+  image, test P3: band shifts P1 [-0.0010000000474974513, 0.009999999776482582, 0.004000000189989805], P2 [-0.003000000026077032, -0.00800000037997961, -0.004999999888241291], P3 [0.004000000189989805, -0.0020000000949949026, 0.0010000000474974513]
+  image logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+  image plsda: test 0.81 (mean 0.79), healthy vs stressed 0.98, calibration 1.00
+  feature_outlier logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+  feature_outlier plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+  image_outlier, test P1: band shifts P1 [0.0, 0.0, 0.0], P2 [0.0, 0.0, 0.0], P3 [0.0, 0.0, 0.0]
+  image_outlier, test P2: band shifts P1 [0.0, 0.0, 0.0], P2 [0.0, 0.0, 0.0], P3 [0.0, 0.0, 0.0]
+  image_outlier, test P3: band shifts P1 [0.0, 0.0, 0.0], P2 [0.0, 0.0, 0.0], P3 [0.0, 0.0, 0.0]
+  image_outlier logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+  image_outlier plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+  feature_farthest logreg: test 0.81 (mean 0.81), healthy vs stressed 0.98, calibration 1.00
+  feature_farthest plsda: test 0.81 (mean 0.81), healthy vs stressed 0.96, calibration 1.00
+-> results/16_mean_centre.json, 16_mean_centre.csv
+  bands 012 logreg: test 0.81 (mean 0.77), healthy vs stressed 0.98, calibration 1.00
+  bands 012 plsda: test 0.81 (mean 0.79), healthy vs stressed 0.96, calibration 1.00
+  bands 0 logreg: test 0.88 (mean 0.79), healthy vs stressed 0.94, calibration 1.00
+  bands 0 plsda: test 0.88 (mean 0.79), healthy vs stressed 0.94, calibration 1.00
+  bands 1 logreg: test 0.69 (mean 0.71), healthy vs stressed 0.94, calibration 1.00
+  bands 1 plsda: test 0.69 (mean 0.71), healthy vs stressed 0.96, calibration 1.00
+  bands 2 logreg: test 0.69 (mean 0.69), healthy vs stressed 0.94, calibration 1.00
+  bands 2 plsda: test 0.75 (mean 0.69), healthy vs stressed 0.94, calibration 1.00
+  bands 01 logreg: test 0.75 (mean 0.81), healthy vs stressed 0.94, calibration 1.00
+  bands 01 plsda: test 0.75 (mean 0.81), healthy vs stressed 0.94, calibration 1.00
+  bands 02 logreg: test 0.88 (mean 0.77), healthy vs stressed 0.96, calibration 1.00
+  bands 02 plsda: test 0.81 (mean 0.77), healthy vs stressed 0.92, calibration 1.00
+  bands 12 logreg: test 0.75 (mean 0.73), healthy vs stressed 0.96, calibration 1.00
+  bands 12 plsda: test 0.69 (mean 0.73), healthy vs stressed 0.94, calibration 1.00
+  bands mean logreg: test 0.75 (mean 0.79), healthy vs stressed 0.98, calibration 1.00
+  bands mean plsda: test 0.75 (mean 0.79), healthy vs stressed 0.98, calibration 1.00
+-> results/17_bands_classic.json, 17_bands_classic.csv
