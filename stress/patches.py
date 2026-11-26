@@ -126,11 +126,13 @@ def _net(name: str):
 
 @torch.no_grad()
 def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
-             net_name: str = "resnet50", copies: int = 0) -> list[np.ndarray]:
+             net_name: str = "resnet50", copies: int = 0, offsets=None) -> list[np.ndarray]:
     """Patch features (n_patches x d) per image, cached per backbone and setting.
 
     g: per-image band multipliers that bring the 0-255 image to 0-1 (white-light normalisation).
     copies: 0 for the clean patches; k > 0 for k noisy copies of every patch (see augment).
+    offsets: optional per-image band values (3,) added to the plant pixels after normalisation
+             (image-level mean-centring, scripts/16). The caller must give such runs their own tag.
     """
     prefix = "tune" if net_name == "resnet50" else net_name       # keeps the ResNet caches from 09 valid
     extra = ((f"_b{BANDS}" if BANDS != "012" else "") + (f"_aug{copies}n{NOISE:g}" if copies else "")
@@ -139,7 +141,10 @@ def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
     if not path.exists():
         net, out = _net(net_name), {}
         for k, (s, gi) in enumerate(zip(samples, g)):
-            img = select_bands(np.clip(s.image() * gi, 0, 1).astype(np.float32))
+            img = np.clip(s.image() * gi, 0, 1).astype(np.float32)
+            if offsets is not None:
+                img = np.clip(img + offsets[k].astype(np.float32) * s.mask()[..., None], 0, 1)
+            img = select_bands(img)
             pos = positions(s.mask(), size, stride, max_patches)
             rng = np.random.default_rng(k)
             feats = []
@@ -162,7 +167,7 @@ def features(samples, g, size: int, stride: int, max_patches: int, tag: str,
     except (zipfile.BadZipFile, KeyError, EOFError, ValueError):
         print(f"  rebuilding damaged cache {path.name}", flush=True)
         path.unlink()
-        return features(samples, g, size, stride, max_patches, tag, net_name, copies)
+        return features(samples, g, size, stride, max_patches, tag, net_name, copies, offsets)
 
 
 def patch_sets(samples, g, size, stride, max_patches, tag, net_name="resnet50"):

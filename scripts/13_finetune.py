@@ -22,8 +22,12 @@ reuse cached features, so this needs the GPU (about 1 to 3 hours for the three b
 
     python scripts/13_finetune.py
     BATCHES="16" SEEDS=2 python scripts/13_finetune.py
+    LR2=1e-3 LR_L4=1e-3 python scripts/13_finetune.py        # 26 Nov: head and layer 4 at the same rate
 
-Writes results/13_finetune_bs<b>.json and results/13_curves_bs<b>.png per batch size, and prints a table.
+Writes results/13_finetune_bs<b><tag>.json and results/13_curves_bs<b><tag>.png per batch size, and prints a
+table. <tag> is empty for the 22 Nov rates (layer 4 1e-5, head 1e-4), otherwise _lr<layer 4>-<head>, e.g.
+_lr0.001-0.001, so runs at other rates never overwrite each other. scripts/13b_compare_lr.py plots them
+side by side.
 """
 from __future__ import annotations
 
@@ -55,6 +59,7 @@ P1, P2, P1_BATCH = int(E("P1", 5)), int(E("P2", 20)), int(E("P1_BATCH", 64))
 LR1, LR2, LR_L4 = float(E("LR1", 1e-3)), float(E("LR2", 1e-4)), float(E("LR_L4", 1e-5))
 WD, DROP, LS = float(E("WD", 1e-2)), float(E("DROP", 0.5)), float(E("LS", 0.15))
 SEEDS = int(E("SEEDS", 1))
+TAG = "" if (LR_L4, LR2) == (1e-5, 1e-4) else f"_lr{LR_L4:g}-{LR2:g}"
 DEV = torch.device("cuda" if torch.cuda.is_available() else "cpu")   # Apple MPS cannot run this backward pass
 AMP = DEV.type == "cuda"
 
@@ -213,12 +218,13 @@ def plot(batch, curves, mean, n2):
     ax2.set_ylabel("validation accuracy")
     ax.set_xlabel("epoch (phase 1, then phase 2: layer 4 fine-tuned)")
     ax.set_ylabel("loss (cross-entropy, label smoothing)")
-    ax.set_title(f"ResNet-50 two-phase fine-tuning, batch {batch}: mean over 6 validation splits")
+    ax.set_title(f"ResNet-50 two-phase fine-tuning, batch {batch}, phase 2 lr layer 4 {LR_L4:g} / head {LR2:g}",
+                 fontsize=10)
     h1, l1 = ax.get_legend_handles_labels()
     h2, l2 = ax2.get_legend_handles_labels()
     ax.legend(h1 + h2, l1 + l2, fontsize=8, loc="upper right")
     fig.tight_layout()
-    fig.savefig(RESULTS / f"13_curves_bs{batch}.png", dpi=130)
+    fig.savefig(RESULTS / f"13_curves_bs{batch}{TAG}.png", dpi=130)
     plt.close(fig)
 
 
@@ -247,7 +253,8 @@ def main():
                 print(f"  batch {batch}, {fold}, validate on plant {plants[ival][0]}: validation loss "
                       + " ".join(f"{v[1]:.2f}" for v in c) + f"  ({time.time() - t0:.0f} s)", flush=True)
         mean = [tuple(float(np.mean([c[e][k] for c in curves])) for k in range(3)) for e in range(P1 + P2 + 1)]
-        n2 = min(range(P2 + 1), key=lambda e: mean[P1 + e][1])
+        val = np.array([mean[P1 + e][1] for e in range(P2 + 1)])
+        n2 = int(np.nanargmin(np.where(np.isfinite(val), val, np.nan)))   # a diverged run (inf / nan) never wins
         print(f"  batch {batch}: phase 2 epochs {n2} (minimum of the mean validation loss)", flush=True)
         plot(batch, curves, mean, n2)
         runs1, runs2 = [], []
@@ -266,7 +273,7 @@ def main():
                "validation_curve_mean": mean, "validation_curves": curves, "curve_from_epoch": 0,
                "phase 1 only": summarise(runs1, labels, hours, classes),
                "phase 1 + 2": summarise(runs2, labels, hours, classes), "minutes": (time.time() - t0) / 60}
-        (RESULTS / f"13_finetune_bs{batch}.json").write_text(json.dumps(out, indent=2))
+        (RESULTS / f"13_finetune_bs{batch}{TAG}.json").write_text(json.dumps(out, indent=2))
         for phase in ("phase 1 only", "phase 1 + 2"):
             r = out[phase]
             table.append((batch, phase, r["accuracy_over_runs"]["median"], r["accuracy_over_runs"]["mean"],
